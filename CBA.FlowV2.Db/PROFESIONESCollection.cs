@@ -1,0 +1,31 @@
+// <fileinfo name="PROFESIONESCollection.cs">
+//		<copyright>
+//			All rights reserved.
+//		</copyright>
+//		<remarks>
+//			You can update this source code manually. If the file
+//			already exists it will not be rewritten by the generator.
+//		</remarks>
+//		<generator rewritefile="False" infourl="http://www.SharpPower.com">RapTier</generator>
+// </fileinfo>
+
+using System;
+
+namespace CBA.FlowV2.Db
+{
+	/// <summary>
+	/// Represents the <c>PROFESIONES</c> table.
+	/// </summary>
+	public class PROFESIONESCollection : PROFESIONESCollection_Base
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="PROFESIONESCollection"/> class.
+		/// </summary>
+		/// <param name="db">The database object.</param>
+		internal PROFESIONESCollection(CBAV2 db)
+				: base(db)
+		{
+			// EMPTY
+		}
+	} // End of PROFESIONESCollection class
+} // End of namespace

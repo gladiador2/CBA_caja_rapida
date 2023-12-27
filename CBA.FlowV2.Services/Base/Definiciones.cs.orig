@@ -1,0 +1,274 @@
+﻿using System.Data;
+using System;
+
+namespace CBA.FlowV2.Services.Base
+{
+    public abstract class Definiciones : CBA.FlowV2.Services.Base.Definiciones
+    {
+        //==============================================================================================================================================================//
+        //                                                        LEER ESTOS COMENTARIOS ES VITAL!!                                                                     //
+        //==============================================================================================================================================================//
+
+        //se movio lo que estaba aca a CBA.FlowV2.Services.Base.Definiciones, lo que pensabas agregar aca, agregalo alla!
+        //Si lo que se quiere agregar es una "definicion" que depende de un service... entonces no es una definicion, y deberia crearse un service para eso.
+
+        //la UNICA excepcion temporal es FlujosIDs porque depende de Traducciones, que a su vez depende de Services, una vez que traducciones pueda moverse, esta clase
+        //va a desaparecer y se cambiara en todo el sistema la referencia a Definiciones del proyecto Framework.
+        #region FlujosIDs
+        public abstract class FlujosIDs
+        {
+            public const int AJUSTE_STOCK = 1;
+            public const int ANTICIPO_PROVEEDOR = 2;
+            public const int ANTICIPO_PERSONA = 3;
+            public const int CAMBIO_DIVISA = 4;
+            public const int CUSTODIA_DE_VALORES = 5;
+            public const int DEPOSITO_BANCARIO = 6;
+            public const int DESCUENTO_DE_DOCUMENTOS = 7;
+            public const int EGRESO_VARIO_CAJA = 8;
+            public const int FACTURACION_CLIENTE = 9;
+            public const int FACTURACION_PROVEEDOR = 10;
+            public const int MOVIMIENTO_VARIO_TESORERIA = 11;
+            public const int NOTA_CREDITO_PERSONA = 12;
+            public const int NOTA_CREDITO_PROVEEDOR = 13;
+            public const int NOTA_DEBITO_PERSONA = 14;
+            public const int NOTA_DEBITO_PROVEEDOR = 15;
+            public const int PEDIDO_DE_CLIENTE = 16;
+            public const int PEDIDO_A_PROVEEDOR = 17;
+            public const int ORDEN_DE_PAGO = 18;
+            public const int PLANILLA_DE_PAGOS = 19;
+            public const int REPARTO = 20;
+            public const int TRANSFERENCIA_BANCARIA = 21;
+            public const int TRANSFERENCIA_DE_ARTICULOS = 22;
+            public const int ASIGNACION_CARGOS = 23;
+            public const int ENCUESTAS = 24;
+            public const int SUGERENCIAS = 25;
+            public const int USUARIOS = 26;
+            public const int AJUSTE_BANCARIO = 27;
+            public const int TRANSFERENCIA_CAJAS_TESORERIA = 28;
+            public const int PRESUPUESTOS = 29;
+            public const int CONTRATOS = 30;
+            public const int ADELANTO_FUNCIONARIO = 31;
+            public const int PLANILLA_LIQUIDACIONES = 32;
+            public const int PAGO_DE_PERSONAS = 33;
+            public const int INGRESO_DE_STOCK = 34;
+            public const int USO_DE_INSUMOS = 35;
+            public const int STOCK_INVENTARIO = 36;
+            public const int MODIFICAR_LISTA_PRECIOS = 37;
+            public const int CREDITOS = 38;
+            public const int TRANSFERENCIA_CTACTE_PERSONA = 39;
+            public const int PLANILLA_COBRANZA = 40;
+            public const int CREDITOS_PROVEEDOR = 41;
+            public const int CANJES_VALORES = 42;
+            public const int DESCUENTO_DE_DOCUMENTOS_CLIENTES = 43;
+            public const int ORDENES_SERVICIO = 44;
+            public const int TRAMITES = 45;
+            public const int PLANES_FACTURACION = 46;
+            public const int DESEMBOLSOS_GIROS = 47;
+            public const int APLICACION_DOCUMENTOS = 48;
+            public const int MOVIMIENTO_FONDO_FIJO = 49;
+            public const int REFINANCIACION_DEUDAS = 50;
+            public const int RENDICION_COBRADOR = 51;
+            public const int TRANSFERENCIA_CAJAS_SUCURSAL = 52;
+            public const int REMISIONES = 53;
+            public const int ORDENES_COMPRA = 54;
+            public const int RECALENDARIZACION_MASIVA_DEUDAS = 55;
+            public const int INGRESO_INSUMOS = 56;
+            public const int PRODUCCION_BALANCEADOS = 57;
+            public const int EGRESO_PRODUCTOS = 58;
+
+            public static string GetNombre(decimal flujoId)
+            {
+                string descripcion = string.Empty;
+
+                switch ((int)flujoId)
+                {
+                    case (int)AJUSTE_STOCK:
+                        descripcion = "Ajustes de stock";
+                        break;
+                    case (int)AJUSTE_BANCARIO:
+                        descripcion = "Ajustes Bancarios";
+                        break;
+                    case (int)ANTICIPO_PERSONA:
+                        descripcion = "Anticipos de Persona";
+                        break;
+                    case (int)ANTICIPO_PROVEEDOR:
+                        descripcion = Traducciones.Anticipo_Proveedor;
+                        break;
+                    case (int)CAMBIO_DIVISA:
+                        descripcion = "Cambios de Divisa";
+                        break;
+                    case (int)CUSTODIA_DE_VALORES:
+                        descripcion = "Custodias de Valores";
+                        break;
+                    case (int)DEPOSITO_BANCARIO:
+                        descripcion = "Depositos Bancarios";
+                        break;
+                    case (int)DESCUENTO_DE_DOCUMENTOS:
+                        descripcion = "Descuentos de Documentos";
+                        break;
+                    case (int)EGRESO_VARIO_CAJA:
+                        descripcion = "Egresos Varios de Caja";
+                        break;
+                    case (int)FACTURACION_CLIENTE:
+                        descripcion = "Facturas de Cliente";
+                        break;
+                    case (int)FACTURACION_PROVEEDOR:
+                        descripcion = "Facturas de Proveedor";
+                        break;
+                    case (int)MOVIMIENTO_VARIO_TESORERIA:
+                        descripcion = "Movimientos Varios de Tesorería";
+                        break;
+                    case (int)NOTA_CREDITO_PERSONA:
+                        descripcion = "Notas de Crédito de Persona";
+                        break;
+                    case (int)NOTA_CREDITO_PROVEEDOR:
+                        descripcion = "Notas de Crédito de Proveedor";
+                        break;
+                    case (int)NOTA_DEBITO_PERSONA:
+                        descripcion = "Notas de Débito de Persona";
+                        break;
+                    case (int)NOTA_DEBITO_PROVEEDOR:
+                        descripcion = "Notas de Débito de Proveedor";
+                        break;
+                    case (int)PEDIDO_DE_CLIENTE:
+                        descripcion = "Pedidos de Cliente";
+                        break;
+                    case (int)PEDIDO_A_PROVEEDOR:
+                        descripcion = "Pedidos a Proveedor";
+                        break;
+                    case (int)ORDEN_DE_PAGO:
+                        descripcion = "Órdenes de Pago";
+                        break;
+                    case (int)PLANILLA_DE_PAGOS:
+                        descripcion = "Planillas de Pago";
+                        break;
+                    case (int)REPARTO:
+                        descripcion = "Repartos";
+                        break;
+                    case (int)TRANSFERENCIA_BANCARIA:
+                        descripcion = "Transferencias Bancarias";
+                        break;
+                    case (int)TRANSFERENCIA_DE_ARTICULOS:
+                        descripcion = "Transferencias de Artículos";
+                        break;
+                    case (int)ASIGNACION_CARGOS:
+                        descripcion = "Asignacion de Cargos";
+                        break;
+                    case (int)ENCUESTAS:
+                        descripcion = "Encuestas";
+                        break;
+                    case (int)SUGERENCIAS:
+                        descripcion = "Sugerencias";
+                        break;
+                    case (int)USUARIOS:
+                        descripcion = "Usuarios";
+                        break;
+                    case (int)TRANSFERENCIA_CAJAS_TESORERIA:
+                        descripcion = "Transferencia Cajas Tesorería";
+                        break;
+                    case (int)PRESUPUESTOS:
+                        descripcion = Traducciones.Presupuestos;
+                        break;
+                    case (int)CONTRATOS:
+                        descripcion = "Contratos";
+                        break;
+                    case (int)ADELANTO_FUNCIONARIO:
+                        descripcion = "Adelanto Funcionarios";
+                        break;
+                    case (int)PLANILLA_LIQUIDACIONES:
+                        descripcion = "Planilla de Liquidaciones";
+                        break;
+                    case (int)PAGO_DE_PERSONAS:
+                        descripcion = "Pago de Personas";
+                        break;
+                    case (int)INGRESO_DE_STOCK:
+                        descripcion = "Ingreso de Stock";
+                        break;
+                    case (int)USO_DE_INSUMOS:
+                        descripcion = "Uso de Insumos";
+                        break;
+                    case (int)STOCK_INVENTARIO:
+                        descripcion = "Inventario";
+                        break;
+                    case (int)MODIFICAR_LISTA_PRECIOS:
+                        descripcion = "Modificar Lista de Precios";
+                        break;
+                    case (int)CREDITOS:
+                        descripcion = "Créditos";
+                        break;
+                    case (int)TRANSFERENCIA_CTACTE_PERSONA:
+                        descripcion = "Transferencia de " + Traducciones.CtaCte + " de " + Traducciones.Persona;
+                        break;
+                    case (int)PLANILLA_COBRANZA:
+                        descripcion = "Planilla de Cobranza";
+                        break;
+                    case (int)CREDITOS_PROVEEDOR:
+                        descripcion = "Crédito de Proveedor";
+                        break;
+                    case (int)CANJES_VALORES:
+                        descripcion = "Canje de Valores";
+                        break;
+                    case (int)DESCUENTO_DE_DOCUMENTOS_CLIENTES:
+                        descripcion = Traducciones.Descuento_Documentos;
+                        break;
+                    case (int)ORDENES_SERVICIO:
+                        descripcion = Traducciones.Orden_de_Servicio;
+                        break;
+                    case (int)TRAMITES:
+                        descripcion = Traducciones.Tramites;
+                        break;
+                    case (int)PLANES_FACTURACION:
+                        descripcion = "Planes de Facturación";
+                        break;
+                    case (int)DESEMBOLSOS_GIROS:
+                        descripcion = "Desembolsos de Giros";
+                        break;
+                    case (int)APLICACION_DOCUMENTOS:
+                        descripcion = "Aplicación de Documentos";
+                        break;
+                    case (int)MOVIMIENTO_FONDO_FIJO:
+                        descripcion = "Movimiento de Fondo Fijo";
+                        break;
+                    case (int)TRANSFERENCIA_CAJAS_SUCURSAL:
+                        descripcion = "Transferencia de Cajas de Sucursal";
+                        break;
+                    case (int)REFINANCIACION_DEUDAS:
+                        descripcion = "Refinanciación de Deudas";
+                        break;
+                    case (int)REMISIONES:
+                        descripcion = "Remisiones";
+                        break;
+                    case (int)ORDENES_COMPRA:
+                        descripcion = "Órdenes de Compra";
+                        break;
+                    case (int)RECALENDARIZACION_MASIVA_DEUDAS:
+                        descripcion = "Recalendarización masiva de deudas";
+                        break;
+                    case (int)INGRESO_INSUMOS:
+                        descripcion = "Ingreso de Insumos";
+                        break;
+                    case (int)PRODUCCION_BALANCEADOS:
+                        descripcion = "Producción de Balanceados";
+                        break;
+                    case (int)EGRESO_PRODUCTOS:
+                        descripcion = "Egreso de Productos";
+                        break;
+                }
+
+                return descripcion;
+            }
+        }
+        #endregion FlujosIDs
+
+
+        #region Configuraciones
+        public abstract class Configuraciones
+        {
+            public const int BotonBusqueda = 1;
+            public const int BotonCrearCaso = 2;
+            public const int Filtros = 3;
+        }
+        #endregion Configuraciones
+    }
+}
+

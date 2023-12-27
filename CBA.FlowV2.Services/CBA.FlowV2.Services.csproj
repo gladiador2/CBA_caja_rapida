@@ -1,0 +1,793 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AF064B8E-4F00-4EBA-9E6E-C6C33C2F2E61}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CBA.FlowV2.Services</RootNamespace>
+    <AssemblyName>CBA.FlowV2.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.23.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.23.3.0-dev\lib\net462\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=7.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.7.0.2\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=7.0.0.3, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.7.0.3\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.Services.Description, Version=6.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Web.Services.Description.6.2.0\lib\net461\System.Web.Services.Description.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activos\ActivosMovimientosService.cs" />
+    <Compile Include="Activos\ActivosService.cs" />
+    <Compile Include="Activos\InmueblesService.cs" />
+    <Compile Include="Anticipo\AnticiposPersonaDetalleService.cs" />
+    <Compile Include="Anticipo\AnticiposPersonaService.cs" />
+    <Compile Include="Anticipo\AnticiposPorFacturasProveedorService.cs" />
+    <Compile Include="Anticipo\AnticiposProveedorService.cs" />
+    <Compile Include="ApplicationContext.cs" />
+    <Compile Include="Articulos\ArticulosColoresService.cs" />
+    <Compile Include="Articulos\ArticulosCombosService.cs" />
+    <Compile Include="Articulos\ArticulosCombosStockDetallesService.cs" />
+    <Compile Include="Articulos\ArticulosCombosStockService.cs" />
+    <Compile Include="Articulos\ArticulosConversionesService.cs" />
+    <Compile Include="Articulos\ArticulosCostosCierresDetallesService.cs" />
+    <Compile Include="Articulos\ArticulosCostosCierresService.cs" />
+    <Compile Include="Articulos\ArticulosCreadosDevolucionService.cs" />
+    <Compile Include="Articulos\ArticulosDatosPersonaService.cs" />
+    <Compile Include="Articulos\ArticulosEmpaquesService.cs" />
+    <Compile Include="Articulos\ArticulosEnvasesService.cs" />
+    <Compile Include="Articulos\ArticulosFamiliasService.cs" />
+    <Compile Include="Articulos\ArticulosFinancierosRangosService.cs" />
+    <Compile Include="Articulos\ArticulosFinancierosService.cs" />
+    <Compile Include="Articulos\ArticulosFormulasService.cs" />
+    <Compile Include="Articulos\ArticulosGruposService.cs" />
+    <Compile Include="Articulos\ArticulosLineasService.cs" />
+    <Compile Include="Articulos\ArticulosLotesService.cs" />
+    <Compile Include="Articulos\ArticulosMarcasService.cs" />
+    <Compile Include="Articulos\ArticulosMargenRentabilidadService.cs" />
+    <Compile Include="Articulos\ArticulosPadresService.cs" />
+    <Compile Include="Articulos\ArticulosPedidosService.cs" />
+    <Compile Include="Articulos\ArticulosPorTemporadaDetallesService.cs" />
+    <Compile Include="Articulos\ArticulosPorTemporadaService.cs" />
+    <Compile Include="Articulos\ArticulosPreciosGruposService.cs" />
+    <Compile Include="Articulos\ArticulosPreciosProducccionService.cs" />
+    <Compile Include="Articulos\ArticulosPresentacionesService.cs" />
+    <Compile Include="Articulos\ArticulosProveedoresService.cs" />
+    <Compile Include="Articulos\ArticulosService.cs" />
+    <Compile Include="Articulos\ArticulosSubgruposService.cs" />
+    <Compile Include="Articulos\ArticulosTallesService.cs" />
+    <Compile Include="Articulos\CatalogosDetallesService.cs" />
+    <Compile Include="Articulos\CatalogosService.cs" />
+    <Compile Include="Articulos\CostosService.cs" />
+    <Compile Include="Articulos\ImportacionesArticulosService.cs" />
+    <Compile Include="Articulos\PreciosService.cs" />
+    <Compile Include="Articulos\PreciosService_new.cs" />
+    <Compile Include="Articulos\PresentacionesService.cs" />
+    <Compile Include="Articulos\RetencionArticulosService.cs" />
+    <Compile Include="Articulos\TiposArticuloFinancieroService.cs" />
+    <Compile Include="Articulos\TiposCatalogosService.cs" />
+    <Compile Include="Articulos\UnidadesService.cs" />
+    <Compile Include="Base\AutonumeracionesProveedoresService.cs" />
+    <Compile Include="Base\AutonumeracionesService.cs" />
+    <Compile Include="Base\CadenaUtil.cs" />
+    <Compile Include="Base\ClaseCBA.cs" />
+    <Compile Include="Base\ContrasenhasUtil.cs" />
+    <Compile Include="Base\Definiciones.cs" />
+    <Compile Include="Base\DiasSemanaService.cs" />
+    <Compile Include="Base\EdiCBA.cs" />
+    <Compile Include="Base\EncriptarService.cs" />
+    <Compile Include="Base\EntidadesUUID.cs" />
+    <Compile Include="Base\EsquemaService.cs" />
+    <Compile Include="Base\Excepciones.cs" />
+    <Compile Include="Base\FechaUtil.cs" />
+    <Compile Include="Base\GanaException.cs" />
+    <Compile Include="Base\ImpuestosCompuestosService.cs" />
+    <Compile Include="Base\ImpuestosService.cs" />
+    <Compile Include="Base\IPService.cs" />
+    <Compile Include="Base\JsonUtil.cs" />
+    <Compile Include="Base\ListViewUtil.cs" />
+    <Compile Include="Base\LogActividadesService.cs" />
+    <Compile Include="Base\LogCamposService.cs" />
+    <Compile Include="Base\ManualesService.cs" />
+    <Compile Include="Base\MensajeExterno.cs" />
+    <Compile Include="Base\MigracionUtil.cs" />
+    <Compile Include="Base\NotificadorService.cs" />
+    <Compile Include="Base\NumericUpDownUtil.cs" />
+    <Compile Include="Base\OperacionesService.cs" />
+    <Compile Include="Base\ParseUtil.cs" />
+    <Compile Include="Base\RecomendadoresService.cs" />
+    <Compile Include="Base\SeguimientosAutomaticosService.cs" />
+    <Compile Include="Base\SeguimientosDestinatariosService.cs" />
+    <Compile Include="Base\SMS.cs" />
+    <Compile Include="Base\SolicitarCamposService.cs" />
+    <Compile Include="Base\standards.cs" />
+    <Compile Include="Base\StringUtil.cs" />
+    <Compile Include="Base\Traducciones.cs" />
+    <Compile Include="Base\TriggerBase.cs" />
+    <Compile Include="Base\VariablesSistemaEntidadService.cs" />
+    <Compile Include="Base\VariablesSistemaService.cs" />
+    <Compile Include="Base\WebservicesParametrosService.cs" />
+    <Compile Include="Base\WebservicesService.cs" />
+    <Compile Include="Casos\CambioEstadoCasoService.cs" />
+    <Compile Include="Casos\CasosAsignacionesService.cs" />
+    <Compile Include="Casos\CasosEtiquetasService.cs" />
+    <Compile Include="Casos\CasosJudicializadosService.cs" />
+    <Compile Include="Casos\CasosService.cs" />
+    <Compile Include="Casos\CrearCasos.cs" />
+    <Compile Include="Casos\EstadosSegunDestinoService.cs" />
+    <Compile Include="Casos\TagCasoService.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Comercial\FuncionariosComisionesService.cs" />
+    <Compile Include="Comercial\ObjetivosVendedorArticuloDetalleService.cs" />
+    <Compile Include="Comercial\ObjetivosVendedorArticuloService.cs" />
+    <Compile Include="Comercial\ObjetivosVendedorClienteDetalleService.cs" />
+    <Compile Include="Comercial\ObjetivosVendedorClienteService.cs" />
+    <Compile Include="Comercial\ObjetivosVendedorExplotacionService.cs" />
+    <Compile Include="Comercial\PromocionesParametrosService.cs" />
+    <Compile Include="Common\Class1.cs" />
+    <Compile Include="Common\Interprete.cs" />
+    <Compile Include="Common\Permisos.cs" />
+    <Compile Include="Common\Serializacion.cs" />
+    <Compile Include="Common\SQL.cs" />
+    <Compile Include="Contabilidad\ActivoFijoService.cs" />
+    <Compile Include="Contabilidad\AsientosAutomaticosDetalleService.cs" />
+    <Compile Include="Contabilidad\AsientosAutomaticosErrorService.cs" />
+    <Compile Include="Contabilidad\AsientosAutomaticosRelacionesService.cs" />
+    <Compile Include="Contabilidad\AsientosAutomaticosService.cs" />
+    <Compile Include="Contabilidad\AsientosDetalleCentrosCostoService.cs" />
+    <Compile Include="Contabilidad\AsientosDetalleRelacionesService.cs" />
+    <Compile Include="Contabilidad\AsientosDetalleService.cs" />
+    <Compile Include="Contabilidad\AsientosService.cs" />
+    <Compile Include="Contabilidad\CentrosCostoGruposDetalleService.cs" />
+    <Compile Include="Contabilidad\CentrosCostoGruposService.cs" />
+    <Compile Include="Contabilidad\CentrosCostoService.cs" />
+    <Compile Include="Contabilidad\CuentasGruposDetalleService.cs" />
+    <Compile Include="Contabilidad\CuentasGruposService.cs" />
+    <Compile Include="Contabilidad\CuentasPlantillasService.cs" />
+    <Compile Include="Contabilidad\CuentasService.cs" />
+    <Compile Include="Contabilidad\DevengamientosDetallesService.cs" />
+    <Compile Include="Contabilidad\DevengamientosService.cs" />
+    <Compile Include="Contabilidad\EjerciciosService.cs" />
+    <Compile Include="Contabilidad\EntidadesCuentasService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosEntidades\AsientosChequesRecibidosCambioEstado.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosEntidades\AsientosDevengamiento.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosEntidades\AsientosRevaluosDepreciacionesService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosAjusteBancarioService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosAjusteStockService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosAnticiposPersonasService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosAnticiposProveedoresService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosAplicacionDocumentosService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosCreditoClienteService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosCreditoProveedorService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosDepositoBancarioService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosEgresoVarioCajaService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosFacturasClientesService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosFacturasProveedorService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosIngresoStockService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosMovimientoFondoFijoService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosMovimientoVarioTesoreriaService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosNotaCreditoClientesService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosNotaCreditoProveedoresService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosNotasDebitoPersonasService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosNotasDebitoProveedoresService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosOrdenDePagoService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosPagoDePersonasService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosPlanillaLiquidacionesService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosRemisionesService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosStockTransferenciasService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosTransferenciaCajaSucursalService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosTransferenciaCuentaCorrienteService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosTransferenciasBancariasService.cs" />
+    <Compile Include="Contabilidad\GenerarAsientosFlujos\AsientosUsoDeInsumosService.cs" />
+    <Compile Include="Contabilidad\Hechauka.cs" />
+    <Compile Include="Contabilidad\IndicadoresDetalleService.cs" />
+    <Compile Include="Contabilidad\IndicadoresOperacionesService.cs" />
+    <Compile Include="Contabilidad\IndicadoresService.cs" />
+    <Compile Include="Contabilidad\MarangatuService.cs" />
+    <Compile Include="Contabilidad\PeriodosService.cs" />
+    <Compile Include="Contabilidad\PlanesDeCuentaService.cs" />
+    <Compile Include="Contabilidad\PresupuestosDetallesService.cs" />
+    <Compile Include="Contabilidad\PresupuestosService.cs" />
+    <Compile Include="Contabilidad\TesakaService.cs" />
+    <Compile Include="Contabilidad\TiposComprobanteSET.cs" />
+    <Compile Include="Contratos\AdendasService.cs" />
+    <Compile Include="Contratos\ContratosDetalleService.cs" />
+    <Compile Include="Contratos\ContratosService.cs" />
+    <Compile Include="CRM\CrmHilosEntradasRelacionesService.cs" />
+    <Compile Include="CRM\CrmHilosEntradasService.cs" />
+    <Compile Include="CRM\CrmHilosEntradasUsuariosService.cs" />
+    <Compile Include="CRM\CrmHilosService.cs" />
+    <Compile Include="CRM\CrmHilosUsuariosService.cs" />
+    <Compile Include="DetallesPersonalizados\DetallesPersonalizadosDetallesService.cs" />
+    <Compile Include="DetallesPersonalizados\DetallesPersonalizadosHistoricoDetallesService.cs" />
+    <Compile Include="DetallesPersonalizados\DetallesPersonalizadosHistoricoService.cs" />
+    <Compile Include="DetallesPersonalizados\DetallesPersonalizadosService.cs" />
+    <Compile Include="DetallesPersonalizados\TiposDetallesPersonalizadosService.cs" />
+    <Compile Include="EgresoVarioCaja\EgresosVariosCajaDetalleService.cs" />
+    <Compile Include="EgresoVarioCaja\EgresosVariosCajaService.cs" />
+    <Compile Include="EgresoVarioCaja\EgresosVariosCajaValoresService.cs" />
+    <Compile Include="Facturacion\CajaRapidaService.cs" />
+    <Compile Include="Facturacion\CalendarioPagosCreditosClientesService.cs" />
+    <Compile Include="Facturacion\CreditosDescuentosService.cs" />
+    <Compile Include="Facturacion\CreditosDetallesService.cs" />
+    <Compile Include="Facturacion\CreditosService.cs" />
+    <Compile Include="Facturacion\FacturasClienteDetalleArticulosPadresService.cs" />
+    <Compile Include="Facturacion\FacturasClienteDetalleCentrosCostoService.cs" />
+    <Compile Include="Facturacion\FacturasClienteDetalleService.cs" />
+    <Compile Include="Facturacion\FacturasClienteService.cs" />
+    <Compile Include="Facturacion\FacturasEnvaces.cs" />
+    <Compile Include="Facturacion\FacturasEnvasesService.cs" />
+    <Compile Include="Facturacion\FacturasProveedorDetalleCentrosCostoService.cs" />
+    <Compile Include="Facturacion\FacturasProveedorDetalleCuentaContableService.cs" />
+    <Compile Include="Facturacion\FacturasProveedorDetalleService.cs" />
+    <Compile Include="Facturacion\FacturasProveedorService.cs" />
+    <Compile Include="Facturacion\NotasDePedidoDetalleFacturaClienteRelacionesService.cs" />
+    <Compile Include="Facturacion\NotasDePedidoDetalleItemsService.cs" />
+    <Compile Include="Facturacion\NotasDePedidoDetalleService.cs" />
+    <Compile Include="Facturacion\NotasDePedidosService.cs" />
+    <Compile Include="Facturacion\OrdenesCompraDetalleRelacionesService.cs" />
+    <Compile Include="Facturacion\OrdenesCompraDetalleService.cs" />
+    <Compile Include="Facturacion\OrdenesCompraService.cs" />
+    <Compile Include="Facturacion\OrdenesServicioCasosAsociadosService.cs" />
+    <Compile Include="Facturacion\OrdenesServicioDetalleCentrosCostoService.cs" />
+    <Compile Include="Facturacion\OrdenesServicioDetalleInsumoService.cs" />
+    <Compile Include="Facturacion\OrdenesServicioDetalleRelacionesService.cs" />
+    <Compile Include="Facturacion\OrdenesServicioDetalleService.cs" />
+    <Compile Include="Facturacion\OrdenesServicioFuncionariosService.cs" />
+    <Compile Include="Facturacion\OrdenesServicioService.cs" />
+    <Compile Include="Facturacion\PlanesFacturacionEtapasDetallesService.cs" />
+    <Compile Include="Facturacion\PlanesFacturacionEtapasService.cs" />
+    <Compile Include="Facturacion\PlanesFacturacionService.cs" />
+    <Compile Include="Facturacion\RemisionesDetalleFacturaClienteRelacionesService.cs" />
+    <Compile Include="Facturacion\RemisionesDetallesService.cs" />
+    <Compile Include="Facturacion\RemisionesService.cs" />
+    <Compile Include="Facturacion\RepartosDetalleService.cs" />
+    <Compile Include="Facturacion\RepartosService.cs" />
+    <Compile Include="General\AdjuntosService.cs" />
+    <Compile Include="General\BloqueosService.cs" />
+    <Compile Include="General\ChequesEstados.cs" />
+    <Compile Include="General\CondicionesPagoDetService.cs" />
+    <Compile Include="General\CondicionesPagoService.cs" />
+    <Compile Include="General\CuentaCorrienteValoresService.cs" />
+    <Compile Include="General\EstadoCivilService.cs" />
+    <Compile Include="General\EstadosDocumentacionService.cs" />
+    <Compile Include="General\EstadosEntidadService.cs" />
+    <Compile Include="General\EstadosService.cs" />
+    <Compile Include="General\ItemsEgresosService.cs" />
+    <Compile Include="General\ItemsIngresosService.cs" />
+    <Compile Include="General\LogCambiosService.cs" />
+    <Compile Include="General\TablasService.cs" />
+    <Compile Include="General\TiposArticuloFinancieroRangoService.cs" />
+    <Compile Include="General\TiposAutonumeracionesService.cs" />
+    <Compile Include="General\TiposDocumentosIdentidadService.cs" />
+    <Compile Include="General\TiposEmbarqueService.cs" />
+    <Compile Include="General\TiposPersonasService.cs" />
+    <Compile Include="Giros\CuentaCorrienteCondicionesDesembolsoService.cs" />
+    <Compile Include="Giros\CuentaCorrienteGirosMovimientosService.cs" />
+    <Compile Include="Giros\CuentaCorrienteGirosService.cs" />
+    <Compile Include="Giros\CuentaCorrientePlanesDesembolsoEscalasService.cs" />
+    <Compile Include="Giros\CuentaCorrientePlanesDesembolsoService.cs" />
+    <Compile Include="Giros\CuentaCorrienteRedesPagoService.cs" />
+    <Compile Include="Giros\DesembolsosGirosDetService.cs" />
+    <Compile Include="Giros\DesembolsosGirosService.cs" />
+    <Compile Include="Herramientas\AbogadosDetalleService.cs" />
+    <Compile Include="Herramientas\AbogadosService.cs" />
+    <Compile Include="Herramientas\ActivosRubrosService.cs" />
+    <Compile Include="Herramientas\AlarmasService.cs" />
+    <Compile Include="Herramientas\AsignacionDocumentosService.cs" />
+    <Compile Include="Herramientas\BarriosService.cs" />
+    <Compile Include="Herramientas\CajaSucursalRepartoService.cs" />
+    <Compile Include="Herramientas\CalendarioPagosFCClienteService.cs" />
+    <Compile Include="Herramientas\CalendarioPagosFCProveedorService.cs" />
+    <Compile Include="Herramientas\CalendarioPagosNPClienteService.cs" />
+    <Compile Include="Herramientas\CalendariosService.cs" />
+    <Compile Include="Herramientas\CalificacionPersonasService.cs" />
+    <Compile Include="Herramientas\CambiarContrasenhaService.cs" />
+    <Compile Include="Herramientas\CamposConfigurablesGruposService.cs" />
+    <Compile Include="Herramientas\CamposConfigurablesItemsService.cs" />
+    <Compile Include="Herramientas\CamposConfigurablesUsuariosService.cs" />
+    <Compile Include="Herramientas\CanalesVentaService.cs" />
+    <Compile Include="Herramientas\CiudadesService.cs" />
+    <Compile Include="Herramientas\ComentariosCasosService.cs" />
+    <Compile Include="Herramientas\ConfiguracionesValores.cs" />
+    <Compile Include="Herramientas\CotizacionesService.cs" />
+    <Compile Include="Herramientas\CuentaCorrienteConceptosService.cs" />
+    <Compile Include="Herramientas\CuentaCorrientePosService.cs" />
+    <Compile Include="Herramientas\CuentaCorrienteProcesadorasTarjetaEntidadService.cs" />
+    <Compile Include="Herramientas\CuentaCorrienteProcesadorasTarjetaService.cs" />
+    <Compile Include="Herramientas\CuentaCorrienteTarjetasConfiguracionService.cs" />
+    <Compile Include="Herramientas\DepartamentosService.cs" />
+    <Compile Include="Herramientas\DepositoPreparacionEstadoService.cs" />
+    <Compile Include="Herramientas\EmailService.cs" />
+    <Compile Include="Herramientas\EmpresaCargosFuncionariosService.cs" />
+    <Compile Include="Herramientas\EmpresaCargosService.cs" />
+    <Compile Include="Herramientas\EmpresaDepartamentosService.cs" />
+    <Compile Include="Herramientas\EmpresaFajasService.cs" />
+    <Compile Include="Herramientas\EmpresaSeccionesService.cs" />
+    <Compile Include="Herramientas\EntidadesConfiguracionMailService.cs" />
+    <Compile Include="Herramientas\EntidadesService.cs" />
+    <Compile Include="Herramientas\EntidadesTextoPredefinidoService.cs" />
+    <Compile Include="Herramientas\EscalasComisionesCobradoresDefService.cs" />
+    <Compile Include="Herramientas\EscalasComisionesCobradoresService.cs" />
+    <Compile Include="Herramientas\EscalasPremiosService.cs" />
+    <Compile Include="Herramientas\EstadoMorosidadService.cs" />
+    <Compile Include="Herramientas\EstadosFlujosService.cs" />
+    <Compile Include="Herramientas\EstudiosJuridicosService.cs" />
+    <Compile Include="Herramientas\FCProveedorPagosTercPersonasService.cs" />
+    <Compile Include="Herramientas\FlujosService.cs" />
+    <Compile Include="Herramientas\FuncionariosHijosService.cs" />
+    <Compile Include="Herramientas\FuncionariosMontosCobradosService.cs" />
+    <Compile Include="Herramientas\FuncionariosService.cs" />
+    <Compile Include="Herramientas\FuncionariosVacacionesService.cs" />
+    <Compile Include="Herramientas\GastosCobranzasService.cs" />
+    <Compile Include="Herramientas\GeneradorFacturaClientesArticulosPersonasService.cs" />
+    <Compile Include="Herramientas\GeneradorFacturaClientesArticulosService.cs" />
+    <Compile Include="Herramientas\GeneradorFacturaClientesPersonasService.cs" />
+    <Compile Include="Herramientas\GeneradorFacturaClientesService.cs" />
+    <Compile Include="Herramientas\IdiomasService.cs" />
+    <Compile Include="Herramientas\ImportacionArticulosPedidosService.cs" />
+    <Compile Include="Herramientas\ImportacionesContenedoresService.cs" />
+    <Compile Include="Herramientas\ImportacionesGastosService.cs" />
+    <Compile Include="Herramientas\ImportacionesProveedoresService.cs" />
+    <Compile Include="Herramientas\ImportacionesService.cs" />
+    <Compile Include="Herramientas\LegajoEntradasService.cs" />
+    <Compile Include="Herramientas\LegajoService.cs" />
+    <Compile Include="Herramientas\LegajoSubentradasService.cs" />
+    <Compile Include="Herramientas\MensajesDeSistemaService.cs" />
+    <Compile Include="Herramientas\MonedasDenominacionesService.cs" />
+    <Compile Include="Herramientas\MonedasService.cs" />
+    <Compile Include="Herramientas\NotificacionesService.cs" />
+    <Compile Include="Herramientas\NotificacionesSuscripcionesService.cs" />
+    <Compile Include="Herramientas\ObjetivosCobradoresService.cs" />
+    <Compile Include="Herramientas\ObjetivosPromotorasService.cs" />
+    <Compile Include="Herramientas\PaisesService.cs" />
+    <Compile Include="Herramientas\PerfilesRolesService.cs" />
+    <Compile Include="Herramientas\PerfilesService.cs" />
+    <Compile Include="Herramientas\PermisosAceleradorService.cs" />
+    <Compile Include="Herramientas\PermisosReportesService.cs" />
+    <Compile Include="Herramientas\PermisosVisualizacionFlujosService.cs" />
+    <Compile Include="Herramientas\PersonasBloqueosService.cs" />
+    <Compile Include="Herramientas\PersonasCreditosRequisitosService.cs" />
+    <Compile Include="Herramientas\PersonasJuridRepresentanteService.cs" />
+    <Compile Include="Herramientas\PersonasLineaCreditoActivaService.cs" />
+    <Compile Include="Herramientas\PersonasLineaCreditoService.cs" />
+    <Compile Include="Herramientas\PersonasNivelesCreditoDetallesService.cs" />
+    <Compile Include="Herramientas\PersonasNivelesCreditoService.cs" />
+    <Compile Include="Herramientas\PersonasRelacionesService.cs" />
+    <Compile Include="Herramientas\PersonasService.cs" />
+    <Compile Include="Herramientas\PlanillaAsocFuncionariosDetService.cs" />
+    <Compile Include="Herramientas\PlanillaAsocFuncionariosService.cs" />
+    <Compile Include="Herramientas\PlantillasDetallesService.cs" />
+    <Compile Include="Herramientas\PlantillasService.cs" />
+    <Compile Include="Herramientas\ProfesionesService.cs" />
+    <Compile Include="Herramientas\PromotoresService.cs" />
+    <Compile Include="Herramientas\ProveedoresService.cs" />
+    <Compile Include="Herramientas\RedesSocialesAuthService.cs" />
+    <Compile Include="Herramientas\RedesSocialesService.cs" />
+    <Compile Include="Herramientas\ReferenciaWebServiceCGL.cs" />
+    <Compile Include="Herramientas\RegimenComisionesService.cs" />
+    <Compile Include="Herramientas\RegionesService.cs" />
+    <Compile Include="Herramientas\RequisitosFlujoDetalleService.cs" />
+    <Compile Include="Herramientas\RequisitosFlujoService.cs" />
+    <Compile Include="Herramientas\RolesService.cs" />
+    <Compile Include="Herramientas\RubrosIVAService.cs" />
+    <Compile Include="Herramientas\RubrosService.cs" />
+    <Compile Include="Herramientas\SucursalesSectoresService.cs" />
+    <Compile Include="Herramientas\SucursalesService.cs" />
+    <Compile Include="Herramientas\TareasProgramadasResultadosService.cs" />
+    <Compile Include="Herramientas\TarifariosColumnasService.cs" />
+    <Compile Include="Herramientas\TarifariosDatosService.cs" />
+    <Compile Include="Herramientas\TarifariosGruposService.cs" />
+    <Compile Include="Herramientas\TarifariosService.cs" />
+    <Compile Include="Herramientas\TemporadasService.cs" />
+    <Compile Include="Herramientas\TipoClientesService.cs" />
+    <Compile Include="Herramientas\TipoEventoCalendarioService.cs" />
+    <Compile Include="Herramientas\TipoPlantillasService.cs" />
+    <Compile Include="Herramientas\TiposActivosService.cs" />
+    <Compile Include="Herramientas\TiposCreditoService.cs" />
+    <Compile Include="Herramientas\TiposFacturaProveedor.cs" />
+    <Compile Include="Herramientas\TiposRelacionesPersonasService.cs" />
+    <Compile Include="Herramientas\TiposRequisitoFlujosService.cs" />
+    <Compile Include="Herramientas\TiposRetencionesService.cs" />
+    <Compile Include="Herramientas\TiposVehiculoService.cs" />
+    <Compile Include="Herramientas\TransaccionesCierresCasosService.cs" />
+    <Compile Include="Herramientas\TransaccionesCierresService.cs" />
+    <Compile Include="Herramientas\TransaccionesService.cs" />
+    <Compile Include="Herramientas\TransicionesAceleradorService.cs" />
+    <Compile Include="Herramientas\TransicionesService.cs" />
+    <Compile Include="Herramientas\TratamientosService.cs" />
+    <Compile Include="Herramientas\UnidadesMedidaService.cs" />
+    <Compile Include="Herramientas\UsuarioDepositoService.cs" />
+    <Compile Include="Herramientas\UsuariosDetalleService.cs" />
+    <Compile Include="Herramientas\UsuariosPasswordService.cs" />
+    <Compile Include="Herramientas\UsuariosPerfilesService.cs" />
+    <Compile Include="Herramientas\UsuariosRolesService.cs" />
+    <Compile Include="Herramientas\UsuariosService.cs" />
+    <Compile Include="Herramientas\UsuariosSucursalesService.cs" />
+    <Compile Include="Herramientas\ValidacionesService.cs" />
+    <Compile Include="Herramientas\VehiculosService.cs" />
+    <Compile Include="Herramientas\VendedorClienteFamiliaService.cs" />
+    <Compile Include="Herramientas\ZonasFuncionariosService.cs" />
+    <Compile Include="Herramientas\ZonasService.cs" />
+    <Compile Include="ListaDePrecio\ListaDePreciosHistoricoService.cs" />
+    <Compile Include="ListaDePrecio\ListaDePreciosModificarDetallesService.cs" />
+    <Compile Include="ListaDePrecio\ListaDePreciosModificarService.cs" />
+    <Compile Include="ListaDePrecio\ListadoArticulosSinPrecioService.cs" />
+    <Compile Include="ListaDePrecio\ListasDePrecioDetalleService.cs" />
+    <Compile Include="ListaDePrecio\ListasDePrecioService.cs" />
+    <Compile Include="NotaCreditosProveedores\NotasCreditoProveedorDetalleCentrosCostoService.cs" />
+    <Compile Include="NotaCreditosProveedores\NotasCreditoProveedorDetalleCuentaContableService.cs" />
+    <Compile Include="NotaCreditosProveedores\NotasCreditoProveedorDetalleService.cs" />
+    <Compile Include="NotaCreditosProveedores\NotasCreditoProveedorService.cs" />
+    <Compile Include="NotasCreditoPersona\AplicacionDocumentosRecargosService.cs" />
+    <Compile Include="NotasCreditoPersona\NotasCreditoPersonaAplicacionDocumentosService.cs" />
+    <Compile Include="NotasCreditoPersona\NotasCreditoPersonaAplicacionValoresService.cs" />
+    <Compile Include="NotasCreditoPersona\NotasCreditoPersonaAplicaiconesService.cs" />
+    <Compile Include="NotasCreditoPersona\NotasCreditoPersonaDetalleService.cs" />
+    <Compile Include="NotasCreditoPersona\NotasCreditoPersonaService.cs" />
+    <Compile Include="NotasCreditoPersona\TipoNotaCreditoService.cs" />
+    <Compile Include="NotasDebitoPersona\NotasDebitoPersonaDetalleService.cs" />
+    <Compile Include="NotasDebitoPersona\NotasDebitoPersonaService.cs" />
+    <Compile Include="NotasDebitoProveedor\NotasDebitoProveedorDetalleService.cs" />
+    <Compile Include="NotasDebitoProveedor\NotasDebitoProveedorService.cs" />
+    <Compile Include="PanelDeControl\PanelControlService.cs" />
+    <Compile Include="PanelDeControl\PanelControlUsuarioService.cs" />
+    <Compile Include="PeticionesApi\ConstantesApp.cs" />
+    <Compile Include="PeticionesApi\PopUp.cs" />
+    <Compile Include="PeticionesApi\ValidarPeticion.cs" />
+    <Compile Include="Presupuestos\PresupuestosDetalleCasosService.cs" />
+    <Compile Include="Presupuestos\PresupuestosDetalleService.cs" />
+    <Compile Include="Presupuestos\PresupuestosEtapasService.cs" />
+    <Compile Include="Presupuestos\PresupuestosService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecursosHumanos\AsignacionCargosDetalleService.cs" />
+    <Compile Include="RecursosHumanos\AsignacionCargosService.cs" />
+    <Compile Include="RecursosHumanos\BonificacionesService.cs" />
+    <Compile Include="RecursosHumanos\DescuentosLlegadasTardiasDetallesService.cs" />
+    <Compile Include="RecursosHumanos\DescuentosLlegadasTardiasPorMinutosService.cs" />
+    <Compile Include="RecursosHumanos\DescuentosLlegadasTardiasPorPuntosService.cs" />
+    <Compile Include="RecursosHumanos\DescuentosLlegadasTardiasPorTiempoService.cs" />
+    <Compile Include="RecursosHumanos\DescuentosLlegadasTardiasService.cs" />
+    <Compile Include="RecursosHumanos\DescuentosService.cs" />
+    <Compile Include="RecursosHumanos\EncuestasDetalleService.cs" />
+    <Compile Include="RecursosHumanos\EncuestasPreguntasService.cs" />
+    <Compile Include="RecursosHumanos\EncuestasRespuestasService.cs" />
+    <Compile Include="RecursosHumanos\EncuestasService.cs" />
+    <Compile Include="RecursosHumanos\FuncionarioAdelantoService.cs" />
+    <Compile Include="RecursosHumanos\FuncionarioDiasTrabajadosService.cs" />
+    <Compile Include="RecursosHumanos\FuncionarioLiquidacionesDetallesService.cs" />
+    <Compile Include="RecursosHumanos\FuncionarioLiquidacionesService.cs" />
+    <Compile Include="RecursosHumanos\FuncionariosBonificacionesService.cs" />
+    <Compile Include="RecursosHumanos\FuncionariosDescuentosService.cs" />
+    <Compile Include="RecursosHumanos\HorariosDiasService.cs" />
+    <Compile Include="RecursosHumanos\HorariosFuncionariosService.cs" />
+    <Compile Include="RecursosHumanos\HorariosService.cs" />
+    <Compile Include="RecursosHumanos\HorariosTurnosService.cs" />
+    <Compile Include="RecursosHumanos\LegajoFuncionarioService.cs" />
+    <Compile Include="RecursosHumanos\MarcacionesService.cs" />
+    <Compile Include="RecursosHumanos\PlanillaLiquidacionesDetallesService.cs" />
+    <Compile Include="RecursosHumanos\PlanillaLiquidacionesService.cs" />
+    <Compile Include="RecursosHumanos\SugerenciasService.cs" />
+    <Compile Include="RecursosHumanos\TipoEntradaLegajoService.cs" />
+    <Compile Include="RecursosHumanos\TiposItemEncuestaService.cs" />
+    <Compile Include="Reportes\Configuraciones\ConfiguracionesReportes.cs" />
+    <Compile Include="Reportes\FormatosReporteService.cs" />
+    <Compile Include="Reportes\ReportesContadoresService.cs" />
+    <Compile Include="Reportes\ReportesParametrosService.cs" />
+    <Compile Include="Reportes\ReportesService.cs" />
+    <Compile Include="Reportes\TiposReporteService.cs" />
+    <Compile Include="Sesion\CambiarContrasenaService.cs" />
+    <Compile Include="Sesion\DispositivosService.cs" />
+    <Compile Include="Sesion\FuncionalidadesService.cs" />
+    <Compile Include="Sesion\LogueoService.cs" />
+    <Compile Include="Sesion\ReglasLoginService.cs" />
+    <Compile Include="Sesion\SessionService.cs" />
+    <Compile Include="Stock\EgresoProductosDetalleMaterialesService.cs" />
+    <Compile Include="Stock\EgresoProductosDetallesService.cs" />
+    <Compile Include="Stock\EgresoProductosService.cs" />
+    <Compile Include="Stock\EgresoProductosSobrantesService.cs" />
+    <Compile Include="Stock\ImportacionIngresoCostosService.cs" />
+    <Compile Include="Stock\IngresoInsumosDetallesService.cs" />
+    <Compile Include="Stock\IngresoInsumosService.cs" />
+    <Compile Include="Stock\IngresoStockDetalleService.cs" />
+    <Compile Include="Stock\IngresoStockService.cs" />
+    <Compile Include="Stock\InsumosUtilizadosService .cs" />
+    <Compile Include="Stock\ProduccionBalanceadosDetalleMaterialesService.cs" />
+    <Compile Include="Stock\ProduccionBalanceadosDetallesService.cs" />
+    <Compile Include="Stock\ProduccionBalanceadosService.cs" />
+    <Compile Include="Stock\ProduccionBalanceadosSobrantesService.cs" />
+    <Compile Include="Stock\StockAjusteDetalleService.cs" />
+    <Compile Include="Stock\StockAjusteService.cs" />
+    <Compile Include="Stock\StockArticulosReservaService.cs" />
+    <Compile Include="Stock\StockBoxService.cs" />
+    <Compile Include="Stock\StockCriticoPoliticasService.cs" />
+    <Compile Include="Stock\StockCriticoService.cs" />
+    <Compile Include="Stock\StockDepositosService.cs" />
+    <Compile Include="Stock\StockInventarioDetalleService.cs" />
+    <Compile Include="Stock\StockInventarioService.cs" />
+    <Compile Include="Stock\StockMovimientoService.cs" />
+    <Compile Include="Stock\StockService.cs" />
+    <Compile Include="Stock\StockTranferenciaBalanceadosDetalleService.cs" />
+    <Compile Include="Stock\StockTranferenciasBalanceadosPrecintosService.cs" />
+    <Compile Include="Stock\StocKTransferenciaDetalleService.cs" />
+    <Compile Include="Stock\StocKTransferenciaInsumosDetalleService.cs" />
+    <Compile Include="Stock\StockTransferenciasBalanceadosService.cs" />
+    <Compile Include="Stock\StockTransferenciasInsumosService.cs" />
+    <Compile Include="Stock\StockTransferenciasService.cs" />
+    <Compile Include="Stock\StockUbicacionService.cs" />
+    <Compile Include="Stock\UsoDeInsumosDetalleCentroCostoService.cs" />
+    <Compile Include="Stock\UsoDeInsumosDetalleCuentasContableService.cs" />
+    <Compile Include="Stock\UsoDeInsumosDetalleService.cs" />
+    <Compile Include="Stock\UsoDeInsumosService.cs" />
+    <Compile Include="Tesoreria\AjustesBancariosDetalleService.cs" />
+    <Compile Include="Tesoreria\AjustesBancariosService.cs" />
+    <Compile Include="Tesoreria\CambiosDivisaDetalleService.cs" />
+    <Compile Include="Tesoreria\CambiosDivisaService.cs" />
+    <Compile Include="Tesoreria\CanjesValoresDetallesService.cs" />
+    <Compile Include="Tesoreria\CanjesValoresService.cs" />
+    <Compile Include="Tesoreria\CanjesValoresValoresService.cs" />
+    <Compile Include="Tesoreria\CreditosProveedorDetalleService.cs" />
+    <Compile Include="Tesoreria\CreditosProveedorService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteBancosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCajaComposicionDetalleService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCajaComposicionService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCajaReservasDetalleService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCajaReservasService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCajaService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCajasSucursalEstadosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCajasSucursalService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCajasTesoreriaMovimientosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCajasTesoreriaService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteChequesEstadosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteChequesGiradosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteChequesMovimientosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteChequesRecibidosAbogadosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteChequesRecibidosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCuentasBancariasMovimientosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCuentasBancariasService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteCuentasBancariasTercerosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteDocumentosDesgloseService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteDocumentosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteDocumentosVencimientosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteFondosFijosMovimientosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteFondosFijosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePagaresDetalleService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePagaresDocumentosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePagaresService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePagosPersonaCompensacionEntradaService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePagosPersonaCompensacionSalidaService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePagosPersonaDetalleService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePagosPersonaDocumentoService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePagosPersonaRecargosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePagosPersonaService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePersonasCalidadPagoService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePersonasDetalleService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePersonasFechaService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrientePersonasService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteProveedoresFechaService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteProveedoresService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteRecargosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteRecibosService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteRetencionesEmitidasDetalleService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteRetencionesEmitidasService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteRetencionesRecDetService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteRetencionesRecibidasService.cs" />
+    <Compile Include="Tesoreria\CuentaCorrienteTarjetasCreditoService.cs" />
+    <Compile Include="Tesoreria\CustodiaValoresDetalleEntradaService.cs" />
+    <Compile Include="Tesoreria\CustodiaValoresDetalleSalidaService.cs" />
+    <Compile Include="Tesoreria\CustodiaValoresDetalleService.cs" />
+    <Compile Include="Tesoreria\CustodiaValoresService.cs" />
+    <Compile Include="Tesoreria\DepositosBancariosDetalleService.cs" />
+    <Compile Include="Tesoreria\DepositosBancariosService.cs" />
+    <Compile Include="Tesoreria\DescuentoDocumentosClienteDetalleDesgloseService.cs" />
+    <Compile Include="Tesoreria\DescuentoDocumentosClienteDetalleService.cs" />
+    <Compile Include="Tesoreria\DescuentoDocumentosClienteDetalleVencimientosService.cs" />
+    <Compile Include="Tesoreria\DescuentoDocumentosClienteService.cs" />
+    <Compile Include="Tesoreria\DescuentoDocumentosDetalleService.cs" />
+    <Compile Include="Tesoreria\DescuentoDocumentosPagosService.cs" />
+    <Compile Include="Tesoreria\DescuentoDocumentosService.cs" />
+    <Compile Include="Tesoreria\ImportarPagosPersonasService.cs" />
+    <Compile Include="Tesoreria\MovimientoFondoFijoDetalleCentrosCostoService.cs" />
+    <Compile Include="Tesoreria\MovimientoFondoFijoDetalleCuentaContableService.cs" />
+    <Compile Include="Tesoreria\MovimientoFondoFijoDetalleService.cs" />
+    <Compile Include="Tesoreria\MovimientoFondoFijoService.cs" />
+    <Compile Include="Tesoreria\MovimientoVarioCajaTesoreriaDetalleService.cs" />
+    <Compile Include="Tesoreria\MovimientoVarioCajaTesoreriaService.cs" />
+    <Compile Include="Tesoreria\OrdenesPagoDetalleService.cs" />
+    <Compile Include="Tesoreria\OrdenesPagoService.cs" />
+    <Compile Include="Tesoreria\OrdenesPagoTipoService.cs" />
+    <Compile Include="Tesoreria\OrdenesPagoValoresService.cs" />
+    <Compile Include="Tesoreria\PagoContratistasDetalleCentrosCostoService.cs" />
+    <Compile Include="Tesoreria\PagoContratistasDetalleCuentaContableService.cs" />
+    <Compile Include="Tesoreria\PagoContratistasDetallesServices.cs" />
+    <Compile Include="Tesoreria\PagoContratistasServices.cs" />
+    <Compile Include="Tesoreria\PlanillaCobranzaDetallesService.cs" />
+    <Compile Include="Tesoreria\PlanillaCobranzaService.cs" />
+    <Compile Include="Tesoreria\PlanillaCobranzaValoresService.cs" />
+    <Compile Include="Tesoreria\PlanillaParaCobranzaService.cs" />
+    <Compile Include="Tesoreria\PlanillasPagosDetallesService.cs" />
+    <Compile Include="Tesoreria\PlanillasPagosService.cs" />
+    <Compile Include="Tesoreria\RecalendarizacionMasivaDeudasCuotasService.cs" />
+    <Compile Include="Tesoreria\RecalendarizacionMasivaDeudasDetallesService.cs" />
+    <Compile Include="Tesoreria\RecalendarizacionMasivaDeudasService.cs" />
+    <Compile Include="Tesoreria\RefinaciancionDeudasService.cs" />
+    <Compile Include="Tesoreria\RefinanciacionDeudasDetalleService.cs" />
+    <Compile Include="Tesoreria\RendicionCobradorDetalleService.cs" />
+    <Compile Include="Tesoreria\RendicionCobradorRecibosService.cs" />
+    <Compile Include="Tesoreria\RendicionCobradorService.cs" />
+    <Compile Include="Tesoreria\TiposClienteRecalendarizacionService.cs" />
+    <Compile Include="Tesoreria\TiposCuentaCorrienteBancariasService.cs" />
+    <Compile Include="Tesoreria\TransferenciaCajasSucursalDetalleService.cs" />
+    <Compile Include="Tesoreria\TransferenciaCajasSucursalService.cs" />
+    <Compile Include="Tesoreria\TransferenciasBancariasService.cs" />
+    <Compile Include="Tesoreria\TransferenciasCajasTesoreriaDetalleService.cs" />
+    <Compile Include="Tesoreria\TransferenciasCajasTesoreriaService.cs" />
+    <Compile Include="Tesoreria\TransferenciasCtaCtePersonasDetallesService.cs" />
+    <Compile Include="Tesoreria\TransferenciasCtaCtePersonasService.cs" />
+    <Compile Include="TextosPredefinidos\TextosPredefGruposDetService.cs" />
+    <Compile Include="TextosPredefinidos\TextosPredefinidosGruposService.cs" />
+    <Compile Include="TextosPredefinidos\TextosPredefinidosService.cs" />
+    <Compile Include="TextosPredefinidos\TiposTextosPredefinidosService.cs" />
+    <Compile Include="ToolbarFlujo\ToolbarFlujoInfoDelCasoService.cs" />
+    <Compile Include="ToolbarFlujo\ToolbarFlujoService.cs" />
+    <Compile Include="Tramites\TramitesActividadesDetallesService.cs" />
+    <Compile Include="Tramites\TramitesActividadesService.cs" />
+    <Compile Include="Tramites\TramitesCamposEtapasValoresService.cs" />
+    <Compile Include="Tramites\TramitesCasosAsociadosService.cs" />
+    <Compile Include="Tramites\TramitesFuncionariosAsignadosService.cs" />
+    <Compile Include="Tramites\TramitesMedidasCautelaresService.cs" />
+    <Compile Include="Tramites\TramitesProfesionalesRecusadosService.cs" />
+    <Compile Include="Tramites\TramitesService.cs" />
+    <Compile Include="Tramites\TramitesTiposCamposEtapasService.cs" />
+    <Compile Include="Tramites\TramitesTiposEstadosService.cs" />
+    <Compile Include="Tramites\TramitesTiposEstadosTransicionesService.cs" />
+    <Compile Include="Tramites\TramitesTiposEtapasDestinoService.cs" />
+    <Compile Include="Tramites\TramitesTiposEtapasService.cs" />
+    <Compile Include="Tramites\TramitesTiposService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CBA.FlowV2.Db\CBA.FlowV2.Db.csproj">
+      <Project>{4f4de4f3-c1fe-451e-9fb9-2d2371d65ae5}</Project>
+      <Name>CBA.FlowV2.Db</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Base\Definiciones.cs.orig" />
+    <None Include="ListaDePrecio\ListaDePreciosModificarDetallesService.cs.orig" />
+    <None Include="ListaDePrecio\ListaDePreciosModificarService.cs.orig" />
+    <None Include="ListaDePrecio\ListasDePrecioDetalleService.cs.orig" />
+    <None Include="NotaCreditosProveedores\NotasCreditoProveedorService.cs.orig" />
+    <None Include="Oracle.DataAccess.Common.Configuration.Section.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Oracle.ManagedDataAccess.Client.Configuration.Section.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

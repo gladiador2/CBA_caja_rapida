@@ -1,0 +1,38 @@
+// <fileinfo name="STOCK_ART_RESERVA_POR_EGRPROMARow.cs">
+//		<copyright>
+//			All rights reserved.
+//		</copyright>
+//		<remarks>
+//			You can update this source code manually. If the file
+//			already exists it will not be rewritten by the generator.
+//		</remarks>
+//		<generator rewritefile="False" infourl="http://www.SharpPower.com">RapTier</generator>
+// </fileinfo>
+
+using System;
+
+namespace CBA.FlowV2.Db
+{
+	/// <summary>
+	/// Represents a record in the <c>STOCK_ART_RESERVA_POR_EGRPROMA</c> view.
+	/// </summary>
+	public class STOCK_ART_RESERVA_POR_EGRPROMARow : STOCK_ART_RESERVA_POR_EGRPROMARow_Base
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="STOCK_ART_RESERVA_POR_EGRPROMARow"/> class.
+		/// </summary>
+		public STOCK_ART_RESERVA_POR_EGRPROMARow()
+		{
+			// EMPTY
+		}
+		
+		/// <summary>
+		/// Clone the object with MemberwiseClone
+		/// </summary>
+		/// <value>true if the property value is null, otherwise false.</value>
+		public STOCK_ART_RESERVA_POR_EGRPROMARow Clonar()
+		{
+			return (STOCK_ART_RESERVA_POR_EGRPROMARow)this.MemberwiseClone();
+		}
+	} // End of STOCK_ART_RESERVA_POR_EGRPROMARow class
+} // End of namespace

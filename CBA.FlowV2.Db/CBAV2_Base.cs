@@ -1,0 +1,14623 @@
+// <fileinfo name="CBAV2_Base.cs">
+//		<copyright>
+//			All rights reserved.
+//		</copyright>
+//		<remarks>
+//			Do not change this source code manually. Changes to this file may 
+//			cause incorrect behavior and will be lost if the code is regenerated.
+//		</remarks>
+//		<generator rewritefile="True" infourl="http://www.SharpPower.com">RapTier</generator>
+// </fileinfo>
+
+using System;
+using System.Data;
+
+namespace CBA.FlowV2.Db
+{
+	/// <summary>
+	/// The base class for the <see cref="CBAV2"/> class that 
+	/// represents a connection to the <c>CBAV2</c> database. 
+	/// </summary>
+	/// <remarks>
+	/// Do not change this source code. Modify the CBAV2 class
+	/// if you need to add or change some functionality.
+	/// </remarks>
+	public abstract class CBAV2_Base : IDisposable
+	{
+		private IDbConnection _connection;
+		private IDbTransaction _transaction;
+
+		// Table and view fields
+		private ABOGADOSCollection _abogados;
+		private ABOGADOS_DETCollection _abogados_det;
+		private ACTIVOSCollection _activos;
+		private ACTIVOS_INFO_COMPLETACollection _activos_info_completa;
+		private ACTIVOS_MOV_INFO_COMPLETACollection _activos_mov_info_completa;
+		private ACTIVOS_MOVIMIENTOSCollection _activos_movimientos;
+		private ACTIVOS_RUBROSCollection _activos_rubros;
+		private ADENDASCollection _adendas;
+		private ADENDAS_INFO_COMPLETACollection _adendas_info_completa;
+		private ADJUNTOSCollection _adjuntos;
+		private AGENCIASCollection _agencias;
+		private AGRUPAMIENTO_FLUJOSCollection _agrupamiento_flujos;
+		private AJUSTES_BANC_DET_INFO_COMPLCollection _ajustes_banc_det_info_compl;
+		private AJUSTES_BANCARIOSCollection _ajustes_bancarios;
+		private AJUSTES_BANCARIOS_DETCollection _ajustes_bancarios_det;
+		private AJUSTES_BANCARIOS_INFO_COMPLCollection _ajustes_bancarios_info_compl;
+		private ALARMASCollection _alarmas;
+		private ALARMAS_INFO_COMPLETACollection _alarmas_info_completa;
+		private ANTICIPOS_FACT_PROV_INFO_COMPCollection _anticipos_fact_prov_info_comp;
+		private ANTICIPOS_FACTURAS_PROVEEDORCollection _anticipos_facturas_proveedor;
+		private ANTICIPOS_PERS_DET_INFO_COMPCollection _anticipos_pers_det_info_comp;
+		private ANTICIPOS_PERSONACollection _anticipos_persona;
+		private ANTICIPOS_PERSONA_DETCollection _anticipos_persona_det;
+		private ANTICIPOS_PERSONA_INFO_COMPCollection _anticipos_persona_info_comp;
+		private ANTICIPOS_PROVEED_INFO_COMPLCollection _anticipos_proveed_info_compl;
+		private ANTICIPOS_PROVEEDORCollection _anticipos_proveedor;
+		private APLICACION_DOCUMEN_DOC_INFO_COCollection _aplicacion_documen_doc_info_co;
+		private APLICACION_DOCUMEN_DOC_RECARGOCollection _aplicacion_documen_doc_recargo;
+		private APLICACION_DOCUMEN_VAL_INFO_COCollection _aplicacion_documen_val_info_co;
+		private APLICACION_DOCUMENTOSCollection _aplicacion_documentos;
+		private APLICACION_DOCUMENTOS_DOCCollection _aplicacion_documentos_doc;
+		private APLICACION_DOCUMENTOS_INFO_COMCollection _aplicacion_documentos_info_com;
+		private APLICACION_DOCUMENTOS_VALCollection _aplicacion_documentos_val;
+		private ARMADORES_FLUV_INFO_COMPLETACollection _armadores_fluv_info_completa;
+		private ARMADORES_FLUVIALESCollection _armadores_fluviales;
+		private ART_COMBOS_STOCK_DET_INF_COMPLCollection _art_combos_stock_det_inf_compl;
+		private ART_CONVERSION_INFO_COMPLCollection _art_conversion_info_compl;
+		private ART_POR_TEMP_DET_INF_COMPCollection _art_por_temp_det_inf_comp;
+		private ART_PRECIOS_HIST_INFO_COMPLCollection _art_precios_hist_info_compl;
+		private ART_PROV_INFO_COMPLETACollection _art_prov_info_completa;
+		private ARTICULOSCollection _articulos;
+		private ARTICULOS_COLORESCollection _articulos_colores;
+		private ARTICULOS_COMBOSCollection _articulos_combos;
+		private ARTICULOS_COMBOS_DETCollection _articulos_combos_det;
+		private ARTICULOS_COMBOS_INFO_COMPLETACollection _articulos_combos_info_completa;
+		private ARTICULOS_COMBOS_STOCKCollection _articulos_combos_stock;
+		private ARTICULOS_COMBOS_STOCK_DETCollection _articulos_combos_stock_det;
+		private ARTICULOS_CONVERSIONCollection _articulos_conversion;
+		private ARTICULOS_COSTO_ACTIVOCollection _articulos_costo_activo;
+		private ARTICULOS_COSTO_INFO_COMPLETACollection _articulos_costo_info_completa;
+		private ARTICULOS_COSTO_PONDERADOCollection _articulos_costo_ponderado;
+		private ARTICULOS_COSTOSCollection _articulos_costos;
+		private ARTICULOS_COSTOS_CIERRESCollection _articulos_costos_cierres;
+		private ARTICULOS_COSTOS_CIERRES_DETCollection _articulos_costos_cierres_det;
+		private ARTICULOS_CREADOS_DEVOLUCIONCollection _articulos_creados_devolucion;
+		private ARTICULOS_DATOS_PERSONACollection _articulos_datos_persona;
+		private ARTICULOS_DATOS_PERSONA_INF_CCollection _articulos_datos_persona_inf_c;
+		private ARTICULOS_EMPAQUESCollection _articulos_empaques;
+		private ARTICULOS_FAMILIASCollection _articulos_familias;
+		private ARTICULOS_FINANCIEROSCollection _articulos_financieros;
+		private ARTICULOS_FINANCIEROS_RANGOSCollection _articulos_financieros_rangos;
+		private ARTICULOS_FORMULASCollection _articulos_formulas;
+		private ARTICULOS_FORMULAS_INFO_COMPLCollection _articulos_formulas_info_compl;
+		private ARTICULOS_GRUPOSCollection _articulos_grupos;
+		private ARTICULOS_GRUPOS_INFO_COMPLETACollection _articulos_grupos_info_completa;
+		private ARTICULOS_INFO_COMPLETACollection _articulos_info_completa;
+		private ARTICULOS_LINEASCollection _articulos_lineas;
+		private ARTICULOS_LINEAS_INFO_COMPLETACollection _articulos_lineas_info_completa;
+		private ARTICULOS_LOTESCollection _articulos_lotes;
+		private ARTICULOS_LOTES_CUENTACollection _articulos_lotes_cuenta;
+		private ARTICULOS_LOTES_INFO_COMPLETACollection _articulos_lotes_info_completa;
+		private ARTICULOS_MARCASCollection _articulos_marcas;
+		private ARTICULOS_MARGEN_RENTABILIDADCollection _articulos_margen_rentabilidad;
+		private ARTICULOS_PADRESCollection _articulos_padres;
+		private ARTICULOS_PEDIDOSCollection _articulos_pedidos;
+		private ARTICULOS_POR_TEMP_INF_COMPCollection _articulos_por_temp_inf_comp;
+		private ARTICULOS_POR_TEMPORADACollection _articulos_por_temporada;
+		private ARTICULOS_POR_TEMPORADA_DETCollection _articulos_por_temporada_det;
+		private ARTICULOS_PRECIOSCollection _articulos_precios;
+		private ARTICULOS_PRECIOS_GRUPOCollection _articulos_precios_grupo;
+		private ARTICULOS_PRECIOS_HISTORICOSCollection _articulos_precios_historicos;
+		private ARTICULOS_PRECIOS_PRODUCCIONCollection _articulos_precios_produccion;
+		private ARTICULOS_PRESENTACIONESCollection _articulos_presentaciones;
+		private ARTICULOS_PROVEEDORESCollection _articulos_proveedores;
+		private ARTICULOS_SUBGRUPOSCollection _articulos_subgrupos;
+		private ARTICULOS_SUBGRUPOS_INFO_COMPCollection _articulos_subgrupos_info_comp;
+		private ARTICULOS_TALLESCollection _articulos_talles;
+		private ASIGNACION_DOCUMENTOSCollection _asignacion_documentos;
+		private ASIGNACIONES_CARGOSCollection _asignaciones_cargos;
+		private ASIGNACIONES_CARGOS_DETALLECollection _asignaciones_cargos_detalle;
+		private AUTONUMERACIONESCollection _autonumeraciones;
+		private AUTONUMERACIONES_INFO_COMPLETACollection _autonumeraciones_info_completa;
+		private AUTONUMERACIONES_PROV_INF_COMCollection _autonumeraciones_prov_inf_com;
+		private AUTONUMERACIONES_PROVEEDORCollection _autonumeraciones_proveedor;
+		private BARRIOSCollection _barrios;
+		private BASCULASCollection _basculas;
+		private BONIFICACIONESCollection _bonificaciones;
+		private BUQUESCollection _buques;
+		private BUQUES_EQUIVALENCIASCollection _buques_equivalencias;
+		private CAJA_FISICA_TALONARIOCollection _caja_fisica_talonario;
+		private CAJA_SUCURSAL_REPARTOCollection _caja_sucursal_reparto;
+		private CALENDARIO_PAGOS_CR_PERSONASCollection _calendario_pagos_cr_personas;
+		private CALENDARIO_PAGOS_FC_CLIENTECollection _calendario_pagos_fc_cliente;
+		private CALENDARIO_PAGOS_FC_PROVEEDORCollection _calendario_pagos_fc_proveedor;
+		private CALENDARIO_PAGOS_NP_CLIENTECollection _calendario_pagos_np_cliente;
+		private CALENDARIO_PAGOS_RD_PERSONASCollection _calendario_pagos_rd_personas;
+		private CALENDARIOSCollection _calendarios;
+		private CALENDARIOS_INFO_COMPLETACollection _calendarios_info_completa;
+		private CAMBIOS_DIVISACollection _cambios_divisa;
+		private CAMBIOS_DIVISA_DET_INFO_COMPCollection _cambios_divisa_det_info_comp;
+		private CAMBIOS_DIVISA_DETALLECollection _cambios_divisa_detalle;
+		private CAMBIOS_DIVISA_INFO_COMPLETACollection _cambios_divisa_info_completa;
+		private CAMIONES_CONF_TARA_ACTIVOCollection _camiones_conf_tara_activo;
+		private CAMIONES_CONFIGURACION_TARACollection _camiones_configuracion_tara;
+		private CAMPOS_CONF_ITEMS_INFO_COMPCollection _campos_conf_items_info_comp;
+		private CAMPOS_CONF_USUARIOS_INFO_COMPCollection _campos_conf_usuarios_info_comp;
+		private CAMPOS_CONFIGCollection _campos_config;
+		private CAMPOS_CONFIGURABLES_GRUPOSCollection _campos_configurables_grupos;
+		private CAMPOS_CONFIGURABLES_ITEMSCollection _campos_configurables_items;
+		private CAMPOS_CONFIGURABLES_USUARIOSCollection _campos_configurables_usuarios;
+		private CANALES_VENTACollection _canales_venta;
+		private CANJES_VALORESCollection _canjes_valores;
+		private CANJES_VALORES_DETCollection _canjes_valores_det;
+		private CANJES_VALORES_DET_INFO_COMPCollection _canjes_valores_det_info_comp;
+		private CANJES_VALORES_INFO_COMPLETACollection _canjes_valores_info_completa;
+		private CANJES_VALORES_VALORESCollection _canjes_valores_valores;
+		private CANJES_VALORES_VALORES_INF_CCollection _canjes_valores_valores_inf_c;
+		private CASOSCollection _casos;
+		private CASOS_ASIGNACIONESCollection _casos_asignaciones;
+		private CASOS_ASIGNACIONES_INFO_COMPCollection _casos_asignaciones_info_comp;
+		private CASOS_ETIQUETASCollection _casos_etiquetas;
+		private CASOS_ETIQUETAS_INFO_COMPLETACollection _casos_etiquetas_info_completa;
+		private CASOS_INFO_COMPLETACollection _casos_info_completa;
+		private CASOS_JUDICIALIZADOSCollection _casos_judicializados;
+		private CASOS_JUDICIALIZADOS_INFO_COMPCollection _casos_judicializados_info_comp;
+		private CATALOGOSCollection _catalogos;
+		private CATALOGOS_DETALLECollection _catalogos_detalle;
+		private CATEGORIAS_IMOCollection _categorias_imo;
+		private CENTROS_COSTOCollection _centros_costo;
+		private CENTROS_COSTO_GRUPOSCollection _centros_costo_grupos;
+		private CENTROS_COSTO_GRUPOS_DETCollection _centros_costo_grupos_det;
+		private CENTROS_COSTO_GRUPOS_DET_INF_CCollection _centros_costo_grupos_det_inf_c;
+		private CIUDADESCollection _ciudades;
+		private COMENTARIOS_CASOSCollection _comentarios_casos;
+		private COMENTARIOS_CASOS_INFO_COMPCollection _comentarios_casos_info_comp;
+		private COMENTARIOS_TRANSICIONESCollection _comentarios_transiciones;
+		private CONFIGURACIONESCollection _configuraciones;
+		private CONFIGURACIONES_VALORESCollection _configuraciones_valores;
+		private CONOCIMIENTOSCollection _conocimientos;
+		private CONOCIMIENTOS_CONTENIDOSCollection _conocimientos_contenidos;
+		private CONOCIMIENTOS_DETALLESCollection _conocimientos_detalles;
+		private CONTADORESCollection _contadores;
+		private CONTENEDORESCollection _contenedores;
+		private CONTENEDORES_DETALLESCollection _contenedores_detalles;
+		private CONTENEDORES_INFO_COMPLETACollection _contenedores_info_completa;
+		private CONTENEDORES_MOV_INFO_COMPLETACollection _contenedores_mov_info_completa;
+		private CONTENEDORES_MOVIMIENTOSCollection _contenedores_movimientos;
+		private CONTENEDORES_OPERAC_INFO_COMPLCollection _contenedores_operac_info_compl;
+		private CONTENEDORES_OPERACIONESCollection _contenedores_operaciones;
+		private CONTRATOSCollection _contratos;
+		private CONTRATOS_DET_INFO_COMPLETACollection _contratos_det_info_completa;
+		private CONTRATOS_DETALLESCollection _contratos_detalles;
+		private CONTRATOS_INFO_COMPLETACollection _contratos_info_completa;
+		private CONTROL_TEMP_DET_INFO_COMPLCollection _control_temp_det_info_compl;
+		private CONTROL_TEMP_INFO_COMPLCollection _control_temp_info_compl;
+		private CONTROL_TEMPERATURASCollection _control_temperaturas;
+		private CONTROL_TEMPERATURAS_DETALLESCollection _control_temperaturas_detalles;
+		private COPARNCollection _coparn;
+		private COPARN_DETALLESCollection _coparn_detalles;
+		private COPARN_DETALLES_INFO_COMPLETACollection _coparn_detalles_info_completa;
+		private COPARN_INFO_COMPLETACollection _coparn_info_completa;
+		private COTIZACIONESCollection _cotizaciones;
+		private COTIZACIONES_MONEDACollection _cotizaciones_moneda;
+		private CREDITOSCollection _creditos;
+		private CREDITOS_DESCUENTOSCollection _creditos_descuentos;
+		private CREDITOS_DETALLESCollection _creditos_detalles;
+		private CREDITOS_PROVEEDORCollection _creditos_proveedor;
+		private CREDITOS_PROVEEDOR_DETCollection _creditos_proveedor_det;
+		private CREDITOS_PROVEEDOR_INFO_COMPCollection _creditos_proveedor_info_comp;
+		private CRM_HILOSCollection _crm_hilos;
+		private CRM_HILOS_ENTRADASCollection _crm_hilos_entradas;
+		private CRM_HILOS_ENTRADAS_RELACIONESCollection _crm_hilos_entradas_relaciones;
+		private CRM_HILOS_ENTRADAS_USUARIOSCollection _crm_hilos_entradas_usuarios;
+		private CRM_HILOS_USUARIOSCollection _crm_hilos_usuarios;
+		private CTACTE_BANCARIASCollection _ctacte_bancarias;
+		private CTACTE_BANCARIAS_INFO_COMPLETACollection _ctacte_bancarias_info_completa;
+		private CTACTE_BANCARIAS_MOVCollection _ctacte_bancarias_mov;
+		private CTACTE_BANCARIAS_MOV_INFO_COMPCollection _ctacte_bancarias_mov_info_comp;
+		private CTACTE_BANCARIAS_TERC_INFO_COMCollection _ctacte_bancarias_terc_info_com;
+		private CTACTE_BANCARIAS_TERCEROSCollection _ctacte_bancarias_terceros;
+		private CTACTE_BANCOSCollection _ctacte_bancos;
+		private CTACTE_CAJACollection _ctacte_caja;
+		private CTACTE_CAJA_COMPOS_DET_INF_COMCollection _ctacte_caja_compos_det_inf_com;
+		private CTACTE_CAJA_COMPOS_INF_COMPLCollection _ctacte_caja_compos_inf_compl;
+		private CTACTE_CAJA_COMPOSICIONCollection _ctacte_caja_composicion;
+		private CTACTE_CAJA_COMPOSICION_DETCollection _ctacte_caja_composicion_det;
+		private CTACTE_CAJA_INFO_COMPLETACollection _ctacte_caja_info_completa;
+		private CTACTE_CAJA_RESERVASCollection _ctacte_caja_reservas;
+		private CTACTE_CAJA_RESERVAS_DETCollection _ctacte_caja_reservas_det;
+		private CTACTE_CAJAS_SUC_INFO_COMPCollection _ctacte_cajas_suc_info_comp;
+		private CTACTE_CAJAS_SUCURSALCollection _ctacte_cajas_sucursal;
+		private CTACTE_CAJAS_SUCURSAL_ESTADOSCollection _ctacte_cajas_sucursal_estados;
+		private CTACTE_CAJAS_TESO_INFO_COMPCollection _ctacte_cajas_teso_info_comp;
+		private CTACTE_CAJAS_TESO_MOV_INF_COMPCollection _ctacte_cajas_teso_mov_inf_comp;
+		private CTACTE_CAJAS_TESORERIACollection _ctacte_cajas_tesoreria;
+		private CTACTE_CAJAS_TESORERIA_MOVCollection _ctacte_cajas_tesoreria_mov;
+		private CTACTE_CHEQUES_ESTADOSCollection _ctacte_cheques_estados;
+		private CTACTE_CHEQUES_GIR_INFO_COMPLCollection _ctacte_cheques_gir_info_compl;
+		private CTACTE_CHEQUES_GIRADOSCollection _ctacte_cheques_girados;
+		private CTACTE_CHEQUES_MOVIMIENTOSCollection _ctacte_cheques_movimientos;
+		private CTACTE_CHEQUES_REC_ABOG_INFO_CCollection _ctacte_cheques_rec_abog_info_c;
+		private CTACTE_CHEQUES_REC_ABOGADOSCollection _ctacte_cheques_rec_abogados;
+		private CTACTE_CHEQUES_REC_INFO_COMPLCollection _ctacte_cheques_rec_info_compl;
+		private CTACTE_CHEQUES_REC_MONTOCollection _ctacte_cheques_rec_monto;
+		private CTACTE_CHEQUES_REC_MONTO_PERCollection _ctacte_cheques_rec_monto_per;
+		private CTACTE_CHEQUES_RECIBIDOSCollection _ctacte_cheques_recibidos;
+		private CTACTE_CHEQUES_TRANSICIONESCollection _ctacte_cheques_transiciones;
+		private CTACTE_CHQ_MOV_INFO_COMPLCollection _ctacte_chq_mov_info_compl;
+		private CTACTE_CHQ_TRAN_INFO_COMPLETACollection _ctacte_chq_tran_info_completa;
+		private CTACTE_CONCEPTOSCollection _ctacte_conceptos;
+		private CTACTE_CONDICIONES_DESEMBOLSOCollection _ctacte_condiciones_desembolso;
+		private CTACTE_CONDICIONES_PAGOCollection _ctacte_condiciones_pago;
+		private CTACTE_CONDICIONES_PAGO_DETCollection _ctacte_condiciones_pago_det;
+		private CTACTE_DOCUMENTOSCollection _ctacte_documentos;
+		private CTACTE_DOCUMENTOS_DESGLOSECollection _ctacte_documentos_desglose;
+		private CTACTE_DOCUMENTOS_VENCIMIENTOSCollection _ctacte_documentos_vencimientos;
+		private CTACTE_FONDOS_FIJOSCollection _ctacte_fondos_fijos;
+		private CTACTE_FONDOS_FIJOS_INFO_COMPCollection _ctacte_fondos_fijos_info_comp;
+		private CTACTE_FONDOS_FIJOS_MOVCollection _ctacte_fondos_fijos_mov;
+		private CTACTE_GIROSCollection _ctacte_giros;
+		private CTACTE_GIROS_MOV_INFO_COMPCollection _ctacte_giros_mov_info_comp;
+		private CTACTE_GIROS_MOVIMIENTOSCollection _ctacte_giros_movimientos;
+		private CTACTE_PAGARESCollection _ctacte_pagares;
+		private CTACTE_PAGARES_DET_INFO_COMPCollection _ctacte_pagares_det_info_comp;
+		private CTACTE_PAGARES_DETALLECollection _ctacte_pagares_detalle;
+		private CTACTE_PAGARES_DOC_INFO_COMPCollection _ctacte_pagares_doc_info_comp;
+		private CTACTE_PAGARES_DOCUMENTOSCollection _ctacte_pagares_documentos;
+		private CTACTE_PAGARES_INFO_COMPLETACollection _ctacte_pagares_info_completa;
+		private CTACTE_PAGOS_PER_COMP_ENT_IN_CCollection _ctacte_pagos_per_comp_ent_in_c;
+		private CTACTE_PAGOS_PER_COMP_SAL_IN_CCollection _ctacte_pagos_per_comp_sal_in_c;
+		private CTACTE_PAGOS_PER_COMPEN_ENTRADCollection _ctacte_pagos_per_compen_entrad;
+		private CTACTE_PAGOS_PER_COMPEN_SALIDACollection _ctacte_pagos_per_compen_salida;
+		private CTACTE_PAGOS_PERS_DET_INF_COMPCollection _ctacte_pagos_pers_det_inf_comp;
+		private CTACTE_PAGOS_PERS_DOC_INF_COMPCollection _ctacte_pagos_pers_doc_inf_comp;
+		private CTACTE_PAGOS_PERSONACollection _ctacte_pagos_persona;
+		private CTACTE_PAGOS_PERSONA_DETCollection _ctacte_pagos_persona_det;
+		private CTACTE_PAGOS_PERSONA_DOCUMENTOCollection _ctacte_pagos_persona_documento;
+		private CTACTE_PAGOS_PERSONA_INFO_COMPCollection _ctacte_pagos_persona_info_comp;
+		private CTACTE_PAGOS_PERSONA_RECARGOCollection _ctacte_pagos_persona_recargo;
+		private CTACTE_PAGOS_PERSONA_VUELTOSCollection _ctacte_pagos_persona_vueltos;
+		private CTACTE_PERSONASCollection _ctacte_personas;
+		private CTACTE_PERSONAS_CALIDAD_PAGOSCollection _ctacte_personas_calidad_pagos;
+		private CTACTE_PERSONAS_CIERRECollection _ctacte_personas_cierre;
+		private CTACTE_PERSONAS_CIERRE_DETCollection _ctacte_personas_cierre_det;
+		private CTACTE_PERSONAS_COMPR_APLICollection _ctacte_personas_compr_apli;
+		private CTACTE_PERSONAS_DETALLECollection _ctacte_personas_detalle;
+		private CTACTE_PERSONAS_FECHACollection _ctacte_personas_fecha;
+		private CTACTE_PERSONAS_INFO_COMPLETACollection _ctacte_personas_info_completa;
+		private CTACTE_PLANES_DESEM_ESCALASCollection _ctacte_planes_desem_escalas;
+		private CTACTE_PLANES_DESEMB_INFO_COMPCollection _ctacte_planes_desemb_info_comp;
+		private CTACTE_PLANES_DESEMBOLSOCollection _ctacte_planes_desembolso;
+		private CTACTE_POSCollection _ctacte_pos;
+		private CTACTE_PROCESADORAS_TARJETACollection _ctacte_procesadoras_tarjeta;
+		private CTACTE_PROCESADORAS_TARJETA_ENTIDADCollection _ctacte_procesadoras_tarjeta_entidad;
+		private CTACTE_PROVEEDORESCollection _ctacte_proveedores;
+		private CTACTE_PROVEEDORES_DETALLECollection _ctacte_proveedores_detalle;
+		private CTACTE_PROVEEDORES_FECHACollection _ctacte_proveedores_fecha;
+		private CTACTE_PROVEEDORES_INFO_COMPLCollection _ctacte_proveedores_info_compl;
+		private CTACTE_RECARGOSCollection _ctacte_recargos;
+		private CTACTE_RECARGOS_INFO_COMPCollection _ctacte_recargos_info_comp;
+		private CTACTE_RECIBOSCollection _ctacte_recibos;
+		private CTACTE_RECIBOS_INFO_COMPLETACollection _ctacte_recibos_info_completa;
+		private CTACTE_REDES_PAGOCollection _ctacte_redes_pago;
+		private CTACTE_RET_REC_DET_INFO_COMPLCollection _ctacte_ret_rec_det_info_compl;
+		private CTACTE_RETENC_EMIT_DET_INFO_CCollection _ctacte_retenc_emit_det_info_c;
+		private CTACTE_RETENC_EMIT_INFO_COMPCollection _ctacte_retenc_emit_info_comp;
+		private CTACTE_RETENC_REC_INFO_COMPLCollection _ctacte_retenc_rec_info_compl;
+		private CTACTE_RETENCIONES_EMIT_DETCollection _ctacte_retenciones_emit_det;
+		private CTACTE_RETENCIONES_EMITIDASCollection _ctacte_retenciones_emitidas;
+		private CTACTE_RETENCIONES_REC_DETCollection _ctacte_retenciones_rec_det;
+		private CTACTE_RETENCIONES_RECIBIDASCollection _ctacte_retenciones_recibidas;
+		private CTACTE_TARJETA_CONF_PROC_INF_COMPCollection _ctacte_tarjeta_conf_proc_inf_comp;
+		private CTACTE_TARJETA_CREDI_INF_COMPCollection _ctacte_tarjeta_credi_inf_comp;
+		private CTACTE_TARJETAS_CONFIG_PROCESOSCollection _ctacte_tarjetas_config_procesos;
+		private CTACTE_TARJETAS_CRED_EMISORACollection _ctacte_tarjetas_cred_emisora;
+		private CTACTE_TARJETAS_CREDITOCollection _ctacte_tarjetas_credito;
+		private CTACTE_VALORESCollection _ctacte_valores;
+		private CTB_ARCHIVOS_MARANGATUCollection _ctb_archivos_marangatu;
+		private CTB_ASIENTOSCollection _ctb_asientos;
+		private CTB_ASIENTOS_AUTO_DETCollection _ctb_asientos_auto_det;
+		private CTB_ASIENTOS_AUTO_DET_INFO_COMCollection _ctb_asientos_auto_det_info_com;
+		private CTB_ASIENTOS_AUTO_REL_INFO_CCollection _ctb_asientos_auto_rel_info_c;
+		private CTB_ASIENTOS_AUTO_RELACIONESCollection _ctb_asientos_auto_relaciones;
+		private CTB_ASIENTOS_AUTOM_INFO_COMPLCollection _ctb_asientos_autom_info_compl;
+		private CTB_ASIENTOS_AUTOMATICOSCollection _ctb_asientos_automaticos;
+		private CTB_ASIENTOS_AUTOMATICOS_ERRORCollection _ctb_asientos_automaticos_error;
+		private CTB_ASIENTOS_DET_CENT_C_INFO_CCollection _ctb_asientos_det_cent_c_info_c;
+		private CTB_ASIENTOS_DET_INFO_COMPLETACollection _ctb_asientos_det_info_completa;
+		private CTB_ASIENTOS_DETALLECollection _ctb_asientos_detalle;
+		private CTB_ASIENTOS_DETALLE_CENT_COSTCollection _ctb_asientos_detalle_cent_cost;
+		private CTB_ASIENTOS_DETALLE_RELCollection _ctb_asientos_detalle_rel;
+		private CTB_ASIENTOS_INFO_COMPLETACollection _ctb_asientos_info_completa;
+		private CTB_CLASIFICACION_CUENTASCollection _ctb_clasificacion_cuentas;
+		private CTB_CUENTASCollection _ctb_cuentas;
+		private CTB_CUENTAS_GRUPOSCollection _ctb_cuentas_grupos;
+		private CTB_CUENTAS_GRUPOS_DETCollection _ctb_cuentas_grupos_det;
+		private CTB_CUENTAS_GRUPOS_DET_INF_CCollection _ctb_cuentas_grupos_det_inf_c;
+		private CTB_CUENTAS_INFO_COMPLETACollection _ctb_cuentas_info_completa;
+		private CTB_CUENTAS_PLANTILLASCollection _ctb_cuentas_plantillas;
+		private CTB_DEVENGAMIENTOSCollection _ctb_devengamientos;
+		private CTB_DEVENGAMIENTOS_DETCollection _ctb_devengamientos_det;
+		private CTB_EJERCICIOSCollection _ctb_ejercicios;
+		private CTB_EJERCICIOS_INFO_COMPLETACollection _ctb_ejercicios_info_completa;
+		private CTB_ENTIDADES_CUENTASCollection _ctb_entidades_cuentas;
+		private CTB_INDICADORESCollection _ctb_indicadores;
+		private CTB_INDICADORES_DET_INFO_COMPLCollection _ctb_indicadores_det_info_compl;
+		private CTB_INDICADORES_DETALLECollection _ctb_indicadores_detalle;
+		private CTB_INDICADORES_INFO_COMPLCollection _ctb_indicadores_info_compl;
+		private CTB_INDICADORES_OPERACIONESCollection _ctb_indicadores_operaciones;
+		private CTB_PERIODOSCollection _ctb_periodos;
+		private CTB_PERIODOS_INFO_COMPLETACollection _ctb_periodos_info_completa;
+		private CTB_PLANES_CUENTACollection _ctb_planes_cuenta;
+		private CTB_PLANES_CUENTA_INFO_COMPLCollection _ctb_planes_cuenta_info_compl;
+		private CTB_PRESUPUESTOSCollection _ctb_presupuestos;
+		private CTB_PRESUPUESTOS_DETCollection _ctb_presupuestos_det;
+		private CTB_REPORTES_CUENTASCollection _ctb_reportes_cuentas;
+		private CTB_REVALUOSCollection _ctb_revaluos;
+		private CTB_REVALUOS_INFO_COMPLETACollection _ctb_revaluos_info_completa;
+		private CTB_TIPO_COMPROBANTE_SETCollection _ctb_tipo_comprobante_set;
+		private CTB_TIPOS_ASIENTOCollection _ctb_tipos_asiento;
+		private CUSTODIA_VALORESCollection _custodia_valores;
+		private CUSTODIA_VALORES_DETCollection _custodia_valores_det;
+		private CUSTODIA_VALORES_DET_ENT_IN_CCollection _custodia_valores_det_ent_in_c;
+		private CUSTODIA_VALORES_DET_ENTRADACollection _custodia_valores_det_entrada;
+		private CUSTODIA_VALORES_DET_INF_COMPCollection _custodia_valores_det_inf_comp;
+		private CUSTODIA_VALORES_DET_SAL_IN_CCollection _custodia_valores_det_sal_in_c;
+		private CUSTODIA_VALORES_DET_SALIDACollection _custodia_valores_det_salida;
+		private CUSTODIA_VALORES_INFO_COMPCollection _custodia_valores_info_comp;
+		private DEPARTAMENTOSCollection _departamentos;
+		private DEPOSITO_PREP_ESTADO_ACTUALCollection _deposito_prep_estado_actual;
+		private DEPOSITO_PREP_ESTADO_INFO_COMPCollection _deposito_prep_estado_info_comp;
+		private DEPOSITO_PREPARACION_ESTADOCollection _deposito_preparacion_estado;
+		private DEPOSITOS_BANC_DET_INFO_COMPLCollection _depositos_banc_det_info_compl;
+		private DEPOSITOS_BANCARIOSCollection _depositos_bancarios;
+		private DEPOSITOS_BANCARIOS_DETCollection _depositos_bancarios_det;
+		private DEPOSITOS_BANCARIOS_INFO_COMPLCollection _depositos_bancarios_info_compl;
+		private DESC_DOCS_DET_INFO_COMPLCollection _desc_docs_det_info_compl;
+		private DESC_DOCS_INFO_COMPLCollection _desc_docs_info_compl;
+		private DESC_DOCS_PAGOS_INFO_COMPLCollection _desc_docs_pagos_info_compl;
+		private DESCUENTO_DOC_CLI_DET_DESGLOSECollection _descuento_doc_cli_det_desglose;
+		private DESCUENTO_DOC_CLI_DET_VENCIMCollection _descuento_doc_cli_det_vencim;
+		private DESCUENTO_DOCUMENTOSCollection _descuento_documentos;
+		private DESCUENTO_DOCUMENTOS_CLI_DETCollection _descuento_documentos_cli_det;
+		private DESCUENTO_DOCUMENTOS_CLI_INF_CCollection _descuento_documentos_cli_inf_c;
+		private DESCUENTO_DOCUMENTOS_CLIENTECollection _descuento_documentos_cliente;
+		private DESCUENTO_DOCUMENTOS_DETCollection _descuento_documentos_det;
+		private DESCUENTO_DOCUMENTOS_PAGOSCollection _descuento_documentos_pagos;
+		private DESCUENTOSCollection _descuentos;
+		private DESCUENTOS_LLEGADAS_TAR_DETCollection _descuentos_llegadas_tar_det;
+		private DESCUENTOS_LLEGADAS_TARDIASCollection _descuentos_llegadas_tardias;
+		private DESEM_GIROS_DET_INFO_COMPLCollection _desem_giros_det_info_compl;
+		private DESEMBOLSOS_GIROSCollection _desembolsos_giros;
+		private DESEMBOLSOS_GIROS_DETCollection _desembolsos_giros_det;
+		private DESEMBOLSOS_GIROS_INFO_COMPLCollection _desembolsos_giros_info_compl;
+		private DETALLES_PERSON_HIST_INF_COMPLCollection _detalles_person_hist_inf_compl;
+		private DETALLES_PERSONALIZ_INF_COMPLCollection _detalles_personaliz_inf_compl;
+		private DETALLES_PERSONALIZADOSCollection _detalles_personalizados;
+		private DETALLES_PERSONALIZADOS_DETCollection _detalles_personalizados_det;
+		private DETALLES_PERSONALIZADOS_HISTCollection _detalles_personalizados_hist;
+		private DETALLES_PERSONALIZADOS_HIST_DCollection _detalles_personalizados_hist_d;
+		private DIAS_SEMANACollection _dias_semana;
+		private DISPOSITIVOSCollection _dispositivos;
+		private EDICollection _edi;
+		private EGRESO_PROD_DET_MATERIALESCollection _egreso_prod_det_materiales;
+		private EGRESO_PRODUCTOSCollection _egreso_productos;
+		private EGRESO_PRODUCTOS_DETALLESCollection _egreso_productos_detalles;
+		private EGRESO_PRODUCTOS_SOBRANTESCollection _egreso_productos_sobrantes;
+		private EGRESOS_VARIOS_CAJACollection _egresos_varios_caja;
+		private EGRESOS_VARIOS_CAJA_DETCollection _egresos_varios_caja_det;
+		private EGRESOS_VARIOS_CAJA_DET_INF_CCollection _egresos_varios_caja_det_inf_c;
+		private EGRESOS_VARIOS_CAJA_INFO_COMPLCollection _egresos_varios_caja_info_compl;
+		private EGRESOS_VARIOS_CAJA_VALCollection _egresos_varios_caja_val;
+		private EGRESOS_VARIOS_CAJA_VAL_INF_CCollection _egresos_varios_caja_val_inf_c;
+		private EMPRESA_CARGOSCollection _empresa_cargos;
+		private EMPRESA_CARGOS_FUNC_INFO_COMPCollection _empresa_cargos_func_info_comp;
+		private EMPRESA_CARGOS_FUNCIONARIOSCollection _empresa_cargos_funcionarios;
+		private EMPRESA_CARGOS_INFO_COMPCollection _empresa_cargos_info_comp;
+		private EMPRESA_DEPARTAMENTOSCollection _empresa_departamentos;
+		private EMPRESA_FAJASCollection _empresa_fajas;
+		private EMPRESA_SECCIONESCollection _empresa_secciones;
+		private ENCUESTASCollection _encuestas;
+		private ENCUESTAS_DETALLECollection _encuestas_detalle;
+		private ENCUESTAS_PREGUNTASCollection _encuestas_preguntas;
+		private ENCUESTAS_RESPUESTASCollection _encuestas_respuestas;
+		private ENTIDADESCollection _entidades;
+		private ENTIDADES_CONFIG_MAILCollection _entidades_config_mail;
+		private ENTIDADES_TEXTO_PREDEFINIDOCollection _entidades_texto_predefinido;
+		private ENTIDADES_UUIDCollection _entidades_uuid;
+		private ENVASESCollection _envases;
+		private EQUIPOS_AUTORIZADOSCollection _equipos_autorizados;
+		private EQUIPOS_AUTORIZADOS_CHOFERESCollection _equipos_autorizados_choferes;
+		private EQUIPOS_AUTORIZADOS_DET_INF_CCollection _equipos_autorizados_det_inf_c;
+		private EQUIPOS_AUTORIZADOS_DETALLESCollection _equipos_autorizados_detalles;
+		private ESCALAS_COMISIONES_COBRA_DEFCollection _escalas_comisiones_cobra_def;
+		private ESCALAS_COMISIONES_COBRADORESCollection _escalas_comisiones_cobradores;
+		private ESCALAS_PREMIOSCollection _escalas_premios;
+		private ESCALAS_PREMIOS_INFO_COMPLETACollection _escalas_premios_info_completa;
+		private ESTADO_MOROSIDADCollection _estado_morosidad;
+		private ESTADOSCollection _estados;
+		private ESTADOS_CIVILCollection _estados_civil;
+		private ESTADOS_DOCUMENTACIONCollection _estados_documentacion;
+		private FACTURA_ENVASESCollection _factura_envases;
+		private FACTURA_ENVASES_INFO_COMPLETACollection _factura_envases_info_completa;
+		private FACTURAS_CLIENTECollection _facturas_cliente;
+		private FACTURAS_CLIENTE_DET_ART_PADRECollection _facturas_cliente_det_art_padre;
+		private FACTURAS_CLIENTE_DET_CC_INFO_CCollection _facturas_cliente_det_cc_info_c;
+		private FACTURAS_CLIENTE_DET_CENT_CCollection _facturas_cliente_det_cent_c;
+		private FACTURAS_CLIENTE_DET_IMPRESIONCollection _facturas_cliente_det_impresion;
+		private FACTURAS_CLIENTE_DET_INF_COCollection _facturas_cliente_det_inf_co;
+		private FACTURAS_CLIENTE_DETALLECollection _facturas_cliente_detalle;
+		private FACTURAS_CLIENTE_INFO_COMPLETACollection _facturas_cliente_info_completa;
+		private FACTURAS_PROV_DET_CC_INFO_CCollection _facturas_prov_det_cc_info_c;
+		private FACTURAS_PROV_DET_CTB_INFO_CCollection _facturas_prov_det_ctb_info_c;
+		private FACTURAS_PROVEEDORCollection _facturas_proveedor;
+		private FACTURAS_PROVEEDOR_DET_CENT_CCollection _facturas_proveedor_det_cent_c;
+		private FACTURAS_PROVEEDOR_DET_CTBCollection _facturas_proveedor_det_ctb;
+		private FACTURAS_PROVEEDOR_DET_INFO_CCollection _facturas_proveedor_det_info_c;
+		private FACTURAS_PROVEEDOR_DETALLECollection _facturas_proveedor_detalle;
+		private FACTURAS_PROVEEDOR_INFO_COMPCollection _facturas_proveedor_info_comp;
+		private FC_PROV_PAGO_TERC_PERS_INFO_CCollection _fc_prov_pago_terc_pers_info_c;
+		private FC_PROV_PAGO_TERC_PERSONASCollection _fc_prov_pago_terc_personas;
+		private FLUJOSCollection _flujos;
+		private FORMATOS_REPORTECollection _formatos_reporte;
+		private FUNC_ADELANTOS_INFO_COMPLCollection _func_adelantos_info_compl;
+		private FUNC_HIJOS_INFO_COMPLCollection _func_hijos_info_compl;
+		private FUNC_HIJOS_MENORESCollection _func_hijos_menores;
+		private FUNC_LIQ_DET_INFO_COMPLCollection _func_liq_det_info_compl;
+		private FUNCIONARIOSCollection _funcionarios;
+		private FUNCIONARIOS_ADELANTOSCollection _funcionarios_adelantos;
+		private FUNCIONARIOS_BONIF_INFO_COMPLCollection _funcionarios_bonif_info_compl;
+		private FUNCIONARIOS_BONIFICACIONESCollection _funcionarios_bonificaciones;
+		private FUNCIONARIOS_COMISIONESCollection _funcionarios_comisiones;
+		private FUNCIONARIOS_COMISIONES_INFO_CCollection _funcionarios_comisiones_info_c;
+		private FUNCIONARIOS_DESC_INFO_COMPLCollection _funcionarios_desc_info_compl;
+		private FUNCIONARIOS_DESCUENTOSCollection _funcionarios_descuentos;
+		private FUNCIONARIOS_DIAS_TRABAJADOSCollection _funcionarios_dias_trabajados;
+		private FUNCIONARIOS_HIJOSCollection _funcionarios_hijos;
+		private FUNCIONARIOS_INFO_COMPLETACollection _funcionarios_info_completa;
+		private FUNCIONARIOS_LIQ_INFO_COMPCollection _funcionarios_liq_info_comp;
+		private FUNCIONARIOS_LIQUIDACIONESCollection _funcionarios_liquidaciones;
+		private FUNCIONARIOS_LIQUIDACIONES_DETCollection _funcionarios_liquidaciones_det;
+		private FUNCIONARIOS_MONTOS_COBRADOSCollection _funcionarios_montos_cobrados;
+		private FUNCIONARIOS_VACACIONESCollection _funcionarios_vacaciones;
+		private GASTOS_COBRANZASCollection _gastos_cobranzas;
+		private GASTOS_COBRANZAS_INFO_COMPLETACollection _gastos_cobranzas_info_completa;
+		private GEN_FC_CLIE_ART_INFO_COMPLCollection _gen_fc_clie_art_info_compl;
+		private GEN_FC_CLIE_PER_ARTCollection _gen_fc_clie_per_art;
+		private GEN_FC_CLIE_PER_ART_INFO_COMPCollection _gen_fc_clie_per_art_info_comp;
+		private GEN_FC_CLIE_PERS_INFO_COMPLCollection _gen_fc_clie_pers_info_compl;
+		private GEN_FC_CLIENTES_ARTICULOSCollection _gen_fc_clientes_articulos;
+		private GEN_FC_CLIENTES_PERSONASCollection _gen_fc_clientes_personas;
+		private GENER_FC_CLIENTE_INFO_COMPLETACollection _gener_fc_cliente_info_completa;
+		private GENERADOR_FC_CLIENTECollection _generador_fc_cliente;
+		private HISTORICO_PASSWORDCollection _historico_password;
+		private HORARIOSCollection _horarios;
+		private HORARIOS_COMPLETOSCollection _horarios_completos;
+		private HORARIOS_DIASCollection _horarios_dias;
+		private HORARIOS_FUNC_INFO_COMPLCollection _horarios_func_info_compl;
+		private HORARIOS_FUNCIONARIOSCollection _horarios_funcionarios;
+		private HORARIOS_TURNOSCollection _horarios_turnos;
+		private HORARIOSDIAS_INFO_COMPLCollection _horariosdias_info_compl;
+		private IDIOMASCollection _idiomas;
+		private IMPORT_INGRE_COSTOS_INFO_COMPLCollection _import_ingre_costos_info_compl;
+		private IMPORTACION_ARTICULOSCollection _importacion_articulos;
+		private IMPORTACION_ARTICULOS_PEDIDOSCollection _importacion_articulos_pedidos;
+		private IMPORTACION_INGRESO_COSTOSCollection _importacion_ingreso_costos;
+		private IMPORTACIONESCollection _importaciones;
+		private IMPORTACIONES_CONTEN_INFO_COMPCollection _importaciones_conten_info_comp;
+		private IMPORTACIONES_CONTENEDORESCollection _importaciones_contenedores;
+		private IMPORTACIONES_GASTOSCollection _importaciones_gastos;
+		private IMPORTACIONES_GASTOS_INFO_COMCollection _importaciones_gastos_info_com;
+		private IMPORTACIONES_INFO_COMPLETACollection _importaciones_info_completa;
+		private IMPORTACIONES_PROVE_INFO_COMPCollection _importaciones_prove_info_comp;
+		private IMPORTACIONES_PROVEEDORESCollection _importaciones_proveedores;
+		private IMPUESTOSCollection _impuestos;
+		private IMPUESTOS_COMPUESTOSCollection _impuestos_compuestos;
+		private IMPUESTOS_COMPUESTOS_INFO_COMPCollection _impuestos_compuestos_info_comp;
+		private IMPUESTOS_INFO_COMPLETACollection _impuestos_info_completa;
+		private INGRESO_INSUMOSCollection _ingreso_insumos;
+		private INGRESO_INSUMOS_DETALLESCollection _ingreso_insumos_detalles;
+		private INGRESO_STOCKCollection _ingreso_stock;
+		private INGRESO_STOCK_DET_INFO_COMPLCollection _ingreso_stock_det_info_compl;
+		private INGRESO_STOCK_DETALLESCollection _ingreso_stock_detalles;
+		private INGRESO_STOCK_INFO_COMPLETACollection _ingreso_stock_info_completa;
+		private INMUEBLESCollection _inmuebles;
+		private INMUEBLES_INFO_COMPLETACollection _inmuebles_info_completa;
+		private INSPECCIONES_OBSERVACIONESCollection _inspecciones_observaciones;
+		private INSUMOS_UTILIZADOSCollection _insumos_utilizados;
+		private INTERCAMBIO_EQUIPOSCollection _intercambio_equipos;
+		private ITEMS_INGR_DEP_DET_INFO_COMPLCollection _items_ingr_dep_det_info_compl;
+		private ITEMS_INGRESO_DEP_INFO_COMPLCollection _items_ingreso_dep_info_compl;
+		private ITEMS_INGRESO_DEPOSITOCollection _items_ingreso_deposito;
+		private ITEMS_INGRESO_DEPOSITO_DETCollection _items_ingreso_deposito_det;
+		private ITEMS_INGRESOSCollection _items_ingresos;
+		private ITEMS_INGRESOS_DET_INFO_COMPLECollection _items_ingresos_det_info_comple;
+		private ITEMS_INGRESOS_DETALLESCollection _items_ingresos_detalles;
+		private ITEMS_INGRESOS_INFO_COMPLETACollection _items_ingresos_info_completa;
+		private ITEMS_MARCASCollection _items_marcas;
+		private ITEMS_MODELOSCollection _items_modelos;
+		private ITEMS_SAL_DEP_DET_INFO_COMPLCollection _items_sal_dep_det_info_compl;
+		private ITEMS_SALIDA_DEP_INFO_COMPLETACollection _items_salida_dep_info_completa;
+		private ITEMS_SALIDA_DEPOSITOCollection _items_salida_deposito;
+		private ITEMS_SALIDA_DEPOSITO_DETALLESCollection _items_salida_deposito_detalles;
+		private LEGAJOCollection _legajo;
+		private LEGAJO_ENTRADASCollection _legajo_entradas;
+		private LEGAJO_FUNCIONARIOSCollection _legajo_funcionarios;
+		private LEGAJO_FUNCIONARIOS_INFO_COMPLCollection _legajo_funcionarios_info_compl;
+		private LEGAJO_INFO_COMPLETACollection _legajo_info_completa;
+		private LEGAJO_SUBENTRADASCollection _legajo_subentradas;
+		private LEGAJO_SUBENTS_INF_COMPLCollection _legajo_subents_inf_compl;
+		private LINEA_CREDITO_FACTURA_PENDCollection _linea_credito_factura_pend;
+		private LINEA_CREDITO_PEDIDO_PENDIENTECollection _linea_credito_pedido_pendiente;
+		private LINEASCollection _lineas;
+		private LINEAS_INFO_COMPLETACollection _lineas_info_completa;
+		private LINEAS_MOVIMIENTOSCollection _lineas_movimientos;
+		private LISTA_PRECIOSCollection _lista_precios;
+		private LISTA_PRECIOS_DET_INFO_COMPLCollection _lista_precios_det_info_compl;
+		private LISTA_PRECIOS_DETALLESCollection _lista_precios_detalles;
+		private LISTA_PRECIOS_HISTORICOCollection _lista_precios_historico;
+		private LISTA_PRECIOS_INFO_COMPLETACollection _lista_precios_info_completa;
+		private LISTA_PRECIOS_MODIF_DET_INF_CCollection _lista_precios_modif_det_inf_c;
+		private LISTA_PRECIOS_MODIF_INFO_COMPCollection _lista_precios_modif_info_comp;
+		private LISTA_PRECIOS_MODIFICARCollection _lista_precios_modificar;
+		private LISTA_PRECIOS_MODIFICAR_DETCollection _lista_precios_modificar_det;
+		private LISTADO_ARTICULOS_SIN_PRECIOCollection _listado_articulos_sin_precio;
+		private LOG_ACTIVIDADESCollection _log_actividades;
+		private LOG_CAMBIOSCollection _log_cambios;
+		private LOG_CAMPOSCollection _log_campos;
+		private LOG_SESIONESCollection _log_sesiones;
+		private MANIFIESTOSCollection _manifiestos;
+		private MANIFIESTOS_INFO_COMPLETACollection _manifiestos_info_completa;
+		private MANUALESCollection _manuales;
+		private MARCACIONESCollection _marcaciones;
+		private MARCACIONES_ENTRADAS_SALIDASCollection _marcaciones_entradas_salidas;
+		private MARCACIONES_INFO_COMPLCollection _marcaciones_info_compl;
+		private MENSAJES_SISTEMACollection _mensajes_sistema;
+		private MENSAJES_SISTEMA_INFO_COMPLCollection _mensajes_sistema_info_compl;
+		private MONEDASCollection _monedas;
+		private MONEDAS_DENOM_INFO_COMPLCollection _monedas_denom_info_compl;
+		private MONEDAS_DENOMINACIONESCollection _monedas_denominaciones;
+		private MOV_FONDO_FIJO_DET_CC_INFO_CCollection _mov_fondo_fijo_det_cc_info_c;
+		private MOV_FONDO_FIJO_DET_CENT_CCollection _mov_fondo_fijo_det_cent_c;
+		private MOV_FONDO_FIJO_DET_CTBCollection _mov_fondo_fijo_det_ctb;
+		private MOV_FONDO_FIJO_DET_CTB_INFO_CCollection _mov_fondo_fijo_det_ctb_info_c;
+		private MOV_VARIOS_TESO_DET_INFO_COMPLCollection _mov_varios_teso_det_info_compl;
+		private MOV_VARIOS_TESO_INFO_COMPLCollection _mov_varios_teso_info_compl;
+		private MOVIMIENTO_FONDO_FIJOCollection _movimiento_fondo_fijo;
+		private MOVIMIENTO_FONDO_FIJO_DETCollection _movimiento_fondo_fijo_det;
+		private MOVIMIENTO_FONDO_FIJO_DET_I_CCollection _movimiento_fondo_fijo_det_i_c;
+		private MOVIMIENTO_FONDO_FIJO_INFO_CCollection _movimiento_fondo_fijo_info_c;
+		private MOVIMIENTOS_VARIOS_TESOCollection _movimientos_varios_teso;
+		private MOVIMIENTOS_VARIOS_TESO_DETCollection _movimientos_varios_teso_det;
+		private MUELLESCollection _muelles;
+		private ND_PERSONA_DET_INFO_COMPLETACollection _nd_persona_det_info_completa;
+		private ND_PERSONA_INFO_COMPLETACollection _nd_persona_info_completa;
+		private ND_PROVEEDOR_DET_INFO_COMPLETACollection _nd_proveedor_det_info_completa;
+		private ND_PROVEEDOR_INFO_COMPLETACollection _nd_proveedor_info_completa;
+		private NOMINA_CONTENED_DET_INFO_COMPLCollection _nomina_contened_det_info_compl;
+		private NOMINA_CONTENEDORESCollection _nomina_contenedores;
+		private NOMINA_CONTENEDORES_DETALLESCollection _nomina_contenedores_detalles;
+		private NOMINA_CONTENEDORES_INFO_COMPLCollection _nomina_contenedores_info_compl;
+		private NOTA_CR_PROV_DET_CTB_INFO_CCollection _nota_cr_prov_det_ctb_info_c;
+		private NOTA_CREDITO_PROVEEDOR_DET_CTBCollection _nota_credito_proveedor_det_ctb;
+		private NOTA_DEBITO_PERSONACollection _nota_debito_persona;
+		private NOTA_DEBITO_PERSONA_DETALLECollection _nota_debito_persona_detalle;
+		private NOTA_DEBITO_PROVEEDORCollection _nota_debito_proveedor;
+		private NOTA_DEBITO_PROVEEDOR_DETALLECollection _nota_debito_proveedor_detalle;
+		private NOTAS_CRED_PER_DET_INF_COMPCollection _notas_cred_per_det_inf_comp;
+		private NOTAS_CRED_PRO_DET_INF_COMPCollection _notas_cred_pro_det_inf_comp;
+		private NOTAS_CRED_PROV_DET_C_C_INF_CCollection _notas_cred_prov_det_c_c_inf_c;
+		private NOTAS_CREDITO_PERSONA_INF_COMPCollection _notas_credito_persona_inf_comp;
+		private NOTAS_CREDITO_PERSONASCollection _notas_credito_personas;
+		private NOTAS_CREDITO_PERSONAS_DETCollection _notas_credito_personas_det;
+		private NOTAS_CREDITO_PROV_DET_CENT_CCollection _notas_credito_prov_det_cent_c;
+		private NOTAS_CREDITO_PROVEED_INF_COMPCollection _notas_credito_proveed_inf_comp;
+		private NOTAS_CREDITO_PROVEEDORESCollection _notas_credito_proveedores;
+		private NOTAS_CREDITO_PROVEEDORES_DETCollection _notas_credito_proveedores_det;
+		private NOTIFICACIONESCollection _notificaciones;
+		private NOTIFICACIONES_SUSCRIPCIONESCollection _notificaciones_suscripciones;
+		private NUMEROSCollection _numeros;
+		private OBJ_VEND_ART_DET_INFO_COMPLETACollection _obj_vend_art_det_info_completa;
+		private OBJ_VEND_ART_INFO_COMPLETACollection _obj_vend_art_info_completa;
+		private OBJ_VEND_ARTI_DETALLECollection _obj_vend_arti_detalle;
+		private OBJ_VEND_CLI_DET_INFO_COMPLETACollection _obj_vend_cli_det_info_completa;
+		private OBJ_VEND_CLI_INFO_COMPLETACollection _obj_vend_cli_info_completa;
+		private OBJ_VEND_CLIE_DETALLECollection _obj_vend_clie_detalle;
+		private OBJETIVO_VENDEDOR_ARTICULOCollection _objetivo_vendedor_articulo;
+		private OBJETIVO_VENDEDOR_CLIENTECollection _objetivo_vendedor_cliente;
+		private OBJETIVO_VENDEDOR_EXPLOTACIONCollection _objetivo_vendedor_explotacion;
+		private OBJETIVOS_COBRADORESCollection _objetivos_cobradores;
+		private OBJETIVOS_COBRADORES_INFO_COMPCollection _objetivos_cobradores_info_comp;
+		private OBJETIVOS_PROMOTORASCollection _objetivos_promotoras;
+		private OBJETIVOS_PROMOTORAS_INFO_COMPCollection _objetivos_promotoras_info_comp;
+		private OPERACIONESCollection _operaciones;
+		private OPERACIONES_INFO_COMPLETACollection _operaciones_info_completa;
+		private OPERACIONES_TIPOCollection _operaciones_tipo;
+		private ORDENES_COMPRACollection _ordenes_compra;
+		private ORDENES_COMPRA_DET_INFO_COMPLCollection _ordenes_compra_det_info_compl;
+		private ORDENES_COMPRA_DET_RELACIONESCollection _ordenes_compra_det_relaciones;
+		private ORDENES_COMPRA_DETALLESCollection _ordenes_compra_detalles;
+		private ORDENES_COMPRA_INFO_COMPLETACollection _ordenes_compra_info_completa;
+		private ORDENES_PAGOCollection _ordenes_pago;
+		private ORDENES_PAGO_DETCollection _ordenes_pago_det;
+		private ORDENES_PAGO_DET_INFO_COMPCollection _ordenes_pago_det_info_comp;
+		private ORDENES_PAGO_INFO_COMPLETACollection _ordenes_pago_info_completa;
+		private ORDENES_PAGO_TIPOCollection _ordenes_pago_tipo;
+		private ORDENES_PAGO_VALORESCollection _ordenes_pago_valores;
+		private ORDENES_PAGO_VALORES_INFO_COMPCollection _ordenes_pago_valores_info_comp;
+		private ORDENES_SERV_CAS_ASOC_INF_COMPCollection _ordenes_serv_cas_asoc_inf_comp;
+		private ORDENES_SERV_DET_CC_INF_CCollection _ordenes_serv_det_cc_inf_c;
+		private ORDENES_SERV_DET_INFO_COMPLCollection _ordenes_serv_det_info_compl;
+		private ORDENES_SERV_DET_RELACIONESCollection _ordenes_serv_det_relaciones;
+		private ORDENES_SERV_FUNC_INFO_COMPLCollection _ordenes_serv_func_info_compl;
+		private ORDENES_SERVICIOCollection _ordenes_servicio;
+		private ORDENES_SERVICIO_CASOS_ASOCCollection _ordenes_servicio_casos_asoc;
+		private ORDENES_SERVICIO_DET_CENT_COSCollection _ordenes_servicio_det_cent_cos;
+		private ORDENES_SERVICIO_DET_INSUMOSCollection _ordenes_servicio_det_insumos;
+		private ORDENES_SERVICIO_DETALLESCollection _ordenes_servicio_detalles;
+		private ORDENES_SERVICIO_FUNCIONARIOSCollection _ordenes_servicio_funcionarios;
+		private ORDENES_SERVICIO_INFO_COMPLETACollection _ordenes_servicio_info_completa;
+		private PAGO_CONTRAT_DET_CC_INFO_CCollection _pago_contrat_det_cc_info_c;
+		private PAGO_CONTRAT_DET_CTB_INFO_CCollection _pago_contrat_det_ctb_info_c;
+		private PAGO_CONTRATISTASCollection _pago_contratistas;
+		private PAGO_CONTRATISTAS_DET_CENT_CCollection _pago_contratistas_det_cent_c;
+		private PAGO_CONTRATISTAS_DET_CTBCollection _pago_contratistas_det_ctb;
+		private PAGO_CONTRATISTAS_DETALLESCollection _pago_contratistas_detalles;
+		private PAISESCollection _paises;
+		private PANEL_CONTROLCollection _panel_control;
+		private PANEL_CONTROL_USUARIOCollection _panel_control_usuario;
+		private PANEL_CONTROL_USUARIO_INF_CCollection _panel_control_usuario_inf_c;
+		private PEDIDOS_CLIENTECollection _pedidos_cliente;
+		private PEDIDOS_CLIENTE_DET_INFO_COMPLCollection _pedidos_cliente_det_info_compl;
+		private PEDIDOS_CLIENTE_DETALLECollection _pedidos_cliente_detalle;
+		private PEDIDOS_CLIENTE_DETALLE_ITEMSCollection _pedidos_cliente_detalle_items;
+		private PEDIDOS_CLIENTE_FC_RELACIONCollection _pedidos_cliente_fc_relacion;
+		private PEDIDOS_CLIENTE_INFO_COMPLCollection _pedidos_cliente_info_compl;
+		private PEDIDOS_PROV_DET_INFO_COMPLCollection _pedidos_prov_det_info_compl;
+		private PEDIDOS_PROVEEDORCollection _pedidos_proveedor;
+		private PEDIDOS_PROVEEDOR_DETALLECollection _pedidos_proveedor_detalle;
+		private PEDIDOS_PROVEEDOR_INFO_COMPLCollection _pedidos_proveedor_info_compl;
+		private PERFILESCollection _perfiles;
+		private PERFILES_ROLESCollection _perfiles_roles;
+		private PERFILES_ROLES_INFO_COMPLCollection _perfiles_roles_info_compl;
+		private PERMISOS_ACELERADORCollection _permisos_acelerador;
+		private PERMISOS_REPORTESCollection _permisos_reportes;
+		private PERMISOS_REPORTES_INFO_COMPLCollection _permisos_reportes_info_compl;
+		private PERMISOS_VISUALIZACION_FLUJOSCollection _permisos_visualizacion_flujos;
+		private PERS_JURID_REPRESENT_INFO_COMPCollection _pers_jurid_represent_info_comp;
+		private PERSONASCollection _personas;
+		private PERSONAS_BLOQUEOSCollection _personas_bloqueos;
+		private PERSONAS_BLOQUEOS_INFO_COMPCollection _personas_bloqueos_info_comp;
+		private PERSONAS_CALIFICACIONESCollection _personas_calificaciones;
+		private PERSONAS_CREDITOS_REQUISITOSCollection _personas_creditos_requisitos;
+		private PERSONAS_INFO_COMPLETACollection _personas_info_completa;
+		private PERSONAS_JURID_REPRESENTANTECollection _personas_jurid_representante;
+		private PERSONAS_LINEA_CREDITOCollection _personas_linea_credito;
+		private PERSONAS_LINEA_CREDITO_ACTIVACollection _personas_linea_credito_activa;
+		private PERSONAS_NIVELES_CREDITOCollection _personas_niveles_credito;
+		private PERSONAS_NIVELES_CREDITO_DETCollection _personas_niveles_credito_det;
+		private PERSONAS_NOMBRE_CONCATENADOCollection _personas_nombre_concatenado;
+		private PERSONAS_RELACIONESCollection _personas_relaciones;
+		private PLAN_TAREASCollection _plan_tareas;
+		private PLAN_TAREAS_INFO_COMPLCollection _plan_tareas_info_compl;
+		private PLANES_FACT_ETAPAS_DET_INFO_CCollection _planes_fact_etapas_det_info_c;
+		private PLANES_FACTURACIONCollection _planes_facturacion;
+		private PLANES_FACTURACION_ETAPASCollection _planes_facturacion_etapas;
+		private PLANES_FACTURACION_ETAPAS_DETCollection _planes_facturacion_etapas_det;
+		private PLANES_FACTURACION_INFO_COMPCollection _planes_facturacion_info_comp;
+		private PLANILLA_ASOC_FUNC_DET_INFO_CCollection _planilla_asoc_func_det_info_c;
+		private PLANILLA_ASOC_FUNC_INFO_COMPCollection _planilla_asoc_func_info_comp;
+		private PLANILLA_ASOC_FUNCIONARIOSCollection _planilla_asoc_funcionarios;
+		private PLANILLA_ASOC_FUNCIONARIOS_DETCollection _planilla_asoc_funcionarios_det;
+		private PLANILLA_COBR_DET_INF_COMPLCollection _planilla_cobr_det_inf_compl;
+		private PLANILLA_COBRANZACollection _planilla_cobranza;
+		private PLANILLA_COBRANZA_DETALLESCollection _planilla_cobranza_detalles;
+		private PLANILLA_COBRANZA_INFO_COMPLCollection _planilla_cobranza_info_compl;
+		private PLANILLA_COBRANZA_VALORESCollection _planilla_cobranza_valores;
+		private PLANILLA_LIQ_DET_INFO_COMPLCollection _planilla_liq_det_info_compl;
+		private PLANILLA_LIQ_INFO_COMPLCollection _planilla_liq_info_compl;
+		private PLANILLA_LIQUIDACIONESCollection _planilla_liquidaciones;
+		private PLANILLA_LIQUIDACIONES_DETCollection _planilla_liquidaciones_det;
+		private PLANILLA_P_COBRAN_INFO_COMPLCollection _planilla_p_cobran_info_compl;
+		private PLANILLA_PAGO_DET_INFO_COMPLCollection _planilla_pago_det_info_compl;
+		private PLANILLA_PAGOSCollection _planilla_pagos;
+		private PLANILLA_PAGOS_DETALLESCollection _planilla_pagos_detalles;
+		private PLANILLA_PAGOS_INFO_COMPLETACollection _planilla_pagos_info_completa;
+		private PLANILLA_PARA_COBRANZACollection _planilla_para_cobranza;
+		private PLANILLAS_LIQ_BONIFICACIONESCollection _planillas_liq_bonificaciones;
+		private PLANILLAS_LIQ_DESCUENTOSCollection _planillas_liq_descuentos;
+		private PLANTILLASCollection _plantillas;
+		private PLANTILLAS_DETALLESCollection _plantillas_detalles;
+		private PLANTILLAS_INFO_COMPLETACollection _plantillas_info_completa;
+		private PRE_EMB_CONTENEDOR_INFO_COMPCollection _pre_emb_contenedor_info_comp;
+		private PRE_EMBARQUECollection _pre_embarque;
+		private PRE_EMBARQUE_CONTENEDORCollection _pre_embarque_contenedor;
+		private PRE_EMBARQUE_DETALLECollection _pre_embarque_detalle;
+		private PRE_EMBARQUE_DETALLE_INFO_COMPCollection _pre_embarque_detalle_info_comp;
+		private PRE_EMBARQUE_INFO_COMPLETACollection _pre_embarque_info_completa;
+		private PRESENTACIONESCollection _presentaciones;
+		private PRESUPUESTOSCollection _presupuestos;
+		private PRESUPUESTOS_DET_CAS_INF_COMPCollection _presupuestos_det_cas_inf_comp;
+		private PRESUPUESTOS_DET_CASOSCollection _presupuestos_det_casos;
+		private PRESUPUESTOS_DET_INFO_COMPLETACollection _presupuestos_det_info_completa;
+		private PRESUPUESTOS_DETALLECollection _presupuestos_detalle;
+		private PRESUPUESTOS_ETAPASCollection _presupuestos_etapas;
+		private PRESUPUESTOS_ETAPAS_INFO_COMPLCollection _presupuestos_etapas_info_compl;
+		private PRESUPUESTOS_INFO_COMPLETACollection _presupuestos_info_completa;
+		private PROD_BALAN_DET_MATERIALESCollection _prod_balan_det_materiales;
+		private PROD_BALAN_DETALLESCollection _prod_balan_detalles;
+		private PROD_BALAN_SOBRANTESCollection _prod_balan_sobrantes;
+		private PRODUCCION_BALANCEADOSCollection _produccion_balanceados;
+		private PRODUCCION_BALANCEADOS_INF_COMPLCollection _produccion_balanceados_inf_compl;
+		private PROFESIONESCollection _profesiones;
+		private PROMOCIONES_PARAMETROSCollection _promociones_parametros;
+		private PROMOTORES_CLIENTESCollection _promotores_clientes;
+		private PROMOTORES_CLIENTES_INFO_COMPLCollection _promotores_clientes_info_compl;
+		private PROVEEDORESCollection _proveedores;
+		private PROVEEDORES_INFO_COMPLETACollection _proveedores_info_completa;
+		private PUERTAS_MOVIMIENTOSCollection _puertas_movimientos;
+		private PUERTAS_MOVIMIENTOS_INFO_COMPLCollection _puertas_movimientos_info_compl;
+		private PUERTOSCollection _puertos;
+		private RECALEN_MAS_CUOT_INFO_COMPLETACollection _recalen_mas_cuot_info_completa;
+		private RECALEN_MAS_DET_INFO_COMPLETACollection _recalen_mas_det_info_completa;
+		private RECALENDARIZACION_MAS_CUOTASCollection _recalendarizacion_mas_cuotas;
+		private RECALENDARIZACION_MAS_DETALLESCollection _recalendarizacion_mas_detalles;
+		private RECALENDARIZACION_MASIVACollection _recalendarizacion_masiva;
+		private RECORDATORIOSCollection _recordatorios;
+		private REDES_SOCIALESCollection _redes_sociales;
+		private REDES_SOCIALES_AUTHCollection _redes_sociales_auth;
+		private REFI_DEUDAS_DOC_INF_COMPCollection _refi_deudas_doc_inf_comp;
+		private REFI_DEUDAS_INFO_COMPCollection _refi_deudas_info_comp;
+		private REFINANCIACION_DEUDASCollection _refinanciacion_deudas;
+		private REFINANCIACION_DEUDAS_DOCCollection _refinanciacion_deudas_doc;
+		private REGIMEN_COMISIONESCollection _regimen_comisiones;
+		private REGIMEN_COMISIONES_INFO_COMPCollection _regimen_comisiones_info_comp;
+		private REGIONESCollection _regiones;
+		private REGLAS_LOGINCollection _reglas_login;
+		private REGLAS_LOGIN_INFO_COMPLETACollection _reglas_login_info_completa;
+		private REMISIONESCollection _remisiones;
+		private REMISIONES_DETALLESCollection _remisiones_detalles;
+		private REMISIONES_FC_RELACIONCollection _remisiones_fc_relacion;
+		private RENDICION_COBRADORCollection _rendicion_cobrador;
+		private RENDICION_COBRADOR_DET_INFO_CCollection _rendicion_cobrador_det_info_c;
+		private RENDICION_COBRADOR_DETALLECollection _rendicion_cobrador_detalle;
+		private RENDICION_COBRADOR_RECIBOSCollection _rendicion_cobrador_recibos;
+		private REPARTO_DETALLES_INFO_COMPLETACollection _reparto_detalles_info_completa;
+		private REPARTOSCollection _repartos;
+		private REPARTOS_DETALLECollection _repartos_detalle;
+		private REPARTOS_INFO_COMPLETACollection _repartos_info_completa;
+		private REPORTESCollection _reportes;
+		private REPORTES_CONTADORESCollection _reportes_contadores;
+		private REPORTES_PARAMETROSCollection _reportes_parametros;
+		private REQUISITOS_FLUJOCollection _requisitos_flujo;
+		private REQUISITOS_FLUJO_DETALLECollection _requisitos_flujo_detalle;
+		private RETENCION_ARTIC_INFO_COMPLCollection _retencion_artic_info_compl;
+		private RETENCION_ARTICULOSCollection _retencion_articulos;
+		private ROLESCollection _roles;
+		private RUBROSCollection _rubros;
+		private RUBROS_IVACollection _rubros_iva;
+		private SEGUIMIENTOS_AUTOMATICOSCollection _seguimientos_automaticos;
+		private SEGUIMIENTOS_DESTINATARIOSCollection _seguimientos_destinatarios;
+		private STOCK_AJUSTECollection _stock_ajuste;
+		private STOCK_AJUSTE_DET_INFO_COMPLETACollection _stock_ajuste_det_info_completa;
+		private STOCK_AJUSTE_DETALLECollection _stock_ajuste_detalle;
+		private STOCK_AJUSTE_INFO_COMPLETACollection _stock_ajuste_info_completa;
+		private STOCK_ART_RESERVA_EGREPRODMATCollection _stock_art_reserva_egreprodmat;
+		private STOCK_ART_RESERVA_EGRESO_PRODCollection _stock_art_reserva_egreso_prod;
+		private STOCK_ART_RESERVA_FACTURACollection _stock_art_reserva_factura;
+		private STOCK_ART_RESERVA_PEDIDOCollection _stock_art_reserva_pedido;
+		private STOCK_ART_RESERVA_POR_EGREPRODCollection _stock_art_reserva_por_egreprod;
+		private STOCK_ART_RESERVA_POR_EGRPROMACollection _stock_art_reserva_por_egrproma;
+		private STOCK_ART_RESERVA_POR_FACTURACollection _stock_art_reserva_por_factura;
+		private STOCK_ART_RESERVA_POR_PEDIDOCollection _stock_art_reserva_por_pedido;
+		private STOCK_ART_RESERVA_POR_PROBALMACollection _stock_art_reserva_por_probalma;
+		private STOCK_ART_RESERVA_POR_PRODBALACollection _stock_art_reserva_por_prodbala;
+		private STOCK_ART_RESERVA_POR_TRANSFERCollection _stock_art_reserva_por_transfer;
+		private STOCK_ART_RESERVA_PROD_BALANCollection _stock_art_reserva_prod_balan;
+		private STOCK_ART_RESERVA_PRODBALANMATCollection _stock_art_reserva_prodbalanmat;
+		private STOCK_ART_RESERVA_TRANSFERCollection _stock_art_reserva_transfer;
+		private STOCK_ARTICULOS_RESERVACollection _stock_articulos_reserva;
+		private STOCK_BOXCollection _stock_box;
+		private STOCK_CRITICOCollection _stock_critico;
+		private STOCK_CRITICO_INFO_COMPLCollection _stock_critico_info_compl;
+		private STOCK_CRITICO_POL_INFO_COMPLCollection _stock_critico_pol_info_compl;
+		private STOCK_CRITICO_POLITICASCollection _stock_critico_politicas;
+		private STOCK_DEPOSITOSCollection _stock_depositos;
+		private STOCK_DEPOSITOS_INFO_COMPLETACollection _stock_depositos_info_completa;
+		private STOCK_INVENT_DET_INFO_COMPLCollection _stock_invent_det_info_compl;
+		private STOCK_INVENTARIOCollection _stock_inventario;
+		private STOCK_INVENTARIO_DETALLECollection _stock_inventario_detalle;
+		private STOCK_INVENTARIO_INFO_COMPLCollection _stock_inventario_info_compl;
+		private STOCK_MOVIMIENTO_INFO_COMPLCollection _stock_movimiento_info_compl;
+		private STOCK_MOVIMIENTOSCollection _stock_movimientos;
+		private STOCK_SUC_DEP_ART_CANTIDADCollection _stock_suc_dep_art_cantidad;
+		private STOCK_SUC_DEPO_ART_INF_COMPCollection _stock_suc_depo_art_inf_comp;
+		private STOCK_SUC_DEPOSITO_ART_FECHACollection _stock_suc_deposito_art_fecha;
+		private STOCK_SUC_DEPOSITO_ARTICULOCollection _stock_suc_deposito_articulo;
+		private STOCK_TRANSF_BALANC_DET_INFO_COMPLCollection _stock_transf_balanc_det_info_compl;
+		private STOCK_TRANSF_BALANC_INFO_COMPLCollection _stock_transf_balanc_info_compl;
+		private STOCK_TRANSF_BALANC_PRECINTOSCollection _stock_transf_balanc_precintos;
+		private STOCK_TRANSF_DET_INFO_COMPLCollection _stock_transf_det_info_compl;
+		private STOCK_TRANSF_INFO_COMPLCollection _stock_transf_info_compl;
+		private STOCK_TRANSF_INSUMO_DET_INFO_COMPLCollection _stock_transf_insumo_det_info_compl;
+		private STOCK_TRANSF_INSUMO_INFO_COMPLCollection _stock_transf_insumo_info_compl;
+		private STOCK_TRANSFERENCIACollection _stock_transferencia;
+		private STOCK_TRANSFERENCIA_BALANC_DETCollection _stock_transferencia_balanc_det;
+		private STOCK_TRANSFERENCIA_BALANCEADOSCollection _stock_transferencia_balanceados;
+		private STOCK_TRANSFERENCIA_DETALLECollection _stock_transferencia_detalle;
+		private STOCK_TRANSFERENCIA_INSUMOSCollection _stock_transferencia_insumos;
+		private STOCK_TRANSFERENCIA_INSUMOS_DETCollection _stock_transferencia_insumos_det;
+		private STOCK_UBICACIONCollection _stock_ubicacion;
+		private STOCK_UBICACION_INFO_COMPLETACollection _stock_ubicacion_info_completa;
+		private SUCURSALESCollection _sucursales;
+		private SUCURSALES_INFO_COMPLETACollection _sucursales_info_completa;
+		private SUCURSALES_SECTORESCollection _sucursales_sectores;
+		private SUGERENCIASCollection _sugerencias;
+		private TABLASCollection _tablas;
+		private TAREASCollection _tareas;
+		private TAREAS_INFO_COMPLETACollection _tareas_info_completa;
+		private TAREAS_PERSONASCollection _tareas_personas;
+		private TAREAS_PROGRAMADASCollection _tareas_programadas;
+		private TAREAS_PROGRAMADAS_RESULTADOSCollection _tareas_programadas_resultados;
+		private TARIFARIOSCollection _tarifarios;
+		private TARIFARIOS_COLUMNASCollection _tarifarios_columnas;
+		private TARIFARIOS_COLUMNAS_INF_COMPCollection _tarifarios_columnas_inf_comp;
+		private TARIFARIOS_DATOSCollection _tarifarios_datos;
+		private TARIFARIOS_DATOS_INF_COMPCollection _tarifarios_datos_inf_comp;
+		private TARIFARIOS_GRUPOSCollection _tarifarios_grupos;
+		private TARIFARIOS_INFO_COMPLETACollection _tarifarios_info_completa;
+		private TEMPORADASCollection _temporadas;
+		private TEXTO_PREDEF_GRUPO_DET_INF_COMCollection _texto_predef_grupo_det_inf_com;
+		private TEXTO_PREDEF_GRUPOS_DETCollection _texto_predef_grupos_det;
+		private TEXTOS_PREDEFINIDOSCollection _textos_predefinidos;
+		private TEXTOS_PREDEFINIDOS_GRUPOSCollection _textos_predefinidos_grupos;
+		private TEXTOS_PREDEFINIDOS_INFO_COMPLCollection _textos_predefinidos_info_compl;
+		private TIPO_CLIENTE_RECALENDARIZACIONCollection _tipo_cliente_recalendarizacion;
+		private TIPOS_ACTIVOSCollection _tipos_activos;
+		private TIPOS_ADJUNTOCollection _tipos_adjunto;
+		private TIPOS_ALARMACollection _tipos_alarma;
+		private TIPOS_ARTICULO_FINANC_RANGOCollection _tipos_articulo_financ_rango;
+		private TIPOS_ARTICULO_FINANCIEROCollection _tipos_articulo_financiero;
+		private TIPOS_AUTONUMERACIONCollection _tipos_autonumeracion;
+		private TIPOS_CATALOGOSCollection _tipos_catalogos;
+		private TIPOS_CLIENTESCollection _tipos_clientes;
+		private TIPOS_CONTENEDORCollection _tipos_contenedor;
+		private TIPOS_CREDITOCollection _tipos_credito;
+		private TIPOS_CTACTE_BANCARIASCollection _tipos_ctacte_bancarias;
+		private TIPOS_DETALLES_PERSONALIZADOSCollection _tipos_detalles_personalizados;
+		private TIPOS_DOCUMENTO_IDENTIDADCollection _tipos_documento_identidad;
+		private TIPOS_EMBARQUECollection _tipos_embarque;
+		private TIPOS_ENTRADA_LEGAJOCollection _tipos_entrada_legajo;
+		private TIPOS_ESCALA_PREMIOSCollection _tipos_escala_premios;
+		private TIPOS_EVENTO_CALENDARIOCollection _tipos_evento_calendario;
+		private TIPOS_FACTURA_PROVEEDORCollection _tipos_factura_proveedor;
+		private TIPOS_IMPUESTOSCollection _tipos_impuestos;
+		private TIPOS_ITEM_ENCUESTACollection _tipos_item_encuesta;
+		private TIPOS_NOTAS_CREDITOCollection _tipos_notas_credito;
+		private TIPOS_PANEL_CONTROLCollection _tipos_panel_control;
+		private TIPOS_PLANTILLASCollection _tipos_plantillas;
+		private TIPOS_RELACIONES_PERSONASCollection _tipos_relaciones_personas;
+		private TIPOS_REPORTECollection _tipos_reporte;
+		private TIPOS_REQUISITO_FLUJOCollection _tipos_requisito_flujo;
+		private TIPOS_RETENCIONESCollection _tipos_retenciones;
+		private TIPOS_TAREACollection _tipos_tarea;
+		private TIPOS_TEXTOS_PREDEFINIDOSCollection _tipos_textos_predefinidos;
+		private TIPOS_VEHICULOCollection _tipos_vehiculo;
+		private TMP_ARCHIVOS_IMPORTARCollection _tmp_archivos_importar;
+		private TMP_ARTICULOCollection _tmp_articulo;
+		private TMP_FACTURA_PROVEEDORCollection _tmp_factura_proveedor;
+		private TMP_FACTURA_PROVEEDOR_PRUEBACollection _tmp_factura_proveedor_prueba;
+		private TMP_PROVEEDORESCollection _tmp_proveedores;
+		private TRAMIT_CAMP_ETAP_VAL_INF_COMPCollection _tramit_camp_etap_val_inf_comp;
+		private TRAMIT_FUNCION_ASIG_INF_COMPCollection _tramit_funcion_asig_inf_comp;
+		private TRAMIT_MEDIDAS_CAUT_INF_COMPCollection _tramit_medidas_caut_inf_comp;
+		private TRAMIT_TIP_CAMP_ETAP_INF_COMPCollection _tramit_tip_camp_etap_inf_comp;
+		private TRAMIT_TIP_EST_TRANS_INF_COMPCollection _tramit_tip_est_trans_inf_comp;
+		private TRAMIT_TIP_ET_DEST_INF_COMPCollection _tramit_tip_et_dest_inf_comp;
+		private TRAMITESCollection _tramites;
+		private TRAMITES_ACTIVIDADESCollection _tramites_actividades;
+		private TRAMITES_ACTIVIDADES_DETALLESCollection _tramites_actividades_detalles;
+		private TRAMITES_CAMPOS_ETAPAS_VALORESCollection _tramites_campos_etapas_valores;
+		private TRAMITES_CAS_ASOC_INF_COMPCollection _tramites_cas_asoc_inf_comp;
+		private TRAMITES_CASOS_ASOCIADOSCollection _tramites_casos_asociados;
+		private TRAMITES_FUNCIONARIOS_ASIGNADCollection _tramites_funcionarios_asignad;
+		private TRAMITES_INFO_COMPLETACollection _tramites_info_completa;
+		private TRAMITES_MEDIDAS_CAUTELARESCollection _tramites_medidas_cautelares;
+		private TRAMITES_PROF_RECUSADOSCollection _tramites_prof_recusados;
+		private TRAMITES_TIPOSCollection _tramites_tipos;
+		private TRAMITES_TIPOS_CAMPOS_ETAPASCollection _tramites_tipos_campos_etapas;
+		private TRAMITES_TIPOS_EST_TRANSICIONCollection _tramites_tipos_est_transicion;
+		private TRAMITES_TIPOS_ESTAD_INF_COMPLCollection _tramites_tipos_estad_inf_compl;
+		private TRAMITES_TIPOS_ESTADOSCollection _tramites_tipos_estados;
+		private TRAMITES_TIPOS_ETAP_INF_COMPLCollection _tramites_tipos_etap_inf_compl;
+		private TRAMITES_TIPOS_ETAPASCollection _tramites_tipos_etapas;
+		private TRAMITES_TIPOS_ETAPAS_DESTINOCollection _tramites_tipos_etapas_destino;
+		private TRAN_CTACTE_PERS_DET_INF_COMPLCollection _tran_ctacte_pers_det_inf_compl;
+		private TRANSACCIONESCollection _transacciones;
+		private TRANSACCIONES_CIERRESCollection _transacciones_cierres;
+		private TRANSACCIONES_CIERRES_CASOSCollection _transacciones_cierres_casos;
+		private TRANSF_CAJ_SUC_DET_INF_CCollection _transf_caj_suc_det_inf_c;
+		private TRANSF_CTACTE_PERS_INFO_COMPLCollection _transf_ctacte_pers_info_compl;
+		private TRANSF_CTACTE_PERSONA_DETCollection _transf_ctacte_persona_det;
+		private TRANSF_TESO_DET_INFO_COMPLCollection _transf_teso_det_info_compl;
+		private TRANSFERENCIA_CAJAS_SUC_DETCollection _transferencia_cajas_suc_det;
+		private TRANSFERENCIA_CAJAS_SUC_INF_CCollection _transferencia_cajas_suc_inf_c;
+		private TRANSFERENCIA_CAJAS_SUCURSALCollection _transferencia_cajas_sucursal;
+		private TRANSFERENCIA_CTACTE_PERSONACollection _transferencia_ctacte_persona;
+		private TRANSFERENCIAS_BANCARIASCollection _transferencias_bancarias;
+		private TRANSFERENCIAS_BANCARIAS_INF_CCollection _transferencias_bancarias_inf_c;
+		private TRANSFERENCIAS_TESO_INFO_COMPLCollection _transferencias_teso_info_compl;
+		private TRANSFERENCIAS_TESORERIACollection _transferencias_tesoreria;
+		private TRANSFERENCIAS_TESORERIAS_DETCollection _transferencias_tesorerias_det;
+		private TRANSICIONESCollection _transiciones;
+		private TRANSICIONES_ACELERADORCollection _transiciones_acelerador;
+		private TRANSICIONES_TIPOCollection _transiciones_tipo;
+		private TRATAMIENTOSCollection _tratamientos;
+		private UNIDADES_MEDIDACollection _unidades_medida;
+		private USO_DE_INSUMOSCollection _uso_de_insumos;
+		private USO_DE_INSUMOS_DET_CC_INFO_CCollection _uso_de_insumos_det_cc_info_c;
+		private USO_DE_INSUMOS_DET_CENT_CCollection _uso_de_insumos_det_cent_c;
+		private USO_DE_INSUMOS_DET_CTBCollection _uso_de_insumos_det_ctb;
+		private USO_DE_INSUMOS_DET_CTB_INFO_CCollection _uso_de_insumos_det_ctb_info_c;
+		private USO_DE_INSUMOS_DET_INFO_COMPLCollection _uso_de_insumos_det_info_compl;
+		private USO_DE_INSUMOS_DETALLECollection _uso_de_insumos_detalle;
+		private USO_DE_INSUMOS_INFO_COMPLETACollection _uso_de_insumos_info_completa;
+		private USUARIO_DEPOSITO_INFO_COMPLETACollection _usuario_deposito_info_completa;
+		private USUARIOSCollection _usuarios;
+		private USUARIOS_DEPOSITOSCollection _usuarios_depositos;
+		private USUARIOS_DETALLECollection _usuarios_detalle;
+		private USUARIOS_PASSWORDCollection _usuarios_password;
+		private USUARIOS_PERFILESCollection _usuarios_perfiles;
+		private USUARIOS_PERFILES_INFO_COMPCollection _usuarios_perfiles_info_comp;
+		private USUARIOS_ROLESCollection _usuarios_roles;
+		private USUARIOS_ROLES_INFO_COMPLETACollection _usuarios_roles_info_completa;
+		private USUARIOS_SUCURSALESCollection _usuarios_sucursales;
+		private USUARIOS_SUCURSALES_INF_COMPCollection _usuarios_sucursales_inf_comp;
+		private VARIABLES_SIS_ENT_INFO_COMPLCollection _variables_sis_ent_info_compl;
+		private VARIABLES_SISTEMACollection _variables_sistema;
+		private VARIABLES_SISTEMA_ENTIDADCollection _variables_sistema_entidad;
+		private VEHICULOSCollection _vehiculos;
+		private VEHICULOS_INFO_COMPLETACollection _vehiculos_info_completa;
+		private VENDEDOR_CLIENTE_FAM_INFO_COMPCollection _vendedor_cliente_fam_info_comp;
+		private VENDEDOR_CLIENTE_FAMILIACollection _vendedor_cliente_familia;
+		private WEBSERVICESCollection _webservices;
+		private WEBSERVICES_PARAMETROSCollection _webservices_parametros;
+		private ZONASCollection _zonas;
+		private ZONAS_FUNCIONARIOSCollection _zonas_funcionarios;
+		private ZONAS_FUNCIONARIOS_INFO_COMPCollection _zonas_funcionarios_info_comp;
+		private ZONAS_INFO_COMPLETACollection _zonas_info_completa;
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CBAV2_Base"/> 
+		/// class and opens the database connection.
+		/// </summary>
+		protected CBAV2_Base() : this(true)
+		{
+			// EMPTY
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CBAV2_Base"/> class.
+		/// </summary>
+		/// <param name="init">Specifies whether the constructor calls the
+		/// <see cref="InitConnection"/> method to initialize the database connection.</param>
+		protected CBAV2_Base(bool init)
+		{
+			if(init)
+				InitConnection();
+		}
+
+		/// <summary>
+		/// Initializes the database connection.
+		/// </summary>
+		protected void InitConnection()
+		{
+			_connection = CreateConnection();
+			_connection.Open();
+		}
+
+		/// <summary>
+		/// Creates a new connection to the database.
+		/// </summary>
+		/// <returns>A reference to the <see cref="System.Data.IDbConnection"/> object.</returns>
+		protected abstract IDbConnection CreateConnection();
+
+		/// <summary>
+		/// Returns a SQL statement parameter name that is specific for the data provider.
+		/// For example it returns ? for OleDb provider, or @paramName for MS SQL provider.
+		/// </summary>
+		/// <param name="paramName">The data provider neutral SQL parameter name.</param>
+		/// <returns>The SQL statement parameter name.</returns>
+		protected internal abstract string CreateSqlParameterName(string paramName);
+
+		/// <summary>
+		/// Creates <see cref="System.Data.IDataReader"/> for the specified DB command.
+		/// </summary>
+		/// <param name="command">The <see cref="System.Data.IDbCommand"/> object.</param>
+		/// <returns>A reference to the <see cref="System.Data.IDataReader"/> object.</returns>
+		protected internal virtual IDataReader ExecuteReader(IDbCommand command)
+		{
+			return command.ExecuteReader();
+		}
+
+		/// <summary>
+		/// Adds a new parameter to the specified command. It is not recommended that 
+		/// you use this method directly from your custom code. Instead use the 
+		/// <c>AddParameter</c> method of the &lt;TableCodeName&gt;Collection_Base classes.
+		/// </summary>
+		/// <param name="cmd">The <see cref="System.Data.IDbCommand"/> object to add the parameter to.</param>
+		/// <param name="paramName">The name of the parameter.</param>
+		/// <param name="dbType">One of the <see cref="System.Data.DbType"/> values. </param>
+		/// <param name="value">The value of the parameter.</param>
+		/// <returns>A reference to the added parameter.</returns>
+		internal IDbDataParameter AddParameter(IDbCommand cmd, string paramName,
+												DbType dbType, object value)
+		{
+			IDbDataParameter parameter = cmd.CreateParameter();
+			parameter.ParameterName = CreateCollectionParameterName(paramName);
+			parameter.DbType = dbType;
+			parameter.Value = null == value ? DBNull.Value : value;
+			cmd.Parameters.Add(parameter);
+			return parameter;
+		}
+		
+		/// <summary>
+		/// Creates a .Net data provider specific name that is used by the 
+		/// <see cref="AddParameter"/> method.
+		/// </summary>
+		/// <param name="baseParamName">The base name of the parameter.</param>
+		/// <returns>The full data provider specific parameter name.</returns>
+		protected abstract string CreateCollectionParameterName(string baseParamName);
+
+		/// <summary>
+		/// Gets <see cref="System.Data.IDbConnection"/> associated with this object.
+		/// </summary>
+		/// <value>A reference to the <see cref="System.Data.IDbConnection"/> object.</value>
+		public IDbConnection Connection
+		{
+			get { return _connection; }
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ABOGADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ABOGADOSCollection"/> object.</value>
+		public ABOGADOSCollection ABOGADOSCollection
+		{
+			get
+			{
+				if(null == _abogados)
+					_abogados = new ABOGADOSCollection((CBAV2)this);
+				return _abogados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ABOGADOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ABOGADOS_DETCollection"/> object.</value>
+		public ABOGADOS_DETCollection ABOGADOS_DETCollection
+		{
+			get
+			{
+				if(null == _abogados_det)
+					_abogados_det = new ABOGADOS_DETCollection((CBAV2)this);
+				return _abogados_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ACTIVOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ACTIVOSCollection"/> object.</value>
+		public ACTIVOSCollection ACTIVOSCollection
+		{
+			get
+			{
+				if(null == _activos)
+					_activos = new ACTIVOSCollection((CBAV2)this);
+				return _activos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ACTIVOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ACTIVOS_INFO_COMPLETACollection"/> object.</value>
+		public ACTIVOS_INFO_COMPLETACollection ACTIVOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _activos_info_completa)
+					_activos_info_completa = new ACTIVOS_INFO_COMPLETACollection((CBAV2)this);
+				return _activos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ACTIVOS_MOV_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ACTIVOS_MOV_INFO_COMPLETACollection"/> object.</value>
+		public ACTIVOS_MOV_INFO_COMPLETACollection ACTIVOS_MOV_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _activos_mov_info_completa)
+					_activos_mov_info_completa = new ACTIVOS_MOV_INFO_COMPLETACollection((CBAV2)this);
+				return _activos_mov_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ACTIVOS_MOVIMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ACTIVOS_MOVIMIENTOSCollection"/> object.</value>
+		public ACTIVOS_MOVIMIENTOSCollection ACTIVOS_MOVIMIENTOSCollection
+		{
+			get
+			{
+				if(null == _activos_movimientos)
+					_activos_movimientos = new ACTIVOS_MOVIMIENTOSCollection((CBAV2)this);
+				return _activos_movimientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ACTIVOS_RUBROS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ACTIVOS_RUBROSCollection"/> object.</value>
+		public ACTIVOS_RUBROSCollection ACTIVOS_RUBROSCollection
+		{
+			get
+			{
+				if(null == _activos_rubros)
+					_activos_rubros = new ACTIVOS_RUBROSCollection((CBAV2)this);
+				return _activos_rubros;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ADENDAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ADENDASCollection"/> object.</value>
+		public ADENDASCollection ADENDASCollection
+		{
+			get
+			{
+				if(null == _adendas)
+					_adendas = new ADENDASCollection((CBAV2)this);
+				return _adendas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ADENDAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ADENDAS_INFO_COMPLETACollection"/> object.</value>
+		public ADENDAS_INFO_COMPLETACollection ADENDAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _adendas_info_completa)
+					_adendas_info_completa = new ADENDAS_INFO_COMPLETACollection((CBAV2)this);
+				return _adendas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ADJUNTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ADJUNTOSCollection"/> object.</value>
+		public ADJUNTOSCollection ADJUNTOSCollection
+		{
+			get
+			{
+				if(null == _adjuntos)
+					_adjuntos = new ADJUNTOSCollection((CBAV2)this);
+				return _adjuntos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>AGENCIAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="AGENCIASCollection"/> object.</value>
+		public AGENCIASCollection AGENCIASCollection
+		{
+			get
+			{
+				if(null == _agencias)
+					_agencias = new AGENCIASCollection((CBAV2)this);
+				return _agencias;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>AGRUPAMIENTO_FLUJOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="AGRUPAMIENTO_FLUJOSCollection"/> object.</value>
+		public AGRUPAMIENTO_FLUJOSCollection AGRUPAMIENTO_FLUJOSCollection
+		{
+			get
+			{
+				if(null == _agrupamiento_flujos)
+					_agrupamiento_flujos = new AGRUPAMIENTO_FLUJOSCollection((CBAV2)this);
+				return _agrupamiento_flujos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>AJUSTES_BANC_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="AJUSTES_BANC_DET_INFO_COMPLCollection"/> object.</value>
+		public AJUSTES_BANC_DET_INFO_COMPLCollection AJUSTES_BANC_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ajustes_banc_det_info_compl)
+					_ajustes_banc_det_info_compl = new AJUSTES_BANC_DET_INFO_COMPLCollection((CBAV2)this);
+				return _ajustes_banc_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>AJUSTES_BANCARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="AJUSTES_BANCARIOSCollection"/> object.</value>
+		public AJUSTES_BANCARIOSCollection AJUSTES_BANCARIOSCollection
+		{
+			get
+			{
+				if(null == _ajustes_bancarios)
+					_ajustes_bancarios = new AJUSTES_BANCARIOSCollection((CBAV2)this);
+				return _ajustes_bancarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>AJUSTES_BANCARIOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="AJUSTES_BANCARIOS_DETCollection"/> object.</value>
+		public AJUSTES_BANCARIOS_DETCollection AJUSTES_BANCARIOS_DETCollection
+		{
+			get
+			{
+				if(null == _ajustes_bancarios_det)
+					_ajustes_bancarios_det = new AJUSTES_BANCARIOS_DETCollection((CBAV2)this);
+				return _ajustes_bancarios_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>AJUSTES_BANCARIOS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="AJUSTES_BANCARIOS_INFO_COMPLCollection"/> object.</value>
+		public AJUSTES_BANCARIOS_INFO_COMPLCollection AJUSTES_BANCARIOS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ajustes_bancarios_info_compl)
+					_ajustes_bancarios_info_compl = new AJUSTES_BANCARIOS_INFO_COMPLCollection((CBAV2)this);
+				return _ajustes_bancarios_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ALARMAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ALARMASCollection"/> object.</value>
+		public ALARMASCollection ALARMASCollection
+		{
+			get
+			{
+				if(null == _alarmas)
+					_alarmas = new ALARMASCollection((CBAV2)this);
+				return _alarmas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ALARMAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ALARMAS_INFO_COMPLETACollection"/> object.</value>
+		public ALARMAS_INFO_COMPLETACollection ALARMAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _alarmas_info_completa)
+					_alarmas_info_completa = new ALARMAS_INFO_COMPLETACollection((CBAV2)this);
+				return _alarmas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ANTICIPOS_FACT_PROV_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ANTICIPOS_FACT_PROV_INFO_COMPCollection"/> object.</value>
+		public ANTICIPOS_FACT_PROV_INFO_COMPCollection ANTICIPOS_FACT_PROV_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _anticipos_fact_prov_info_comp)
+					_anticipos_fact_prov_info_comp = new ANTICIPOS_FACT_PROV_INFO_COMPCollection((CBAV2)this);
+				return _anticipos_fact_prov_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ANTICIPOS_FACTURAS_PROVEEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ANTICIPOS_FACTURAS_PROVEEDORCollection"/> object.</value>
+		public ANTICIPOS_FACTURAS_PROVEEDORCollection ANTICIPOS_FACTURAS_PROVEEDORCollection
+		{
+			get
+			{
+				if(null == _anticipos_facturas_proveedor)
+					_anticipos_facturas_proveedor = new ANTICIPOS_FACTURAS_PROVEEDORCollection((CBAV2)this);
+				return _anticipos_facturas_proveedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ANTICIPOS_PERS_DET_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ANTICIPOS_PERS_DET_INFO_COMPCollection"/> object.</value>
+		public ANTICIPOS_PERS_DET_INFO_COMPCollection ANTICIPOS_PERS_DET_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _anticipos_pers_det_info_comp)
+					_anticipos_pers_det_info_comp = new ANTICIPOS_PERS_DET_INFO_COMPCollection((CBAV2)this);
+				return _anticipos_pers_det_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ANTICIPOS_PERSONA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ANTICIPOS_PERSONACollection"/> object.</value>
+		public ANTICIPOS_PERSONACollection ANTICIPOS_PERSONACollection
+		{
+			get
+			{
+				if(null == _anticipos_persona)
+					_anticipos_persona = new ANTICIPOS_PERSONACollection((CBAV2)this);
+				return _anticipos_persona;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ANTICIPOS_PERSONA_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ANTICIPOS_PERSONA_DETCollection"/> object.</value>
+		public ANTICIPOS_PERSONA_DETCollection ANTICIPOS_PERSONA_DETCollection
+		{
+			get
+			{
+				if(null == _anticipos_persona_det)
+					_anticipos_persona_det = new ANTICIPOS_PERSONA_DETCollection((CBAV2)this);
+				return _anticipos_persona_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ANTICIPOS_PERSONA_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ANTICIPOS_PERSONA_INFO_COMPCollection"/> object.</value>
+		public ANTICIPOS_PERSONA_INFO_COMPCollection ANTICIPOS_PERSONA_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _anticipos_persona_info_comp)
+					_anticipos_persona_info_comp = new ANTICIPOS_PERSONA_INFO_COMPCollection((CBAV2)this);
+				return _anticipos_persona_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ANTICIPOS_PROVEED_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ANTICIPOS_PROVEED_INFO_COMPLCollection"/> object.</value>
+		public ANTICIPOS_PROVEED_INFO_COMPLCollection ANTICIPOS_PROVEED_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _anticipos_proveed_info_compl)
+					_anticipos_proveed_info_compl = new ANTICIPOS_PROVEED_INFO_COMPLCollection((CBAV2)this);
+				return _anticipos_proveed_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ANTICIPOS_PROVEEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ANTICIPOS_PROVEEDORCollection"/> object.</value>
+		public ANTICIPOS_PROVEEDORCollection ANTICIPOS_PROVEEDORCollection
+		{
+			get
+			{
+				if(null == _anticipos_proveedor)
+					_anticipos_proveedor = new ANTICIPOS_PROVEEDORCollection((CBAV2)this);
+				return _anticipos_proveedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>APLICACION_DOCUMEN_DOC_INFO_CO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="APLICACION_DOCUMEN_DOC_INFO_COCollection"/> object.</value>
+		public APLICACION_DOCUMEN_DOC_INFO_COCollection APLICACION_DOCUMEN_DOC_INFO_COCollection
+		{
+			get
+			{
+				if(null == _aplicacion_documen_doc_info_co)
+					_aplicacion_documen_doc_info_co = new APLICACION_DOCUMEN_DOC_INFO_COCollection((CBAV2)this);
+				return _aplicacion_documen_doc_info_co;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>APLICACION_DOCUMEN_DOC_RECARGO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="APLICACION_DOCUMEN_DOC_RECARGOCollection"/> object.</value>
+		public APLICACION_DOCUMEN_DOC_RECARGOCollection APLICACION_DOCUMEN_DOC_RECARGOCollection
+		{
+			get
+			{
+				if(null == _aplicacion_documen_doc_recargo)
+					_aplicacion_documen_doc_recargo = new APLICACION_DOCUMEN_DOC_RECARGOCollection((CBAV2)this);
+				return _aplicacion_documen_doc_recargo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>APLICACION_DOCUMEN_VAL_INFO_CO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="APLICACION_DOCUMEN_VAL_INFO_COCollection"/> object.</value>
+		public APLICACION_DOCUMEN_VAL_INFO_COCollection APLICACION_DOCUMEN_VAL_INFO_COCollection
+		{
+			get
+			{
+				if(null == _aplicacion_documen_val_info_co)
+					_aplicacion_documen_val_info_co = new APLICACION_DOCUMEN_VAL_INFO_COCollection((CBAV2)this);
+				return _aplicacion_documen_val_info_co;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>APLICACION_DOCUMENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="APLICACION_DOCUMENTOSCollection"/> object.</value>
+		public APLICACION_DOCUMENTOSCollection APLICACION_DOCUMENTOSCollection
+		{
+			get
+			{
+				if(null == _aplicacion_documentos)
+					_aplicacion_documentos = new APLICACION_DOCUMENTOSCollection((CBAV2)this);
+				return _aplicacion_documentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>APLICACION_DOCUMENTOS_DOC</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="APLICACION_DOCUMENTOS_DOCCollection"/> object.</value>
+		public APLICACION_DOCUMENTOS_DOCCollection APLICACION_DOCUMENTOS_DOCCollection
+		{
+			get
+			{
+				if(null == _aplicacion_documentos_doc)
+					_aplicacion_documentos_doc = new APLICACION_DOCUMENTOS_DOCCollection((CBAV2)this);
+				return _aplicacion_documentos_doc;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>APLICACION_DOCUMENTOS_INFO_COM</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="APLICACION_DOCUMENTOS_INFO_COMCollection"/> object.</value>
+		public APLICACION_DOCUMENTOS_INFO_COMCollection APLICACION_DOCUMENTOS_INFO_COMCollection
+		{
+			get
+			{
+				if(null == _aplicacion_documentos_info_com)
+					_aplicacion_documentos_info_com = new APLICACION_DOCUMENTOS_INFO_COMCollection((CBAV2)this);
+				return _aplicacion_documentos_info_com;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>APLICACION_DOCUMENTOS_VAL</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="APLICACION_DOCUMENTOS_VALCollection"/> object.</value>
+		public APLICACION_DOCUMENTOS_VALCollection APLICACION_DOCUMENTOS_VALCollection
+		{
+			get
+			{
+				if(null == _aplicacion_documentos_val)
+					_aplicacion_documentos_val = new APLICACION_DOCUMENTOS_VALCollection((CBAV2)this);
+				return _aplicacion_documentos_val;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARMADORES_FLUV_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARMADORES_FLUV_INFO_COMPLETACollection"/> object.</value>
+		public ARMADORES_FLUV_INFO_COMPLETACollection ARMADORES_FLUV_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _armadores_fluv_info_completa)
+					_armadores_fluv_info_completa = new ARMADORES_FLUV_INFO_COMPLETACollection((CBAV2)this);
+				return _armadores_fluv_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARMADORES_FLUVIALES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARMADORES_FLUVIALESCollection"/> object.</value>
+		public ARMADORES_FLUVIALESCollection ARMADORES_FLUVIALESCollection
+		{
+			get
+			{
+				if(null == _armadores_fluviales)
+					_armadores_fluviales = new ARMADORES_FLUVIALESCollection((CBAV2)this);
+				return _armadores_fluviales;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ART_COMBOS_STOCK_DET_INF_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ART_COMBOS_STOCK_DET_INF_COMPLCollection"/> object.</value>
+		public ART_COMBOS_STOCK_DET_INF_COMPLCollection ART_COMBOS_STOCK_DET_INF_COMPLCollection
+		{
+			get
+			{
+				if(null == _art_combos_stock_det_inf_compl)
+					_art_combos_stock_det_inf_compl = new ART_COMBOS_STOCK_DET_INF_COMPLCollection((CBAV2)this);
+				return _art_combos_stock_det_inf_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ART_CONVERSION_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ART_CONVERSION_INFO_COMPLCollection"/> object.</value>
+		public ART_CONVERSION_INFO_COMPLCollection ART_CONVERSION_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _art_conversion_info_compl)
+					_art_conversion_info_compl = new ART_CONVERSION_INFO_COMPLCollection((CBAV2)this);
+				return _art_conversion_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ART_POR_TEMP_DET_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ART_POR_TEMP_DET_INF_COMPCollection"/> object.</value>
+		public ART_POR_TEMP_DET_INF_COMPCollection ART_POR_TEMP_DET_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _art_por_temp_det_inf_comp)
+					_art_por_temp_det_inf_comp = new ART_POR_TEMP_DET_INF_COMPCollection((CBAV2)this);
+				return _art_por_temp_det_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ART_PRECIOS_HIST_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ART_PRECIOS_HIST_INFO_COMPLCollection"/> object.</value>
+		public ART_PRECIOS_HIST_INFO_COMPLCollection ART_PRECIOS_HIST_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _art_precios_hist_info_compl)
+					_art_precios_hist_info_compl = new ART_PRECIOS_HIST_INFO_COMPLCollection((CBAV2)this);
+				return _art_precios_hist_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ART_PROV_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ART_PROV_INFO_COMPLETACollection"/> object.</value>
+		public ART_PROV_INFO_COMPLETACollection ART_PROV_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _art_prov_info_completa)
+					_art_prov_info_completa = new ART_PROV_INFO_COMPLETACollection((CBAV2)this);
+				return _art_prov_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOSCollection"/> object.</value>
+		public ARTICULOSCollection ARTICULOSCollection
+		{
+			get
+			{
+				if(null == _articulos)
+					_articulos = new ARTICULOSCollection((CBAV2)this);
+				return _articulos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COLORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COLORESCollection"/> object.</value>
+		public ARTICULOS_COLORESCollection ARTICULOS_COLORESCollection
+		{
+			get
+			{
+				if(null == _articulos_colores)
+					_articulos_colores = new ARTICULOS_COLORESCollection((CBAV2)this);
+				return _articulos_colores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COMBOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COMBOSCollection"/> object.</value>
+		public ARTICULOS_COMBOSCollection ARTICULOS_COMBOSCollection
+		{
+			get
+			{
+				if(null == _articulos_combos)
+					_articulos_combos = new ARTICULOS_COMBOSCollection((CBAV2)this);
+				return _articulos_combos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COMBOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COMBOS_DETCollection"/> object.</value>
+		public ARTICULOS_COMBOS_DETCollection ARTICULOS_COMBOS_DETCollection
+		{
+			get
+			{
+				if(null == _articulos_combos_det)
+					_articulos_combos_det = new ARTICULOS_COMBOS_DETCollection((CBAV2)this);
+				return _articulos_combos_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COMBOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COMBOS_INFO_COMPLETACollection"/> object.</value>
+		public ARTICULOS_COMBOS_INFO_COMPLETACollection ARTICULOS_COMBOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _articulos_combos_info_completa)
+					_articulos_combos_info_completa = new ARTICULOS_COMBOS_INFO_COMPLETACollection((CBAV2)this);
+				return _articulos_combos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COMBOS_STOCK</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COMBOS_STOCKCollection"/> object.</value>
+		public ARTICULOS_COMBOS_STOCKCollection ARTICULOS_COMBOS_STOCKCollection
+		{
+			get
+			{
+				if(null == _articulos_combos_stock)
+					_articulos_combos_stock = new ARTICULOS_COMBOS_STOCKCollection((CBAV2)this);
+				return _articulos_combos_stock;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COMBOS_STOCK_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COMBOS_STOCK_DETCollection"/> object.</value>
+		public ARTICULOS_COMBOS_STOCK_DETCollection ARTICULOS_COMBOS_STOCK_DETCollection
+		{
+			get
+			{
+				if(null == _articulos_combos_stock_det)
+					_articulos_combos_stock_det = new ARTICULOS_COMBOS_STOCK_DETCollection((CBAV2)this);
+				return _articulos_combos_stock_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_CONVERSION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_CONVERSIONCollection"/> object.</value>
+		public ARTICULOS_CONVERSIONCollection ARTICULOS_CONVERSIONCollection
+		{
+			get
+			{
+				if(null == _articulos_conversion)
+					_articulos_conversion = new ARTICULOS_CONVERSIONCollection((CBAV2)this);
+				return _articulos_conversion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COSTO_ACTIVO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COSTO_ACTIVOCollection"/> object.</value>
+		public ARTICULOS_COSTO_ACTIVOCollection ARTICULOS_COSTO_ACTIVOCollection
+		{
+			get
+			{
+				if(null == _articulos_costo_activo)
+					_articulos_costo_activo = new ARTICULOS_COSTO_ACTIVOCollection((CBAV2)this);
+				return _articulos_costo_activo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COSTO_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COSTO_INFO_COMPLETACollection"/> object.</value>
+		public ARTICULOS_COSTO_INFO_COMPLETACollection ARTICULOS_COSTO_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _articulos_costo_info_completa)
+					_articulos_costo_info_completa = new ARTICULOS_COSTO_INFO_COMPLETACollection((CBAV2)this);
+				return _articulos_costo_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COSTO_PONDERADO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COSTO_PONDERADOCollection"/> object.</value>
+		public ARTICULOS_COSTO_PONDERADOCollection ARTICULOS_COSTO_PONDERADOCollection
+		{
+			get
+			{
+				if(null == _articulos_costo_ponderado)
+					_articulos_costo_ponderado = new ARTICULOS_COSTO_PONDERADOCollection((CBAV2)this);
+				return _articulos_costo_ponderado;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COSTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COSTOSCollection"/> object.</value>
+		public ARTICULOS_COSTOSCollection ARTICULOS_COSTOSCollection
+		{
+			get
+			{
+				if(null == _articulos_costos)
+					_articulos_costos = new ARTICULOS_COSTOSCollection((CBAV2)this);
+				return _articulos_costos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COSTOS_CIERRES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COSTOS_CIERRESCollection"/> object.</value>
+		public ARTICULOS_COSTOS_CIERRESCollection ARTICULOS_COSTOS_CIERRESCollection
+		{
+			get
+			{
+				if(null == _articulos_costos_cierres)
+					_articulos_costos_cierres = new ARTICULOS_COSTOS_CIERRESCollection((CBAV2)this);
+				return _articulos_costos_cierres;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_COSTOS_CIERRES_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_COSTOS_CIERRES_DETCollection"/> object.</value>
+		public ARTICULOS_COSTOS_CIERRES_DETCollection ARTICULOS_COSTOS_CIERRES_DETCollection
+		{
+			get
+			{
+				if(null == _articulos_costos_cierres_det)
+					_articulos_costos_cierres_det = new ARTICULOS_COSTOS_CIERRES_DETCollection((CBAV2)this);
+				return _articulos_costos_cierres_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_CREADOS_DEVOLUCION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_CREADOS_DEVOLUCIONCollection"/> object.</value>
+		public ARTICULOS_CREADOS_DEVOLUCIONCollection ARTICULOS_CREADOS_DEVOLUCIONCollection
+		{
+			get
+			{
+				if(null == _articulos_creados_devolucion)
+					_articulos_creados_devolucion = new ARTICULOS_CREADOS_DEVOLUCIONCollection((CBAV2)this);
+				return _articulos_creados_devolucion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_DATOS_PERSONA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_DATOS_PERSONACollection"/> object.</value>
+		public ARTICULOS_DATOS_PERSONACollection ARTICULOS_DATOS_PERSONACollection
+		{
+			get
+			{
+				if(null == _articulos_datos_persona)
+					_articulos_datos_persona = new ARTICULOS_DATOS_PERSONACollection((CBAV2)this);
+				return _articulos_datos_persona;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_DATOS_PERSONA_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_DATOS_PERSONA_INF_CCollection"/> object.</value>
+		public ARTICULOS_DATOS_PERSONA_INF_CCollection ARTICULOS_DATOS_PERSONA_INF_CCollection
+		{
+			get
+			{
+				if(null == _articulos_datos_persona_inf_c)
+					_articulos_datos_persona_inf_c = new ARTICULOS_DATOS_PERSONA_INF_CCollection((CBAV2)this);
+				return _articulos_datos_persona_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_EMPAQUES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_EMPAQUESCollection"/> object.</value>
+		public ARTICULOS_EMPAQUESCollection ARTICULOS_EMPAQUESCollection
+		{
+			get
+			{
+				if(null == _articulos_empaques)
+					_articulos_empaques = new ARTICULOS_EMPAQUESCollection((CBAV2)this);
+				return _articulos_empaques;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_FAMILIAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_FAMILIASCollection"/> object.</value>
+		public ARTICULOS_FAMILIASCollection ARTICULOS_FAMILIASCollection
+		{
+			get
+			{
+				if(null == _articulos_familias)
+					_articulos_familias = new ARTICULOS_FAMILIASCollection((CBAV2)this);
+				return _articulos_familias;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_FINANCIEROS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_FINANCIEROSCollection"/> object.</value>
+		public ARTICULOS_FINANCIEROSCollection ARTICULOS_FINANCIEROSCollection
+		{
+			get
+			{
+				if(null == _articulos_financieros)
+					_articulos_financieros = new ARTICULOS_FINANCIEROSCollection((CBAV2)this);
+				return _articulos_financieros;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_FINANCIEROS_RANGOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_FINANCIEROS_RANGOSCollection"/> object.</value>
+		public ARTICULOS_FINANCIEROS_RANGOSCollection ARTICULOS_FINANCIEROS_RANGOSCollection
+		{
+			get
+			{
+				if(null == _articulos_financieros_rangos)
+					_articulos_financieros_rangos = new ARTICULOS_FINANCIEROS_RANGOSCollection((CBAV2)this);
+				return _articulos_financieros_rangos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_FORMULAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_FORMULASCollection"/> object.</value>
+		public ARTICULOS_FORMULASCollection ARTICULOS_FORMULASCollection
+		{
+			get
+			{
+				if(null == _articulos_formulas)
+					_articulos_formulas = new ARTICULOS_FORMULASCollection((CBAV2)this);
+				return _articulos_formulas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_FORMULAS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_FORMULAS_INFO_COMPLCollection"/> object.</value>
+		public ARTICULOS_FORMULAS_INFO_COMPLCollection ARTICULOS_FORMULAS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _articulos_formulas_info_compl)
+					_articulos_formulas_info_compl = new ARTICULOS_FORMULAS_INFO_COMPLCollection((CBAV2)this);
+				return _articulos_formulas_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_GRUPOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_GRUPOSCollection"/> object.</value>
+		public ARTICULOS_GRUPOSCollection ARTICULOS_GRUPOSCollection
+		{
+			get
+			{
+				if(null == _articulos_grupos)
+					_articulos_grupos = new ARTICULOS_GRUPOSCollection((CBAV2)this);
+				return _articulos_grupos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_GRUPOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_GRUPOS_INFO_COMPLETACollection"/> object.</value>
+		public ARTICULOS_GRUPOS_INFO_COMPLETACollection ARTICULOS_GRUPOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _articulos_grupos_info_completa)
+					_articulos_grupos_info_completa = new ARTICULOS_GRUPOS_INFO_COMPLETACollection((CBAV2)this);
+				return _articulos_grupos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_INFO_COMPLETACollection"/> object.</value>
+		public ARTICULOS_INFO_COMPLETACollection ARTICULOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _articulos_info_completa)
+					_articulos_info_completa = new ARTICULOS_INFO_COMPLETACollection((CBAV2)this);
+				return _articulos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_LINEAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_LINEASCollection"/> object.</value>
+		public ARTICULOS_LINEASCollection ARTICULOS_LINEASCollection
+		{
+			get
+			{
+				if(null == _articulos_lineas)
+					_articulos_lineas = new ARTICULOS_LINEASCollection((CBAV2)this);
+				return _articulos_lineas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_LINEAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_LINEAS_INFO_COMPLETACollection"/> object.</value>
+		public ARTICULOS_LINEAS_INFO_COMPLETACollection ARTICULOS_LINEAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _articulos_lineas_info_completa)
+					_articulos_lineas_info_completa = new ARTICULOS_LINEAS_INFO_COMPLETACollection((CBAV2)this);
+				return _articulos_lineas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_LOTES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_LOTESCollection"/> object.</value>
+		public ARTICULOS_LOTESCollection ARTICULOS_LOTESCollection
+		{
+			get
+			{
+				if(null == _articulos_lotes)
+					_articulos_lotes = new ARTICULOS_LOTESCollection((CBAV2)this);
+				return _articulos_lotes;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_LOTES_CUENTA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_LOTES_CUENTACollection"/> object.</value>
+		public ARTICULOS_LOTES_CUENTACollection ARTICULOS_LOTES_CUENTACollection
+		{
+			get
+			{
+				if(null == _articulos_lotes_cuenta)
+					_articulos_lotes_cuenta = new ARTICULOS_LOTES_CUENTACollection((CBAV2)this);
+				return _articulos_lotes_cuenta;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_LOTES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_LOTES_INFO_COMPLETACollection"/> object.</value>
+		public ARTICULOS_LOTES_INFO_COMPLETACollection ARTICULOS_LOTES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _articulos_lotes_info_completa)
+					_articulos_lotes_info_completa = new ARTICULOS_LOTES_INFO_COMPLETACollection((CBAV2)this);
+				return _articulos_lotes_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_MARCAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_MARCASCollection"/> object.</value>
+		public ARTICULOS_MARCASCollection ARTICULOS_MARCASCollection
+		{
+			get
+			{
+				if(null == _articulos_marcas)
+					_articulos_marcas = new ARTICULOS_MARCASCollection((CBAV2)this);
+				return _articulos_marcas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_MARGEN_RENTABILIDAD</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_MARGEN_RENTABILIDADCollection"/> object.</value>
+		public ARTICULOS_MARGEN_RENTABILIDADCollection ARTICULOS_MARGEN_RENTABILIDADCollection
+		{
+			get
+			{
+				if(null == _articulos_margen_rentabilidad)
+					_articulos_margen_rentabilidad = new ARTICULOS_MARGEN_RENTABILIDADCollection((CBAV2)this);
+				return _articulos_margen_rentabilidad;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_PADRES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_PADRESCollection"/> object.</value>
+		public ARTICULOS_PADRESCollection ARTICULOS_PADRESCollection
+		{
+			get
+			{
+				if(null == _articulos_padres)
+					_articulos_padres = new ARTICULOS_PADRESCollection((CBAV2)this);
+				return _articulos_padres;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_PEDIDOS</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_PEDIDOSCollection"/> object.</value>
+		public ARTICULOS_PEDIDOSCollection ARTICULOS_PEDIDOSCollection
+		{
+			get
+			{
+				if(null == _articulos_pedidos)
+					_articulos_pedidos = new ARTICULOS_PEDIDOSCollection((CBAV2)this);
+				return _articulos_pedidos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_POR_TEMP_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_POR_TEMP_INF_COMPCollection"/> object.</value>
+		public ARTICULOS_POR_TEMP_INF_COMPCollection ARTICULOS_POR_TEMP_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _articulos_por_temp_inf_comp)
+					_articulos_por_temp_inf_comp = new ARTICULOS_POR_TEMP_INF_COMPCollection((CBAV2)this);
+				return _articulos_por_temp_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_POR_TEMPORADA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_POR_TEMPORADACollection"/> object.</value>
+		public ARTICULOS_POR_TEMPORADACollection ARTICULOS_POR_TEMPORADACollection
+		{
+			get
+			{
+				if(null == _articulos_por_temporada)
+					_articulos_por_temporada = new ARTICULOS_POR_TEMPORADACollection((CBAV2)this);
+				return _articulos_por_temporada;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_POR_TEMPORADA_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_POR_TEMPORADA_DETCollection"/> object.</value>
+		public ARTICULOS_POR_TEMPORADA_DETCollection ARTICULOS_POR_TEMPORADA_DETCollection
+		{
+			get
+			{
+				if(null == _articulos_por_temporada_det)
+					_articulos_por_temporada_det = new ARTICULOS_POR_TEMPORADA_DETCollection((CBAV2)this);
+				return _articulos_por_temporada_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_PRECIOS</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_PRECIOSCollection"/> object.</value>
+		public ARTICULOS_PRECIOSCollection ARTICULOS_PRECIOSCollection
+		{
+			get
+			{
+				if(null == _articulos_precios)
+					_articulos_precios = new ARTICULOS_PRECIOSCollection((CBAV2)this);
+				return _articulos_precios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_PRECIOS_GRUPO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_PRECIOS_GRUPOCollection"/> object.</value>
+		public ARTICULOS_PRECIOS_GRUPOCollection ARTICULOS_PRECIOS_GRUPOCollection
+		{
+			get
+			{
+				if(null == _articulos_precios_grupo)
+					_articulos_precios_grupo = new ARTICULOS_PRECIOS_GRUPOCollection((CBAV2)this);
+				return _articulos_precios_grupo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_PRECIOS_HISTORICOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_PRECIOS_HISTORICOSCollection"/> object.</value>
+		public ARTICULOS_PRECIOS_HISTORICOSCollection ARTICULOS_PRECIOS_HISTORICOSCollection
+		{
+			get
+			{
+				if(null == _articulos_precios_historicos)
+					_articulos_precios_historicos = new ARTICULOS_PRECIOS_HISTORICOSCollection((CBAV2)this);
+				return _articulos_precios_historicos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_PRECIOS_PRODUCCION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_PRECIOS_PRODUCCIONCollection"/> object.</value>
+		public ARTICULOS_PRECIOS_PRODUCCIONCollection ARTICULOS_PRECIOS_PRODUCCIONCollection
+		{
+			get
+			{
+				if(null == _articulos_precios_produccion)
+					_articulos_precios_produccion = new ARTICULOS_PRECIOS_PRODUCCIONCollection((CBAV2)this);
+				return _articulos_precios_produccion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_PRESENTACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_PRESENTACIONESCollection"/> object.</value>
+		public ARTICULOS_PRESENTACIONESCollection ARTICULOS_PRESENTACIONESCollection
+		{
+			get
+			{
+				if(null == _articulos_presentaciones)
+					_articulos_presentaciones = new ARTICULOS_PRESENTACIONESCollection((CBAV2)this);
+				return _articulos_presentaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_PROVEEDORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_PROVEEDORESCollection"/> object.</value>
+		public ARTICULOS_PROVEEDORESCollection ARTICULOS_PROVEEDORESCollection
+		{
+			get
+			{
+				if(null == _articulos_proveedores)
+					_articulos_proveedores = new ARTICULOS_PROVEEDORESCollection((CBAV2)this);
+				return _articulos_proveedores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_SUBGRUPOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_SUBGRUPOSCollection"/> object.</value>
+		public ARTICULOS_SUBGRUPOSCollection ARTICULOS_SUBGRUPOSCollection
+		{
+			get
+			{
+				if(null == _articulos_subgrupos)
+					_articulos_subgrupos = new ARTICULOS_SUBGRUPOSCollection((CBAV2)this);
+				return _articulos_subgrupos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_SUBGRUPOS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_SUBGRUPOS_INFO_COMPCollection"/> object.</value>
+		public ARTICULOS_SUBGRUPOS_INFO_COMPCollection ARTICULOS_SUBGRUPOS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _articulos_subgrupos_info_comp)
+					_articulos_subgrupos_info_comp = new ARTICULOS_SUBGRUPOS_INFO_COMPCollection((CBAV2)this);
+				return _articulos_subgrupos_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ARTICULOS_TALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ARTICULOS_TALLESCollection"/> object.</value>
+		public ARTICULOS_TALLESCollection ARTICULOS_TALLESCollection
+		{
+			get
+			{
+				if(null == _articulos_talles)
+					_articulos_talles = new ARTICULOS_TALLESCollection((CBAV2)this);
+				return _articulos_talles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ASIGNACION_DOCUMENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ASIGNACION_DOCUMENTOSCollection"/> object.</value>
+		public ASIGNACION_DOCUMENTOSCollection ASIGNACION_DOCUMENTOSCollection
+		{
+			get
+			{
+				if(null == _asignacion_documentos)
+					_asignacion_documentos = new ASIGNACION_DOCUMENTOSCollection((CBAV2)this);
+				return _asignacion_documentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ASIGNACIONES_CARGOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ASIGNACIONES_CARGOSCollection"/> object.</value>
+		public ASIGNACIONES_CARGOSCollection ASIGNACIONES_CARGOSCollection
+		{
+			get
+			{
+				if(null == _asignaciones_cargos)
+					_asignaciones_cargos = new ASIGNACIONES_CARGOSCollection((CBAV2)this);
+				return _asignaciones_cargos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ASIGNACIONES_CARGOS_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ASIGNACIONES_CARGOS_DETALLECollection"/> object.</value>
+		public ASIGNACIONES_CARGOS_DETALLECollection ASIGNACIONES_CARGOS_DETALLECollection
+		{
+			get
+			{
+				if(null == _asignaciones_cargos_detalle)
+					_asignaciones_cargos_detalle = new ASIGNACIONES_CARGOS_DETALLECollection((CBAV2)this);
+				return _asignaciones_cargos_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>AUTONUMERACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="AUTONUMERACIONESCollection"/> object.</value>
+		public AUTONUMERACIONESCollection AUTONUMERACIONESCollection
+		{
+			get
+			{
+				if(null == _autonumeraciones)
+					_autonumeraciones = new AUTONUMERACIONESCollection((CBAV2)this);
+				return _autonumeraciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>AUTONUMERACIONES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="AUTONUMERACIONES_INFO_COMPLETACollection"/> object.</value>
+		public AUTONUMERACIONES_INFO_COMPLETACollection AUTONUMERACIONES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _autonumeraciones_info_completa)
+					_autonumeraciones_info_completa = new AUTONUMERACIONES_INFO_COMPLETACollection((CBAV2)this);
+				return _autonumeraciones_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>AUTONUMERACIONES_PROV_INF_COM</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="AUTONUMERACIONES_PROV_INF_COMCollection"/> object.</value>
+		public AUTONUMERACIONES_PROV_INF_COMCollection AUTONUMERACIONES_PROV_INF_COMCollection
+		{
+			get
+			{
+				if(null == _autonumeraciones_prov_inf_com)
+					_autonumeraciones_prov_inf_com = new AUTONUMERACIONES_PROV_INF_COMCollection((CBAV2)this);
+				return _autonumeraciones_prov_inf_com;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>AUTONUMERACIONES_PROVEEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="AUTONUMERACIONES_PROVEEDORCollection"/> object.</value>
+		public AUTONUMERACIONES_PROVEEDORCollection AUTONUMERACIONES_PROVEEDORCollection
+		{
+			get
+			{
+				if(null == _autonumeraciones_proveedor)
+					_autonumeraciones_proveedor = new AUTONUMERACIONES_PROVEEDORCollection((CBAV2)this);
+				return _autonumeraciones_proveedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>BARRIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="BARRIOSCollection"/> object.</value>
+		public BARRIOSCollection BARRIOSCollection
+		{
+			get
+			{
+				if(null == _barrios)
+					_barrios = new BARRIOSCollection((CBAV2)this);
+				return _barrios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>BASCULAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="BASCULASCollection"/> object.</value>
+		public BASCULASCollection BASCULASCollection
+		{
+			get
+			{
+				if(null == _basculas)
+					_basculas = new BASCULASCollection((CBAV2)this);
+				return _basculas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>BONIFICACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="BONIFICACIONESCollection"/> object.</value>
+		public BONIFICACIONESCollection BONIFICACIONESCollection
+		{
+			get
+			{
+				if(null == _bonificaciones)
+					_bonificaciones = new BONIFICACIONESCollection((CBAV2)this);
+				return _bonificaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>BUQUES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="BUQUESCollection"/> object.</value>
+		public BUQUESCollection BUQUESCollection
+		{
+			get
+			{
+				if(null == _buques)
+					_buques = new BUQUESCollection((CBAV2)this);
+				return _buques;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>BUQUES_EQUIVALENCIAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="BUQUES_EQUIVALENCIASCollection"/> object.</value>
+		public BUQUES_EQUIVALENCIASCollection BUQUES_EQUIVALENCIASCollection
+		{
+			get
+			{
+				if(null == _buques_equivalencias)
+					_buques_equivalencias = new BUQUES_EQUIVALENCIASCollection((CBAV2)this);
+				return _buques_equivalencias;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAJA_FISICA_TALONARIO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAJA_FISICA_TALONARIOCollection"/> object.</value>
+		public CAJA_FISICA_TALONARIOCollection CAJA_FISICA_TALONARIOCollection
+		{
+			get
+			{
+				if(null == _caja_fisica_talonario)
+					_caja_fisica_talonario = new CAJA_FISICA_TALONARIOCollection((CBAV2)this);
+				return _caja_fisica_talonario;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAJA_SUCURSAL_REPARTO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAJA_SUCURSAL_REPARTOCollection"/> object.</value>
+		public CAJA_SUCURSAL_REPARTOCollection CAJA_SUCURSAL_REPARTOCollection
+		{
+			get
+			{
+				if(null == _caja_sucursal_reparto)
+					_caja_sucursal_reparto = new CAJA_SUCURSAL_REPARTOCollection((CBAV2)this);
+				return _caja_sucursal_reparto;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CALENDARIO_PAGOS_CR_PERSONAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CALENDARIO_PAGOS_CR_PERSONASCollection"/> object.</value>
+		public CALENDARIO_PAGOS_CR_PERSONASCollection CALENDARIO_PAGOS_CR_PERSONASCollection
+		{
+			get
+			{
+				if(null == _calendario_pagos_cr_personas)
+					_calendario_pagos_cr_personas = new CALENDARIO_PAGOS_CR_PERSONASCollection((CBAV2)this);
+				return _calendario_pagos_cr_personas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CALENDARIO_PAGOS_FC_CLIENTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CALENDARIO_PAGOS_FC_CLIENTECollection"/> object.</value>
+		public CALENDARIO_PAGOS_FC_CLIENTECollection CALENDARIO_PAGOS_FC_CLIENTECollection
+		{
+			get
+			{
+				if(null == _calendario_pagos_fc_cliente)
+					_calendario_pagos_fc_cliente = new CALENDARIO_PAGOS_FC_CLIENTECollection((CBAV2)this);
+				return _calendario_pagos_fc_cliente;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CALENDARIO_PAGOS_FC_PROVEEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CALENDARIO_PAGOS_FC_PROVEEDORCollection"/> object.</value>
+		public CALENDARIO_PAGOS_FC_PROVEEDORCollection CALENDARIO_PAGOS_FC_PROVEEDORCollection
+		{
+			get
+			{
+				if(null == _calendario_pagos_fc_proveedor)
+					_calendario_pagos_fc_proveedor = new CALENDARIO_PAGOS_FC_PROVEEDORCollection((CBAV2)this);
+				return _calendario_pagos_fc_proveedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CALENDARIO_PAGOS_NP_CLIENTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CALENDARIO_PAGOS_NP_CLIENTECollection"/> object.</value>
+		public CALENDARIO_PAGOS_NP_CLIENTECollection CALENDARIO_PAGOS_NP_CLIENTECollection
+		{
+			get
+			{
+				if(null == _calendario_pagos_np_cliente)
+					_calendario_pagos_np_cliente = new CALENDARIO_PAGOS_NP_CLIENTECollection((CBAV2)this);
+				return _calendario_pagos_np_cliente;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CALENDARIO_PAGOS_RD_PERSONAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CALENDARIO_PAGOS_RD_PERSONASCollection"/> object.</value>
+		public CALENDARIO_PAGOS_RD_PERSONASCollection CALENDARIO_PAGOS_RD_PERSONASCollection
+		{
+			get
+			{
+				if(null == _calendario_pagos_rd_personas)
+					_calendario_pagos_rd_personas = new CALENDARIO_PAGOS_RD_PERSONASCollection((CBAV2)this);
+				return _calendario_pagos_rd_personas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CALENDARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CALENDARIOSCollection"/> object.</value>
+		public CALENDARIOSCollection CALENDARIOSCollection
+		{
+			get
+			{
+				if(null == _calendarios)
+					_calendarios = new CALENDARIOSCollection((CBAV2)this);
+				return _calendarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CALENDARIOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CALENDARIOS_INFO_COMPLETACollection"/> object.</value>
+		public CALENDARIOS_INFO_COMPLETACollection CALENDARIOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _calendarios_info_completa)
+					_calendarios_info_completa = new CALENDARIOS_INFO_COMPLETACollection((CBAV2)this);
+				return _calendarios_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMBIOS_DIVISA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMBIOS_DIVISACollection"/> object.</value>
+		public CAMBIOS_DIVISACollection CAMBIOS_DIVISACollection
+		{
+			get
+			{
+				if(null == _cambios_divisa)
+					_cambios_divisa = new CAMBIOS_DIVISACollection((CBAV2)this);
+				return _cambios_divisa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMBIOS_DIVISA_DET_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMBIOS_DIVISA_DET_INFO_COMPCollection"/> object.</value>
+		public CAMBIOS_DIVISA_DET_INFO_COMPCollection CAMBIOS_DIVISA_DET_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _cambios_divisa_det_info_comp)
+					_cambios_divisa_det_info_comp = new CAMBIOS_DIVISA_DET_INFO_COMPCollection((CBAV2)this);
+				return _cambios_divisa_det_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMBIOS_DIVISA_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMBIOS_DIVISA_DETALLECollection"/> object.</value>
+		public CAMBIOS_DIVISA_DETALLECollection CAMBIOS_DIVISA_DETALLECollection
+		{
+			get
+			{
+				if(null == _cambios_divisa_detalle)
+					_cambios_divisa_detalle = new CAMBIOS_DIVISA_DETALLECollection((CBAV2)this);
+				return _cambios_divisa_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMBIOS_DIVISA_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMBIOS_DIVISA_INFO_COMPLETACollection"/> object.</value>
+		public CAMBIOS_DIVISA_INFO_COMPLETACollection CAMBIOS_DIVISA_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _cambios_divisa_info_completa)
+					_cambios_divisa_info_completa = new CAMBIOS_DIVISA_INFO_COMPLETACollection((CBAV2)this);
+				return _cambios_divisa_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMIONES_CONF_TARA_ACTIVO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMIONES_CONF_TARA_ACTIVOCollection"/> object.</value>
+		public CAMIONES_CONF_TARA_ACTIVOCollection CAMIONES_CONF_TARA_ACTIVOCollection
+		{
+			get
+			{
+				if(null == _camiones_conf_tara_activo)
+					_camiones_conf_tara_activo = new CAMIONES_CONF_TARA_ACTIVOCollection((CBAV2)this);
+				return _camiones_conf_tara_activo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMIONES_CONFIGURACION_TARA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMIONES_CONFIGURACION_TARACollection"/> object.</value>
+		public CAMIONES_CONFIGURACION_TARACollection CAMIONES_CONFIGURACION_TARACollection
+		{
+			get
+			{
+				if(null == _camiones_configuracion_tara)
+					_camiones_configuracion_tara = new CAMIONES_CONFIGURACION_TARACollection((CBAV2)this);
+				return _camiones_configuracion_tara;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMPOS_CONF_ITEMS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMPOS_CONF_ITEMS_INFO_COMPCollection"/> object.</value>
+		public CAMPOS_CONF_ITEMS_INFO_COMPCollection CAMPOS_CONF_ITEMS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _campos_conf_items_info_comp)
+					_campos_conf_items_info_comp = new CAMPOS_CONF_ITEMS_INFO_COMPCollection((CBAV2)this);
+				return _campos_conf_items_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMPOS_CONF_USUARIOS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMPOS_CONF_USUARIOS_INFO_COMPCollection"/> object.</value>
+		public CAMPOS_CONF_USUARIOS_INFO_COMPCollection CAMPOS_CONF_USUARIOS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _campos_conf_usuarios_info_comp)
+					_campos_conf_usuarios_info_comp = new CAMPOS_CONF_USUARIOS_INFO_COMPCollection((CBAV2)this);
+				return _campos_conf_usuarios_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMPOS_CONFIG</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMPOS_CONFIGCollection"/> object.</value>
+		public CAMPOS_CONFIGCollection CAMPOS_CONFIGCollection
+		{
+			get
+			{
+				if(null == _campos_config)
+					_campos_config = new CAMPOS_CONFIGCollection((CBAV2)this);
+				return _campos_config;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMPOS_CONFIGURABLES_GRUPOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMPOS_CONFIGURABLES_GRUPOSCollection"/> object.</value>
+		public CAMPOS_CONFIGURABLES_GRUPOSCollection CAMPOS_CONFIGURABLES_GRUPOSCollection
+		{
+			get
+			{
+				if(null == _campos_configurables_grupos)
+					_campos_configurables_grupos = new CAMPOS_CONFIGURABLES_GRUPOSCollection((CBAV2)this);
+				return _campos_configurables_grupos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMPOS_CONFIGURABLES_ITEMS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMPOS_CONFIGURABLES_ITEMSCollection"/> object.</value>
+		public CAMPOS_CONFIGURABLES_ITEMSCollection CAMPOS_CONFIGURABLES_ITEMSCollection
+		{
+			get
+			{
+				if(null == _campos_configurables_items)
+					_campos_configurables_items = new CAMPOS_CONFIGURABLES_ITEMSCollection((CBAV2)this);
+				return _campos_configurables_items;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CAMPOS_CONFIGURABLES_USUARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CAMPOS_CONFIGURABLES_USUARIOSCollection"/> object.</value>
+		public CAMPOS_CONFIGURABLES_USUARIOSCollection CAMPOS_CONFIGURABLES_USUARIOSCollection
+		{
+			get
+			{
+				if(null == _campos_configurables_usuarios)
+					_campos_configurables_usuarios = new CAMPOS_CONFIGURABLES_USUARIOSCollection((CBAV2)this);
+				return _campos_configurables_usuarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CANALES_VENTA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CANALES_VENTACollection"/> object.</value>
+		public CANALES_VENTACollection CANALES_VENTACollection
+		{
+			get
+			{
+				if(null == _canales_venta)
+					_canales_venta = new CANALES_VENTACollection((CBAV2)this);
+				return _canales_venta;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CANJES_VALORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CANJES_VALORESCollection"/> object.</value>
+		public CANJES_VALORESCollection CANJES_VALORESCollection
+		{
+			get
+			{
+				if(null == _canjes_valores)
+					_canjes_valores = new CANJES_VALORESCollection((CBAV2)this);
+				return _canjes_valores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CANJES_VALORES_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CANJES_VALORES_DETCollection"/> object.</value>
+		public CANJES_VALORES_DETCollection CANJES_VALORES_DETCollection
+		{
+			get
+			{
+				if(null == _canjes_valores_det)
+					_canjes_valores_det = new CANJES_VALORES_DETCollection((CBAV2)this);
+				return _canjes_valores_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CANJES_VALORES_DET_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CANJES_VALORES_DET_INFO_COMPCollection"/> object.</value>
+		public CANJES_VALORES_DET_INFO_COMPCollection CANJES_VALORES_DET_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _canjes_valores_det_info_comp)
+					_canjes_valores_det_info_comp = new CANJES_VALORES_DET_INFO_COMPCollection((CBAV2)this);
+				return _canjes_valores_det_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CANJES_VALORES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CANJES_VALORES_INFO_COMPLETACollection"/> object.</value>
+		public CANJES_VALORES_INFO_COMPLETACollection CANJES_VALORES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _canjes_valores_info_completa)
+					_canjes_valores_info_completa = new CANJES_VALORES_INFO_COMPLETACollection((CBAV2)this);
+				return _canjes_valores_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CANJES_VALORES_VALORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CANJES_VALORES_VALORESCollection"/> object.</value>
+		public CANJES_VALORES_VALORESCollection CANJES_VALORES_VALORESCollection
+		{
+			get
+			{
+				if(null == _canjes_valores_valores)
+					_canjes_valores_valores = new CANJES_VALORES_VALORESCollection((CBAV2)this);
+				return _canjes_valores_valores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CANJES_VALORES_VALORES_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CANJES_VALORES_VALORES_INF_CCollection"/> object.</value>
+		public CANJES_VALORES_VALORES_INF_CCollection CANJES_VALORES_VALORES_INF_CCollection
+		{
+			get
+			{
+				if(null == _canjes_valores_valores_inf_c)
+					_canjes_valores_valores_inf_c = new CANJES_VALORES_VALORES_INF_CCollection((CBAV2)this);
+				return _canjes_valores_valores_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CASOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CASOSCollection"/> object.</value>
+		public CASOSCollection CASOSCollection
+		{
+			get
+			{
+				if(null == _casos)
+					_casos = new CASOSCollection((CBAV2)this);
+				return _casos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CASOS_ASIGNACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CASOS_ASIGNACIONESCollection"/> object.</value>
+		public CASOS_ASIGNACIONESCollection CASOS_ASIGNACIONESCollection
+		{
+			get
+			{
+				if(null == _casos_asignaciones)
+					_casos_asignaciones = new CASOS_ASIGNACIONESCollection((CBAV2)this);
+				return _casos_asignaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CASOS_ASIGNACIONES_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CASOS_ASIGNACIONES_INFO_COMPCollection"/> object.</value>
+		public CASOS_ASIGNACIONES_INFO_COMPCollection CASOS_ASIGNACIONES_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _casos_asignaciones_info_comp)
+					_casos_asignaciones_info_comp = new CASOS_ASIGNACIONES_INFO_COMPCollection((CBAV2)this);
+				return _casos_asignaciones_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CASOS_ETIQUETAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CASOS_ETIQUETASCollection"/> object.</value>
+		public CASOS_ETIQUETASCollection CASOS_ETIQUETASCollection
+		{
+			get
+			{
+				if(null == _casos_etiquetas)
+					_casos_etiquetas = new CASOS_ETIQUETASCollection((CBAV2)this);
+				return _casos_etiquetas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CASOS_ETIQUETAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CASOS_ETIQUETAS_INFO_COMPLETACollection"/> object.</value>
+		public CASOS_ETIQUETAS_INFO_COMPLETACollection CASOS_ETIQUETAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _casos_etiquetas_info_completa)
+					_casos_etiquetas_info_completa = new CASOS_ETIQUETAS_INFO_COMPLETACollection((CBAV2)this);
+				return _casos_etiquetas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CASOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CASOS_INFO_COMPLETACollection"/> object.</value>
+		public CASOS_INFO_COMPLETACollection CASOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _casos_info_completa)
+					_casos_info_completa = new CASOS_INFO_COMPLETACollection((CBAV2)this);
+				return _casos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CASOS_JUDICIALIZADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CASOS_JUDICIALIZADOSCollection"/> object.</value>
+		public CASOS_JUDICIALIZADOSCollection CASOS_JUDICIALIZADOSCollection
+		{
+			get
+			{
+				if(null == _casos_judicializados)
+					_casos_judicializados = new CASOS_JUDICIALIZADOSCollection((CBAV2)this);
+				return _casos_judicializados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CASOS_JUDICIALIZADOS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CASOS_JUDICIALIZADOS_INFO_COMPCollection"/> object.</value>
+		public CASOS_JUDICIALIZADOS_INFO_COMPCollection CASOS_JUDICIALIZADOS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _casos_judicializados_info_comp)
+					_casos_judicializados_info_comp = new CASOS_JUDICIALIZADOS_INFO_COMPCollection((CBAV2)this);
+				return _casos_judicializados_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CATALOGOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CATALOGOSCollection"/> object.</value>
+		public CATALOGOSCollection CATALOGOSCollection
+		{
+			get
+			{
+				if(null == _catalogos)
+					_catalogos = new CATALOGOSCollection((CBAV2)this);
+				return _catalogos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CATALOGOS_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CATALOGOS_DETALLECollection"/> object.</value>
+		public CATALOGOS_DETALLECollection CATALOGOS_DETALLECollection
+		{
+			get
+			{
+				if(null == _catalogos_detalle)
+					_catalogos_detalle = new CATALOGOS_DETALLECollection((CBAV2)this);
+				return _catalogos_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CATEGORIAS_IMO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CATEGORIAS_IMOCollection"/> object.</value>
+		public CATEGORIAS_IMOCollection CATEGORIAS_IMOCollection
+		{
+			get
+			{
+				if(null == _categorias_imo)
+					_categorias_imo = new CATEGORIAS_IMOCollection((CBAV2)this);
+				return _categorias_imo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CENTROS_COSTO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CENTROS_COSTOCollection"/> object.</value>
+		public CENTROS_COSTOCollection CENTROS_COSTOCollection
+		{
+			get
+			{
+				if(null == _centros_costo)
+					_centros_costo = new CENTROS_COSTOCollection((CBAV2)this);
+				return _centros_costo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CENTROS_COSTO_GRUPOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CENTROS_COSTO_GRUPOSCollection"/> object.</value>
+		public CENTROS_COSTO_GRUPOSCollection CENTROS_COSTO_GRUPOSCollection
+		{
+			get
+			{
+				if(null == _centros_costo_grupos)
+					_centros_costo_grupos = new CENTROS_COSTO_GRUPOSCollection((CBAV2)this);
+				return _centros_costo_grupos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CENTROS_COSTO_GRUPOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CENTROS_COSTO_GRUPOS_DETCollection"/> object.</value>
+		public CENTROS_COSTO_GRUPOS_DETCollection CENTROS_COSTO_GRUPOS_DETCollection
+		{
+			get
+			{
+				if(null == _centros_costo_grupos_det)
+					_centros_costo_grupos_det = new CENTROS_COSTO_GRUPOS_DETCollection((CBAV2)this);
+				return _centros_costo_grupos_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CENTROS_COSTO_GRUPOS_DET_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CENTROS_COSTO_GRUPOS_DET_INF_CCollection"/> object.</value>
+		public CENTROS_COSTO_GRUPOS_DET_INF_CCollection CENTROS_COSTO_GRUPOS_DET_INF_CCollection
+		{
+			get
+			{
+				if(null == _centros_costo_grupos_det_inf_c)
+					_centros_costo_grupos_det_inf_c = new CENTROS_COSTO_GRUPOS_DET_INF_CCollection((CBAV2)this);
+				return _centros_costo_grupos_det_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CIUDADES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CIUDADESCollection"/> object.</value>
+		public CIUDADESCollection CIUDADESCollection
+		{
+			get
+			{
+				if(null == _ciudades)
+					_ciudades = new CIUDADESCollection((CBAV2)this);
+				return _ciudades;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>COMENTARIOS_CASOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="COMENTARIOS_CASOSCollection"/> object.</value>
+		public COMENTARIOS_CASOSCollection COMENTARIOS_CASOSCollection
+		{
+			get
+			{
+				if(null == _comentarios_casos)
+					_comentarios_casos = new COMENTARIOS_CASOSCollection((CBAV2)this);
+				return _comentarios_casos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>COMENTARIOS_CASOS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="COMENTARIOS_CASOS_INFO_COMPCollection"/> object.</value>
+		public COMENTARIOS_CASOS_INFO_COMPCollection COMENTARIOS_CASOS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _comentarios_casos_info_comp)
+					_comentarios_casos_info_comp = new COMENTARIOS_CASOS_INFO_COMPCollection((CBAV2)this);
+				return _comentarios_casos_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>COMENTARIOS_TRANSICIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="COMENTARIOS_TRANSICIONESCollection"/> object.</value>
+		public COMENTARIOS_TRANSICIONESCollection COMENTARIOS_TRANSICIONESCollection
+		{
+			get
+			{
+				if(null == _comentarios_transiciones)
+					_comentarios_transiciones = new COMENTARIOS_TRANSICIONESCollection((CBAV2)this);
+				return _comentarios_transiciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONFIGURACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONFIGURACIONESCollection"/> object.</value>
+		public CONFIGURACIONESCollection CONFIGURACIONESCollection
+		{
+			get
+			{
+				if(null == _configuraciones)
+					_configuraciones = new CONFIGURACIONESCollection((CBAV2)this);
+				return _configuraciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONFIGURACIONES_VALORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONFIGURACIONES_VALORESCollection"/> object.</value>
+		public CONFIGURACIONES_VALORESCollection CONFIGURACIONES_VALORESCollection
+		{
+			get
+			{
+				if(null == _configuraciones_valores)
+					_configuraciones_valores = new CONFIGURACIONES_VALORESCollection((CBAV2)this);
+				return _configuraciones_valores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONOCIMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONOCIMIENTOSCollection"/> object.</value>
+		public CONOCIMIENTOSCollection CONOCIMIENTOSCollection
+		{
+			get
+			{
+				if(null == _conocimientos)
+					_conocimientos = new CONOCIMIENTOSCollection((CBAV2)this);
+				return _conocimientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONOCIMIENTOS_CONTENIDOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONOCIMIENTOS_CONTENIDOSCollection"/> object.</value>
+		public CONOCIMIENTOS_CONTENIDOSCollection CONOCIMIENTOS_CONTENIDOSCollection
+		{
+			get
+			{
+				if(null == _conocimientos_contenidos)
+					_conocimientos_contenidos = new CONOCIMIENTOS_CONTENIDOSCollection((CBAV2)this);
+				return _conocimientos_contenidos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONOCIMIENTOS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONOCIMIENTOS_DETALLESCollection"/> object.</value>
+		public CONOCIMIENTOS_DETALLESCollection CONOCIMIENTOS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _conocimientos_detalles)
+					_conocimientos_detalles = new CONOCIMIENTOS_DETALLESCollection((CBAV2)this);
+				return _conocimientos_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTADORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTADORESCollection"/> object.</value>
+		public CONTADORESCollection CONTADORESCollection
+		{
+			get
+			{
+				if(null == _contadores)
+					_contadores = new CONTADORESCollection((CBAV2)this);
+				return _contadores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTENEDORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTENEDORESCollection"/> object.</value>
+		public CONTENEDORESCollection CONTENEDORESCollection
+		{
+			get
+			{
+				if(null == _contenedores)
+					_contenedores = new CONTENEDORESCollection((CBAV2)this);
+				return _contenedores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTENEDORES_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTENEDORES_DETALLESCollection"/> object.</value>
+		public CONTENEDORES_DETALLESCollection CONTENEDORES_DETALLESCollection
+		{
+			get
+			{
+				if(null == _contenedores_detalles)
+					_contenedores_detalles = new CONTENEDORES_DETALLESCollection((CBAV2)this);
+				return _contenedores_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTENEDORES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTENEDORES_INFO_COMPLETACollection"/> object.</value>
+		public CONTENEDORES_INFO_COMPLETACollection CONTENEDORES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _contenedores_info_completa)
+					_contenedores_info_completa = new CONTENEDORES_INFO_COMPLETACollection((CBAV2)this);
+				return _contenedores_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTENEDORES_MOV_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTENEDORES_MOV_INFO_COMPLETACollection"/> object.</value>
+		public CONTENEDORES_MOV_INFO_COMPLETACollection CONTENEDORES_MOV_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _contenedores_mov_info_completa)
+					_contenedores_mov_info_completa = new CONTENEDORES_MOV_INFO_COMPLETACollection((CBAV2)this);
+				return _contenedores_mov_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTENEDORES_MOVIMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTENEDORES_MOVIMIENTOSCollection"/> object.</value>
+		public CONTENEDORES_MOVIMIENTOSCollection CONTENEDORES_MOVIMIENTOSCollection
+		{
+			get
+			{
+				if(null == _contenedores_movimientos)
+					_contenedores_movimientos = new CONTENEDORES_MOVIMIENTOSCollection((CBAV2)this);
+				return _contenedores_movimientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTENEDORES_OPERAC_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTENEDORES_OPERAC_INFO_COMPLCollection"/> object.</value>
+		public CONTENEDORES_OPERAC_INFO_COMPLCollection CONTENEDORES_OPERAC_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _contenedores_operac_info_compl)
+					_contenedores_operac_info_compl = new CONTENEDORES_OPERAC_INFO_COMPLCollection((CBAV2)this);
+				return _contenedores_operac_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTENEDORES_OPERACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTENEDORES_OPERACIONESCollection"/> object.</value>
+		public CONTENEDORES_OPERACIONESCollection CONTENEDORES_OPERACIONESCollection
+		{
+			get
+			{
+				if(null == _contenedores_operaciones)
+					_contenedores_operaciones = new CONTENEDORES_OPERACIONESCollection((CBAV2)this);
+				return _contenedores_operaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTRATOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTRATOSCollection"/> object.</value>
+		public CONTRATOSCollection CONTRATOSCollection
+		{
+			get
+			{
+				if(null == _contratos)
+					_contratos = new CONTRATOSCollection((CBAV2)this);
+				return _contratos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTRATOS_DET_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTRATOS_DET_INFO_COMPLETACollection"/> object.</value>
+		public CONTRATOS_DET_INFO_COMPLETACollection CONTRATOS_DET_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _contratos_det_info_completa)
+					_contratos_det_info_completa = new CONTRATOS_DET_INFO_COMPLETACollection((CBAV2)this);
+				return _contratos_det_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTRATOS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTRATOS_DETALLESCollection"/> object.</value>
+		public CONTRATOS_DETALLESCollection CONTRATOS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _contratos_detalles)
+					_contratos_detalles = new CONTRATOS_DETALLESCollection((CBAV2)this);
+				return _contratos_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTRATOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTRATOS_INFO_COMPLETACollection"/> object.</value>
+		public CONTRATOS_INFO_COMPLETACollection CONTRATOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _contratos_info_completa)
+					_contratos_info_completa = new CONTRATOS_INFO_COMPLETACollection((CBAV2)this);
+				return _contratos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTROL_TEMP_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTROL_TEMP_DET_INFO_COMPLCollection"/> object.</value>
+		public CONTROL_TEMP_DET_INFO_COMPLCollection CONTROL_TEMP_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _control_temp_det_info_compl)
+					_control_temp_det_info_compl = new CONTROL_TEMP_DET_INFO_COMPLCollection((CBAV2)this);
+				return _control_temp_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTROL_TEMP_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTROL_TEMP_INFO_COMPLCollection"/> object.</value>
+		public CONTROL_TEMP_INFO_COMPLCollection CONTROL_TEMP_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _control_temp_info_compl)
+					_control_temp_info_compl = new CONTROL_TEMP_INFO_COMPLCollection((CBAV2)this);
+				return _control_temp_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTROL_TEMPERATURAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTROL_TEMPERATURASCollection"/> object.</value>
+		public CONTROL_TEMPERATURASCollection CONTROL_TEMPERATURASCollection
+		{
+			get
+			{
+				if(null == _control_temperaturas)
+					_control_temperaturas = new CONTROL_TEMPERATURASCollection((CBAV2)this);
+				return _control_temperaturas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CONTROL_TEMPERATURAS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CONTROL_TEMPERATURAS_DETALLESCollection"/> object.</value>
+		public CONTROL_TEMPERATURAS_DETALLESCollection CONTROL_TEMPERATURAS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _control_temperaturas_detalles)
+					_control_temperaturas_detalles = new CONTROL_TEMPERATURAS_DETALLESCollection((CBAV2)this);
+				return _control_temperaturas_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>COPARN</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="COPARNCollection"/> object.</value>
+		public COPARNCollection COPARNCollection
+		{
+			get
+			{
+				if(null == _coparn)
+					_coparn = new COPARNCollection((CBAV2)this);
+				return _coparn;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>COPARN_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="COPARN_DETALLESCollection"/> object.</value>
+		public COPARN_DETALLESCollection COPARN_DETALLESCollection
+		{
+			get
+			{
+				if(null == _coparn_detalles)
+					_coparn_detalles = new COPARN_DETALLESCollection((CBAV2)this);
+				return _coparn_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>COPARN_DETALLES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="COPARN_DETALLES_INFO_COMPLETACollection"/> object.</value>
+		public COPARN_DETALLES_INFO_COMPLETACollection COPARN_DETALLES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _coparn_detalles_info_completa)
+					_coparn_detalles_info_completa = new COPARN_DETALLES_INFO_COMPLETACollection((CBAV2)this);
+				return _coparn_detalles_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>COPARN_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="COPARN_INFO_COMPLETACollection"/> object.</value>
+		public COPARN_INFO_COMPLETACollection COPARN_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _coparn_info_completa)
+					_coparn_info_completa = new COPARN_INFO_COMPLETACollection((CBAV2)this);
+				return _coparn_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>COTIZACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="COTIZACIONESCollection"/> object.</value>
+		public COTIZACIONESCollection COTIZACIONESCollection
+		{
+			get
+			{
+				if(null == _cotizaciones)
+					_cotizaciones = new COTIZACIONESCollection((CBAV2)this);
+				return _cotizaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>COTIZACIONES_MONEDA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="COTIZACIONES_MONEDACollection"/> object.</value>
+		public COTIZACIONES_MONEDACollection COTIZACIONES_MONEDACollection
+		{
+			get
+			{
+				if(null == _cotizaciones_moneda)
+					_cotizaciones_moneda = new COTIZACIONES_MONEDACollection((CBAV2)this);
+				return _cotizaciones_moneda;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CREDITOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CREDITOSCollection"/> object.</value>
+		public CREDITOSCollection CREDITOSCollection
+		{
+			get
+			{
+				if(null == _creditos)
+					_creditos = new CREDITOSCollection((CBAV2)this);
+				return _creditos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CREDITOS_DESCUENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CREDITOS_DESCUENTOSCollection"/> object.</value>
+		public CREDITOS_DESCUENTOSCollection CREDITOS_DESCUENTOSCollection
+		{
+			get
+			{
+				if(null == _creditos_descuentos)
+					_creditos_descuentos = new CREDITOS_DESCUENTOSCollection((CBAV2)this);
+				return _creditos_descuentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CREDITOS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CREDITOS_DETALLESCollection"/> object.</value>
+		public CREDITOS_DETALLESCollection CREDITOS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _creditos_detalles)
+					_creditos_detalles = new CREDITOS_DETALLESCollection((CBAV2)this);
+				return _creditos_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CREDITOS_PROVEEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CREDITOS_PROVEEDORCollection"/> object.</value>
+		public CREDITOS_PROVEEDORCollection CREDITOS_PROVEEDORCollection
+		{
+			get
+			{
+				if(null == _creditos_proveedor)
+					_creditos_proveedor = new CREDITOS_PROVEEDORCollection((CBAV2)this);
+				return _creditos_proveedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CREDITOS_PROVEEDOR_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CREDITOS_PROVEEDOR_DETCollection"/> object.</value>
+		public CREDITOS_PROVEEDOR_DETCollection CREDITOS_PROVEEDOR_DETCollection
+		{
+			get
+			{
+				if(null == _creditos_proveedor_det)
+					_creditos_proveedor_det = new CREDITOS_PROVEEDOR_DETCollection((CBAV2)this);
+				return _creditos_proveedor_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CREDITOS_PROVEEDOR_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CREDITOS_PROVEEDOR_INFO_COMPCollection"/> object.</value>
+		public CREDITOS_PROVEEDOR_INFO_COMPCollection CREDITOS_PROVEEDOR_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _creditos_proveedor_info_comp)
+					_creditos_proveedor_info_comp = new CREDITOS_PROVEEDOR_INFO_COMPCollection((CBAV2)this);
+				return _creditos_proveedor_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CRM_HILOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CRM_HILOSCollection"/> object.</value>
+		public CRM_HILOSCollection CRM_HILOSCollection
+		{
+			get
+			{
+				if(null == _crm_hilos)
+					_crm_hilos = new CRM_HILOSCollection((CBAV2)this);
+				return _crm_hilos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CRM_HILOS_ENTRADAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CRM_HILOS_ENTRADASCollection"/> object.</value>
+		public CRM_HILOS_ENTRADASCollection CRM_HILOS_ENTRADASCollection
+		{
+			get
+			{
+				if(null == _crm_hilos_entradas)
+					_crm_hilos_entradas = new CRM_HILOS_ENTRADASCollection((CBAV2)this);
+				return _crm_hilos_entradas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CRM_HILOS_ENTRADAS_RELACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CRM_HILOS_ENTRADAS_RELACIONESCollection"/> object.</value>
+		public CRM_HILOS_ENTRADAS_RELACIONESCollection CRM_HILOS_ENTRADAS_RELACIONESCollection
+		{
+			get
+			{
+				if(null == _crm_hilos_entradas_relaciones)
+					_crm_hilos_entradas_relaciones = new CRM_HILOS_ENTRADAS_RELACIONESCollection((CBAV2)this);
+				return _crm_hilos_entradas_relaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CRM_HILOS_ENTRADAS_USUARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CRM_HILOS_ENTRADAS_USUARIOSCollection"/> object.</value>
+		public CRM_HILOS_ENTRADAS_USUARIOSCollection CRM_HILOS_ENTRADAS_USUARIOSCollection
+		{
+			get
+			{
+				if(null == _crm_hilos_entradas_usuarios)
+					_crm_hilos_entradas_usuarios = new CRM_HILOS_ENTRADAS_USUARIOSCollection((CBAV2)this);
+				return _crm_hilos_entradas_usuarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CRM_HILOS_USUARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CRM_HILOS_USUARIOSCollection"/> object.</value>
+		public CRM_HILOS_USUARIOSCollection CRM_HILOS_USUARIOSCollection
+		{
+			get
+			{
+				if(null == _crm_hilos_usuarios)
+					_crm_hilos_usuarios = new CRM_HILOS_USUARIOSCollection((CBAV2)this);
+				return _crm_hilos_usuarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_BANCARIAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_BANCARIASCollection"/> object.</value>
+		public CTACTE_BANCARIASCollection CTACTE_BANCARIASCollection
+		{
+			get
+			{
+				if(null == _ctacte_bancarias)
+					_ctacte_bancarias = new CTACTE_BANCARIASCollection((CBAV2)this);
+				return _ctacte_bancarias;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_BANCARIAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_BANCARIAS_INFO_COMPLETACollection"/> object.</value>
+		public CTACTE_BANCARIAS_INFO_COMPLETACollection CTACTE_BANCARIAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctacte_bancarias_info_completa)
+					_ctacte_bancarias_info_completa = new CTACTE_BANCARIAS_INFO_COMPLETACollection((CBAV2)this);
+				return _ctacte_bancarias_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_BANCARIAS_MOV</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_BANCARIAS_MOVCollection"/> object.</value>
+		public CTACTE_BANCARIAS_MOVCollection CTACTE_BANCARIAS_MOVCollection
+		{
+			get
+			{
+				if(null == _ctacte_bancarias_mov)
+					_ctacte_bancarias_mov = new CTACTE_BANCARIAS_MOVCollection((CBAV2)this);
+				return _ctacte_bancarias_mov;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_BANCARIAS_MOV_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_BANCARIAS_MOV_INFO_COMPCollection"/> object.</value>
+		public CTACTE_BANCARIAS_MOV_INFO_COMPCollection CTACTE_BANCARIAS_MOV_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_bancarias_mov_info_comp)
+					_ctacte_bancarias_mov_info_comp = new CTACTE_BANCARIAS_MOV_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_bancarias_mov_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_BANCARIAS_TERC_INFO_COM</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_BANCARIAS_TERC_INFO_COMCollection"/> object.</value>
+		public CTACTE_BANCARIAS_TERC_INFO_COMCollection CTACTE_BANCARIAS_TERC_INFO_COMCollection
+		{
+			get
+			{
+				if(null == _ctacte_bancarias_terc_info_com)
+					_ctacte_bancarias_terc_info_com = new CTACTE_BANCARIAS_TERC_INFO_COMCollection((CBAV2)this);
+				return _ctacte_bancarias_terc_info_com;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_BANCARIAS_TERCEROS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_BANCARIAS_TERCEROSCollection"/> object.</value>
+		public CTACTE_BANCARIAS_TERCEROSCollection CTACTE_BANCARIAS_TERCEROSCollection
+		{
+			get
+			{
+				if(null == _ctacte_bancarias_terceros)
+					_ctacte_bancarias_terceros = new CTACTE_BANCARIAS_TERCEROSCollection((CBAV2)this);
+				return _ctacte_bancarias_terceros;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_BANCOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_BANCOSCollection"/> object.</value>
+		public CTACTE_BANCOSCollection CTACTE_BANCOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_bancos)
+					_ctacte_bancos = new CTACTE_BANCOSCollection((CBAV2)this);
+				return _ctacte_bancos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJACollection"/> object.</value>
+		public CTACTE_CAJACollection CTACTE_CAJACollection
+		{
+			get
+			{
+				if(null == _ctacte_caja)
+					_ctacte_caja = new CTACTE_CAJACollection((CBAV2)this);
+				return _ctacte_caja;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJA_COMPOS_DET_INF_COM</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJA_COMPOS_DET_INF_COMCollection"/> object.</value>
+		public CTACTE_CAJA_COMPOS_DET_INF_COMCollection CTACTE_CAJA_COMPOS_DET_INF_COMCollection
+		{
+			get
+			{
+				if(null == _ctacte_caja_compos_det_inf_com)
+					_ctacte_caja_compos_det_inf_com = new CTACTE_CAJA_COMPOS_DET_INF_COMCollection((CBAV2)this);
+				return _ctacte_caja_compos_det_inf_com;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJA_COMPOS_INF_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJA_COMPOS_INF_COMPLCollection"/> object.</value>
+		public CTACTE_CAJA_COMPOS_INF_COMPLCollection CTACTE_CAJA_COMPOS_INF_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctacte_caja_compos_inf_compl)
+					_ctacte_caja_compos_inf_compl = new CTACTE_CAJA_COMPOS_INF_COMPLCollection((CBAV2)this);
+				return _ctacte_caja_compos_inf_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJA_COMPOSICION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJA_COMPOSICIONCollection"/> object.</value>
+		public CTACTE_CAJA_COMPOSICIONCollection CTACTE_CAJA_COMPOSICIONCollection
+		{
+			get
+			{
+				if(null == _ctacte_caja_composicion)
+					_ctacte_caja_composicion = new CTACTE_CAJA_COMPOSICIONCollection((CBAV2)this);
+				return _ctacte_caja_composicion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJA_COMPOSICION_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJA_COMPOSICION_DETCollection"/> object.</value>
+		public CTACTE_CAJA_COMPOSICION_DETCollection CTACTE_CAJA_COMPOSICION_DETCollection
+		{
+			get
+			{
+				if(null == _ctacte_caja_composicion_det)
+					_ctacte_caja_composicion_det = new CTACTE_CAJA_COMPOSICION_DETCollection((CBAV2)this);
+				return _ctacte_caja_composicion_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJA_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJA_INFO_COMPLETACollection"/> object.</value>
+		public CTACTE_CAJA_INFO_COMPLETACollection CTACTE_CAJA_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctacte_caja_info_completa)
+					_ctacte_caja_info_completa = new CTACTE_CAJA_INFO_COMPLETACollection((CBAV2)this);
+				return _ctacte_caja_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJA_RESERVAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJA_RESERVASCollection"/> object.</value>
+		public CTACTE_CAJA_RESERVASCollection CTACTE_CAJA_RESERVASCollection
+		{
+			get
+			{
+				if(null == _ctacte_caja_reservas)
+					_ctacte_caja_reservas = new CTACTE_CAJA_RESERVASCollection((CBAV2)this);
+				return _ctacte_caja_reservas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJA_RESERVAS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJA_RESERVAS_DETCollection"/> object.</value>
+		public CTACTE_CAJA_RESERVAS_DETCollection CTACTE_CAJA_RESERVAS_DETCollection
+		{
+			get
+			{
+				if(null == _ctacte_caja_reservas_det)
+					_ctacte_caja_reservas_det = new CTACTE_CAJA_RESERVAS_DETCollection((CBAV2)this);
+				return _ctacte_caja_reservas_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJAS_SUC_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJAS_SUC_INFO_COMPCollection"/> object.</value>
+		public CTACTE_CAJAS_SUC_INFO_COMPCollection CTACTE_CAJAS_SUC_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_cajas_suc_info_comp)
+					_ctacte_cajas_suc_info_comp = new CTACTE_CAJAS_SUC_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_cajas_suc_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJAS_SUCURSAL</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJAS_SUCURSALCollection"/> object.</value>
+		public CTACTE_CAJAS_SUCURSALCollection CTACTE_CAJAS_SUCURSALCollection
+		{
+			get
+			{
+				if(null == _ctacte_cajas_sucursal)
+					_ctacte_cajas_sucursal = new CTACTE_CAJAS_SUCURSALCollection((CBAV2)this);
+				return _ctacte_cajas_sucursal;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJAS_SUCURSAL_ESTADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJAS_SUCURSAL_ESTADOSCollection"/> object.</value>
+		public CTACTE_CAJAS_SUCURSAL_ESTADOSCollection CTACTE_CAJAS_SUCURSAL_ESTADOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_cajas_sucursal_estados)
+					_ctacte_cajas_sucursal_estados = new CTACTE_CAJAS_SUCURSAL_ESTADOSCollection((CBAV2)this);
+				return _ctacte_cajas_sucursal_estados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJAS_TESO_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJAS_TESO_INFO_COMPCollection"/> object.</value>
+		public CTACTE_CAJAS_TESO_INFO_COMPCollection CTACTE_CAJAS_TESO_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_cajas_teso_info_comp)
+					_ctacte_cajas_teso_info_comp = new CTACTE_CAJAS_TESO_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_cajas_teso_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJAS_TESO_MOV_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJAS_TESO_MOV_INF_COMPCollection"/> object.</value>
+		public CTACTE_CAJAS_TESO_MOV_INF_COMPCollection CTACTE_CAJAS_TESO_MOV_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_cajas_teso_mov_inf_comp)
+					_ctacte_cajas_teso_mov_inf_comp = new CTACTE_CAJAS_TESO_MOV_INF_COMPCollection((CBAV2)this);
+				return _ctacte_cajas_teso_mov_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJAS_TESORERIA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJAS_TESORERIACollection"/> object.</value>
+		public CTACTE_CAJAS_TESORERIACollection CTACTE_CAJAS_TESORERIACollection
+		{
+			get
+			{
+				if(null == _ctacte_cajas_tesoreria)
+					_ctacte_cajas_tesoreria = new CTACTE_CAJAS_TESORERIACollection((CBAV2)this);
+				return _ctacte_cajas_tesoreria;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CAJAS_TESORERIA_MOV</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CAJAS_TESORERIA_MOVCollection"/> object.</value>
+		public CTACTE_CAJAS_TESORERIA_MOVCollection CTACTE_CAJAS_TESORERIA_MOVCollection
+		{
+			get
+			{
+				if(null == _ctacte_cajas_tesoreria_mov)
+					_ctacte_cajas_tesoreria_mov = new CTACTE_CAJAS_TESORERIA_MOVCollection((CBAV2)this);
+				return _ctacte_cajas_tesoreria_mov;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_ESTADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_ESTADOSCollection"/> object.</value>
+		public CTACTE_CHEQUES_ESTADOSCollection CTACTE_CHEQUES_ESTADOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_estados)
+					_ctacte_cheques_estados = new CTACTE_CHEQUES_ESTADOSCollection((CBAV2)this);
+				return _ctacte_cheques_estados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_GIR_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_GIR_INFO_COMPLCollection"/> object.</value>
+		public CTACTE_CHEQUES_GIR_INFO_COMPLCollection CTACTE_CHEQUES_GIR_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_gir_info_compl)
+					_ctacte_cheques_gir_info_compl = new CTACTE_CHEQUES_GIR_INFO_COMPLCollection((CBAV2)this);
+				return _ctacte_cheques_gir_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_GIRADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_GIRADOSCollection"/> object.</value>
+		public CTACTE_CHEQUES_GIRADOSCollection CTACTE_CHEQUES_GIRADOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_girados)
+					_ctacte_cheques_girados = new CTACTE_CHEQUES_GIRADOSCollection((CBAV2)this);
+				return _ctacte_cheques_girados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_MOVIMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_MOVIMIENTOSCollection"/> object.</value>
+		public CTACTE_CHEQUES_MOVIMIENTOSCollection CTACTE_CHEQUES_MOVIMIENTOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_movimientos)
+					_ctacte_cheques_movimientos = new CTACTE_CHEQUES_MOVIMIENTOSCollection((CBAV2)this);
+				return _ctacte_cheques_movimientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_REC_ABOG_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_REC_ABOG_INFO_CCollection"/> object.</value>
+		public CTACTE_CHEQUES_REC_ABOG_INFO_CCollection CTACTE_CHEQUES_REC_ABOG_INFO_CCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_rec_abog_info_c)
+					_ctacte_cheques_rec_abog_info_c = new CTACTE_CHEQUES_REC_ABOG_INFO_CCollection((CBAV2)this);
+				return _ctacte_cheques_rec_abog_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_REC_ABOGADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_REC_ABOGADOSCollection"/> object.</value>
+		public CTACTE_CHEQUES_REC_ABOGADOSCollection CTACTE_CHEQUES_REC_ABOGADOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_rec_abogados)
+					_ctacte_cheques_rec_abogados = new CTACTE_CHEQUES_REC_ABOGADOSCollection((CBAV2)this);
+				return _ctacte_cheques_rec_abogados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_REC_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_REC_INFO_COMPLCollection"/> object.</value>
+		public CTACTE_CHEQUES_REC_INFO_COMPLCollection CTACTE_CHEQUES_REC_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_rec_info_compl)
+					_ctacte_cheques_rec_info_compl = new CTACTE_CHEQUES_REC_INFO_COMPLCollection((CBAV2)this);
+				return _ctacte_cheques_rec_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_REC_MONTO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_REC_MONTOCollection"/> object.</value>
+		public CTACTE_CHEQUES_REC_MONTOCollection CTACTE_CHEQUES_REC_MONTOCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_rec_monto)
+					_ctacte_cheques_rec_monto = new CTACTE_CHEQUES_REC_MONTOCollection((CBAV2)this);
+				return _ctacte_cheques_rec_monto;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_REC_MONTO_PER</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_REC_MONTO_PERCollection"/> object.</value>
+		public CTACTE_CHEQUES_REC_MONTO_PERCollection CTACTE_CHEQUES_REC_MONTO_PERCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_rec_monto_per)
+					_ctacte_cheques_rec_monto_per = new CTACTE_CHEQUES_REC_MONTO_PERCollection((CBAV2)this);
+				return _ctacte_cheques_rec_monto_per;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_RECIBIDOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_RECIBIDOSCollection"/> object.</value>
+		public CTACTE_CHEQUES_RECIBIDOSCollection CTACTE_CHEQUES_RECIBIDOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_recibidos)
+					_ctacte_cheques_recibidos = new CTACTE_CHEQUES_RECIBIDOSCollection((CBAV2)this);
+				return _ctacte_cheques_recibidos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHEQUES_TRANSICIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHEQUES_TRANSICIONESCollection"/> object.</value>
+		public CTACTE_CHEQUES_TRANSICIONESCollection CTACTE_CHEQUES_TRANSICIONESCollection
+		{
+			get
+			{
+				if(null == _ctacte_cheques_transiciones)
+					_ctacte_cheques_transiciones = new CTACTE_CHEQUES_TRANSICIONESCollection((CBAV2)this);
+				return _ctacte_cheques_transiciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHQ_MOV_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHQ_MOV_INFO_COMPLCollection"/> object.</value>
+		public CTACTE_CHQ_MOV_INFO_COMPLCollection CTACTE_CHQ_MOV_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctacte_chq_mov_info_compl)
+					_ctacte_chq_mov_info_compl = new CTACTE_CHQ_MOV_INFO_COMPLCollection((CBAV2)this);
+				return _ctacte_chq_mov_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CHQ_TRAN_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CHQ_TRAN_INFO_COMPLETACollection"/> object.</value>
+		public CTACTE_CHQ_TRAN_INFO_COMPLETACollection CTACTE_CHQ_TRAN_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctacte_chq_tran_info_completa)
+					_ctacte_chq_tran_info_completa = new CTACTE_CHQ_TRAN_INFO_COMPLETACollection((CBAV2)this);
+				return _ctacte_chq_tran_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CONCEPTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CONCEPTOSCollection"/> object.</value>
+		public CTACTE_CONCEPTOSCollection CTACTE_CONCEPTOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_conceptos)
+					_ctacte_conceptos = new CTACTE_CONCEPTOSCollection((CBAV2)this);
+				return _ctacte_conceptos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CONDICIONES_DESEMBOLSO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CONDICIONES_DESEMBOLSOCollection"/> object.</value>
+		public CTACTE_CONDICIONES_DESEMBOLSOCollection CTACTE_CONDICIONES_DESEMBOLSOCollection
+		{
+			get
+			{
+				if(null == _ctacte_condiciones_desembolso)
+					_ctacte_condiciones_desembolso = new CTACTE_CONDICIONES_DESEMBOLSOCollection((CBAV2)this);
+				return _ctacte_condiciones_desembolso;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CONDICIONES_PAGO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CONDICIONES_PAGOCollection"/> object.</value>
+		public CTACTE_CONDICIONES_PAGOCollection CTACTE_CONDICIONES_PAGOCollection
+		{
+			get
+			{
+				if(null == _ctacte_condiciones_pago)
+					_ctacte_condiciones_pago = new CTACTE_CONDICIONES_PAGOCollection((CBAV2)this);
+				return _ctacte_condiciones_pago;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_CONDICIONES_PAGO_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_CONDICIONES_PAGO_DETCollection"/> object.</value>
+		public CTACTE_CONDICIONES_PAGO_DETCollection CTACTE_CONDICIONES_PAGO_DETCollection
+		{
+			get
+			{
+				if(null == _ctacte_condiciones_pago_det)
+					_ctacte_condiciones_pago_det = new CTACTE_CONDICIONES_PAGO_DETCollection((CBAV2)this);
+				return _ctacte_condiciones_pago_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_DOCUMENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_DOCUMENTOSCollection"/> object.</value>
+		public CTACTE_DOCUMENTOSCollection CTACTE_DOCUMENTOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_documentos)
+					_ctacte_documentos = new CTACTE_DOCUMENTOSCollection((CBAV2)this);
+				return _ctacte_documentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_DOCUMENTOS_DESGLOSE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_DOCUMENTOS_DESGLOSECollection"/> object.</value>
+		public CTACTE_DOCUMENTOS_DESGLOSECollection CTACTE_DOCUMENTOS_DESGLOSECollection
+		{
+			get
+			{
+				if(null == _ctacte_documentos_desglose)
+					_ctacte_documentos_desglose = new CTACTE_DOCUMENTOS_DESGLOSECollection((CBAV2)this);
+				return _ctacte_documentos_desglose;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_DOCUMENTOS_VENCIMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_DOCUMENTOS_VENCIMIENTOSCollection"/> object.</value>
+		public CTACTE_DOCUMENTOS_VENCIMIENTOSCollection CTACTE_DOCUMENTOS_VENCIMIENTOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_documentos_vencimientos)
+					_ctacte_documentos_vencimientos = new CTACTE_DOCUMENTOS_VENCIMIENTOSCollection((CBAV2)this);
+				return _ctacte_documentos_vencimientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_FONDOS_FIJOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_FONDOS_FIJOSCollection"/> object.</value>
+		public CTACTE_FONDOS_FIJOSCollection CTACTE_FONDOS_FIJOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_fondos_fijos)
+					_ctacte_fondos_fijos = new CTACTE_FONDOS_FIJOSCollection((CBAV2)this);
+				return _ctacte_fondos_fijos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_FONDOS_FIJOS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_FONDOS_FIJOS_INFO_COMPCollection"/> object.</value>
+		public CTACTE_FONDOS_FIJOS_INFO_COMPCollection CTACTE_FONDOS_FIJOS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_fondos_fijos_info_comp)
+					_ctacte_fondos_fijos_info_comp = new CTACTE_FONDOS_FIJOS_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_fondos_fijos_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_FONDOS_FIJOS_MOV</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_FONDOS_FIJOS_MOVCollection"/> object.</value>
+		public CTACTE_FONDOS_FIJOS_MOVCollection CTACTE_FONDOS_FIJOS_MOVCollection
+		{
+			get
+			{
+				if(null == _ctacte_fondos_fijos_mov)
+					_ctacte_fondos_fijos_mov = new CTACTE_FONDOS_FIJOS_MOVCollection((CBAV2)this);
+				return _ctacte_fondos_fijos_mov;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_GIROS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_GIROSCollection"/> object.</value>
+		public CTACTE_GIROSCollection CTACTE_GIROSCollection
+		{
+			get
+			{
+				if(null == _ctacte_giros)
+					_ctacte_giros = new CTACTE_GIROSCollection((CBAV2)this);
+				return _ctacte_giros;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_GIROS_MOV_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_GIROS_MOV_INFO_COMPCollection"/> object.</value>
+		public CTACTE_GIROS_MOV_INFO_COMPCollection CTACTE_GIROS_MOV_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_giros_mov_info_comp)
+					_ctacte_giros_mov_info_comp = new CTACTE_GIROS_MOV_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_giros_mov_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_GIROS_MOVIMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_GIROS_MOVIMIENTOSCollection"/> object.</value>
+		public CTACTE_GIROS_MOVIMIENTOSCollection CTACTE_GIROS_MOVIMIENTOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_giros_movimientos)
+					_ctacte_giros_movimientos = new CTACTE_GIROS_MOVIMIENTOSCollection((CBAV2)this);
+				return _ctacte_giros_movimientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGARES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGARESCollection"/> object.</value>
+		public CTACTE_PAGARESCollection CTACTE_PAGARESCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagares)
+					_ctacte_pagares = new CTACTE_PAGARESCollection((CBAV2)this);
+				return _ctacte_pagares;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGARES_DET_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGARES_DET_INFO_COMPCollection"/> object.</value>
+		public CTACTE_PAGARES_DET_INFO_COMPCollection CTACTE_PAGARES_DET_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagares_det_info_comp)
+					_ctacte_pagares_det_info_comp = new CTACTE_PAGARES_DET_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_pagares_det_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGARES_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGARES_DETALLECollection"/> object.</value>
+		public CTACTE_PAGARES_DETALLECollection CTACTE_PAGARES_DETALLECollection
+		{
+			get
+			{
+				if(null == _ctacte_pagares_detalle)
+					_ctacte_pagares_detalle = new CTACTE_PAGARES_DETALLECollection((CBAV2)this);
+				return _ctacte_pagares_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGARES_DOC_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGARES_DOC_INFO_COMPCollection"/> object.</value>
+		public CTACTE_PAGARES_DOC_INFO_COMPCollection CTACTE_PAGARES_DOC_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagares_doc_info_comp)
+					_ctacte_pagares_doc_info_comp = new CTACTE_PAGARES_DOC_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_pagares_doc_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGARES_DOCUMENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGARES_DOCUMENTOSCollection"/> object.</value>
+		public CTACTE_PAGARES_DOCUMENTOSCollection CTACTE_PAGARES_DOCUMENTOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagares_documentos)
+					_ctacte_pagares_documentos = new CTACTE_PAGARES_DOCUMENTOSCollection((CBAV2)this);
+				return _ctacte_pagares_documentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGARES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGARES_INFO_COMPLETACollection"/> object.</value>
+		public CTACTE_PAGARES_INFO_COMPLETACollection CTACTE_PAGARES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctacte_pagares_info_completa)
+					_ctacte_pagares_info_completa = new CTACTE_PAGARES_INFO_COMPLETACollection((CBAV2)this);
+				return _ctacte_pagares_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PER_COMP_ENT_IN_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PER_COMP_ENT_IN_CCollection"/> object.</value>
+		public CTACTE_PAGOS_PER_COMP_ENT_IN_CCollection CTACTE_PAGOS_PER_COMP_ENT_IN_CCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_per_comp_ent_in_c)
+					_ctacte_pagos_per_comp_ent_in_c = new CTACTE_PAGOS_PER_COMP_ENT_IN_CCollection((CBAV2)this);
+				return _ctacte_pagos_per_comp_ent_in_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PER_COMP_SAL_IN_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PER_COMP_SAL_IN_CCollection"/> object.</value>
+		public CTACTE_PAGOS_PER_COMP_SAL_IN_CCollection CTACTE_PAGOS_PER_COMP_SAL_IN_CCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_per_comp_sal_in_c)
+					_ctacte_pagos_per_comp_sal_in_c = new CTACTE_PAGOS_PER_COMP_SAL_IN_CCollection((CBAV2)this);
+				return _ctacte_pagos_per_comp_sal_in_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PER_COMPEN_ENTRAD</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PER_COMPEN_ENTRADCollection"/> object.</value>
+		public CTACTE_PAGOS_PER_COMPEN_ENTRADCollection CTACTE_PAGOS_PER_COMPEN_ENTRADCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_per_compen_entrad)
+					_ctacte_pagos_per_compen_entrad = new CTACTE_PAGOS_PER_COMPEN_ENTRADCollection((CBAV2)this);
+				return _ctacte_pagos_per_compen_entrad;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PER_COMPEN_SALIDA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PER_COMPEN_SALIDACollection"/> object.</value>
+		public CTACTE_PAGOS_PER_COMPEN_SALIDACollection CTACTE_PAGOS_PER_COMPEN_SALIDACollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_per_compen_salida)
+					_ctacte_pagos_per_compen_salida = new CTACTE_PAGOS_PER_COMPEN_SALIDACollection((CBAV2)this);
+				return _ctacte_pagos_per_compen_salida;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PERS_DET_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PERS_DET_INF_COMPCollection"/> object.</value>
+		public CTACTE_PAGOS_PERS_DET_INF_COMPCollection CTACTE_PAGOS_PERS_DET_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_pers_det_inf_comp)
+					_ctacte_pagos_pers_det_inf_comp = new CTACTE_PAGOS_PERS_DET_INF_COMPCollection((CBAV2)this);
+				return _ctacte_pagos_pers_det_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PERS_DOC_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PERS_DOC_INF_COMPCollection"/> object.</value>
+		public CTACTE_PAGOS_PERS_DOC_INF_COMPCollection CTACTE_PAGOS_PERS_DOC_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_pers_doc_inf_comp)
+					_ctacte_pagos_pers_doc_inf_comp = new CTACTE_PAGOS_PERS_DOC_INF_COMPCollection((CBAV2)this);
+				return _ctacte_pagos_pers_doc_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PERSONA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PERSONACollection"/> object.</value>
+		public CTACTE_PAGOS_PERSONACollection CTACTE_PAGOS_PERSONACollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_persona)
+					_ctacte_pagos_persona = new CTACTE_PAGOS_PERSONACollection((CBAV2)this);
+				return _ctacte_pagos_persona;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PERSONA_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PERSONA_DETCollection"/> object.</value>
+		public CTACTE_PAGOS_PERSONA_DETCollection CTACTE_PAGOS_PERSONA_DETCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_persona_det)
+					_ctacte_pagos_persona_det = new CTACTE_PAGOS_PERSONA_DETCollection((CBAV2)this);
+				return _ctacte_pagos_persona_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PERSONA_DOCUMENTO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PERSONA_DOCUMENTOCollection"/> object.</value>
+		public CTACTE_PAGOS_PERSONA_DOCUMENTOCollection CTACTE_PAGOS_PERSONA_DOCUMENTOCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_persona_documento)
+					_ctacte_pagos_persona_documento = new CTACTE_PAGOS_PERSONA_DOCUMENTOCollection((CBAV2)this);
+				return _ctacte_pagos_persona_documento;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PERSONA_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PERSONA_INFO_COMPCollection"/> object.</value>
+		public CTACTE_PAGOS_PERSONA_INFO_COMPCollection CTACTE_PAGOS_PERSONA_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_persona_info_comp)
+					_ctacte_pagos_persona_info_comp = new CTACTE_PAGOS_PERSONA_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_pagos_persona_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PERSONA_RECARGO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PERSONA_RECARGOCollection"/> object.</value>
+		public CTACTE_PAGOS_PERSONA_RECARGOCollection CTACTE_PAGOS_PERSONA_RECARGOCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_persona_recargo)
+					_ctacte_pagos_persona_recargo = new CTACTE_PAGOS_PERSONA_RECARGOCollection((CBAV2)this);
+				return _ctacte_pagos_persona_recargo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PAGOS_PERSONA_VUELTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PAGOS_PERSONA_VUELTOSCollection"/> object.</value>
+		public CTACTE_PAGOS_PERSONA_VUELTOSCollection CTACTE_PAGOS_PERSONA_VUELTOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_pagos_persona_vueltos)
+					_ctacte_pagos_persona_vueltos = new CTACTE_PAGOS_PERSONA_VUELTOSCollection((CBAV2)this);
+				return _ctacte_pagos_persona_vueltos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PERSONAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PERSONASCollection"/> object.</value>
+		public CTACTE_PERSONASCollection CTACTE_PERSONASCollection
+		{
+			get
+			{
+				if(null == _ctacte_personas)
+					_ctacte_personas = new CTACTE_PERSONASCollection((CBAV2)this);
+				return _ctacte_personas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PERSONAS_CALIDAD_PAGOS</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PERSONAS_CALIDAD_PAGOSCollection"/> object.</value>
+		public CTACTE_PERSONAS_CALIDAD_PAGOSCollection CTACTE_PERSONAS_CALIDAD_PAGOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_personas_calidad_pagos)
+					_ctacte_personas_calidad_pagos = new CTACTE_PERSONAS_CALIDAD_PAGOSCollection((CBAV2)this);
+				return _ctacte_personas_calidad_pagos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PERSONAS_CIERRE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PERSONAS_CIERRECollection"/> object.</value>
+		public CTACTE_PERSONAS_CIERRECollection CTACTE_PERSONAS_CIERRECollection
+		{
+			get
+			{
+				if(null == _ctacte_personas_cierre)
+					_ctacte_personas_cierre = new CTACTE_PERSONAS_CIERRECollection((CBAV2)this);
+				return _ctacte_personas_cierre;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PERSONAS_CIERRE_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PERSONAS_CIERRE_DETCollection"/> object.</value>
+		public CTACTE_PERSONAS_CIERRE_DETCollection CTACTE_PERSONAS_CIERRE_DETCollection
+		{
+			get
+			{
+				if(null == _ctacte_personas_cierre_det)
+					_ctacte_personas_cierre_det = new CTACTE_PERSONAS_CIERRE_DETCollection((CBAV2)this);
+				return _ctacte_personas_cierre_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PERSONAS_COMPR_APLI</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PERSONAS_COMPR_APLICollection"/> object.</value>
+		public CTACTE_PERSONAS_COMPR_APLICollection CTACTE_PERSONAS_COMPR_APLICollection
+		{
+			get
+			{
+				if(null == _ctacte_personas_compr_apli)
+					_ctacte_personas_compr_apli = new CTACTE_PERSONAS_COMPR_APLICollection((CBAV2)this);
+				return _ctacte_personas_compr_apli;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PERSONAS_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PERSONAS_DETALLECollection"/> object.</value>
+		public CTACTE_PERSONAS_DETALLECollection CTACTE_PERSONAS_DETALLECollection
+		{
+			get
+			{
+				if(null == _ctacte_personas_detalle)
+					_ctacte_personas_detalle = new CTACTE_PERSONAS_DETALLECollection((CBAV2)this);
+				return _ctacte_personas_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PERSONAS_FECHA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PERSONAS_FECHACollection"/> object.</value>
+		public CTACTE_PERSONAS_FECHACollection CTACTE_PERSONAS_FECHACollection
+		{
+			get
+			{
+				if(null == _ctacte_personas_fecha)
+					_ctacte_personas_fecha = new CTACTE_PERSONAS_FECHACollection((CBAV2)this);
+				return _ctacte_personas_fecha;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PERSONAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PERSONAS_INFO_COMPLETACollection"/> object.</value>
+		public CTACTE_PERSONAS_INFO_COMPLETACollection CTACTE_PERSONAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctacte_personas_info_completa)
+					_ctacte_personas_info_completa = new CTACTE_PERSONAS_INFO_COMPLETACollection((CBAV2)this);
+				return _ctacte_personas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PLANES_DESEM_ESCALAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PLANES_DESEM_ESCALASCollection"/> object.</value>
+		public CTACTE_PLANES_DESEM_ESCALASCollection CTACTE_PLANES_DESEM_ESCALASCollection
+		{
+			get
+			{
+				if(null == _ctacte_planes_desem_escalas)
+					_ctacte_planes_desem_escalas = new CTACTE_PLANES_DESEM_ESCALASCollection((CBAV2)this);
+				return _ctacte_planes_desem_escalas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PLANES_DESEMB_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PLANES_DESEMB_INFO_COMPCollection"/> object.</value>
+		public CTACTE_PLANES_DESEMB_INFO_COMPCollection CTACTE_PLANES_DESEMB_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_planes_desemb_info_comp)
+					_ctacte_planes_desemb_info_comp = new CTACTE_PLANES_DESEMB_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_planes_desemb_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PLANES_DESEMBOLSO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PLANES_DESEMBOLSOCollection"/> object.</value>
+		public CTACTE_PLANES_DESEMBOLSOCollection CTACTE_PLANES_DESEMBOLSOCollection
+		{
+			get
+			{
+				if(null == _ctacte_planes_desembolso)
+					_ctacte_planes_desembolso = new CTACTE_PLANES_DESEMBOLSOCollection((CBAV2)this);
+				return _ctacte_planes_desembolso;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_POS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_POSCollection"/> object.</value>
+		public CTACTE_POSCollection CTACTE_POSCollection
+		{
+			get
+			{
+				if(null == _ctacte_pos)
+					_ctacte_pos = new CTACTE_POSCollection((CBAV2)this);
+				return _ctacte_pos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PROCESADORAS_TARJETA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PROCESADORAS_TARJETACollection"/> object.</value>
+		public CTACTE_PROCESADORAS_TARJETACollection CTACTE_PROCESADORAS_TARJETACollection
+		{
+			get
+			{
+				if(null == _ctacte_procesadoras_tarjeta)
+					_ctacte_procesadoras_tarjeta = new CTACTE_PROCESADORAS_TARJETACollection((CBAV2)this);
+				return _ctacte_procesadoras_tarjeta;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PROCESADORAS_TARJETA_ENTIDAD</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PROCESADORAS_TARJETA_ENTIDADCollection"/> object.</value>
+		public CTACTE_PROCESADORAS_TARJETA_ENTIDADCollection CTACTE_PROCESADORAS_TARJETA_ENTIDADCollection
+		{
+			get
+			{
+				if(null == _ctacte_procesadoras_tarjeta_entidad)
+					_ctacte_procesadoras_tarjeta_entidad = new CTACTE_PROCESADORAS_TARJETA_ENTIDADCollection((CBAV2)this);
+				return _ctacte_procesadoras_tarjeta_entidad;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PROVEEDORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PROVEEDORESCollection"/> object.</value>
+		public CTACTE_PROVEEDORESCollection CTACTE_PROVEEDORESCollection
+		{
+			get
+			{
+				if(null == _ctacte_proveedores)
+					_ctacte_proveedores = new CTACTE_PROVEEDORESCollection((CBAV2)this);
+				return _ctacte_proveedores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PROVEEDORES_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PROVEEDORES_DETALLECollection"/> object.</value>
+		public CTACTE_PROVEEDORES_DETALLECollection CTACTE_PROVEEDORES_DETALLECollection
+		{
+			get
+			{
+				if(null == _ctacte_proveedores_detalle)
+					_ctacte_proveedores_detalle = new CTACTE_PROVEEDORES_DETALLECollection((CBAV2)this);
+				return _ctacte_proveedores_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PROVEEDORES_FECHA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PROVEEDORES_FECHACollection"/> object.</value>
+		public CTACTE_PROVEEDORES_FECHACollection CTACTE_PROVEEDORES_FECHACollection
+		{
+			get
+			{
+				if(null == _ctacte_proveedores_fecha)
+					_ctacte_proveedores_fecha = new CTACTE_PROVEEDORES_FECHACollection((CBAV2)this);
+				return _ctacte_proveedores_fecha;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_PROVEEDORES_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_PROVEEDORES_INFO_COMPLCollection"/> object.</value>
+		public CTACTE_PROVEEDORES_INFO_COMPLCollection CTACTE_PROVEEDORES_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctacte_proveedores_info_compl)
+					_ctacte_proveedores_info_compl = new CTACTE_PROVEEDORES_INFO_COMPLCollection((CBAV2)this);
+				return _ctacte_proveedores_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RECARGOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RECARGOSCollection"/> object.</value>
+		public CTACTE_RECARGOSCollection CTACTE_RECARGOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_recargos)
+					_ctacte_recargos = new CTACTE_RECARGOSCollection((CBAV2)this);
+				return _ctacte_recargos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RECARGOS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RECARGOS_INFO_COMPCollection"/> object.</value>
+		public CTACTE_RECARGOS_INFO_COMPCollection CTACTE_RECARGOS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_recargos_info_comp)
+					_ctacte_recargos_info_comp = new CTACTE_RECARGOS_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_recargos_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RECIBOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RECIBOSCollection"/> object.</value>
+		public CTACTE_RECIBOSCollection CTACTE_RECIBOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_recibos)
+					_ctacte_recibos = new CTACTE_RECIBOSCollection((CBAV2)this);
+				return _ctacte_recibos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RECIBOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RECIBOS_INFO_COMPLETACollection"/> object.</value>
+		public CTACTE_RECIBOS_INFO_COMPLETACollection CTACTE_RECIBOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctacte_recibos_info_completa)
+					_ctacte_recibos_info_completa = new CTACTE_RECIBOS_INFO_COMPLETACollection((CBAV2)this);
+				return _ctacte_recibos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_REDES_PAGO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_REDES_PAGOCollection"/> object.</value>
+		public CTACTE_REDES_PAGOCollection CTACTE_REDES_PAGOCollection
+		{
+			get
+			{
+				if(null == _ctacte_redes_pago)
+					_ctacte_redes_pago = new CTACTE_REDES_PAGOCollection((CBAV2)this);
+				return _ctacte_redes_pago;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RET_REC_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RET_REC_DET_INFO_COMPLCollection"/> object.</value>
+		public CTACTE_RET_REC_DET_INFO_COMPLCollection CTACTE_RET_REC_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctacte_ret_rec_det_info_compl)
+					_ctacte_ret_rec_det_info_compl = new CTACTE_RET_REC_DET_INFO_COMPLCollection((CBAV2)this);
+				return _ctacte_ret_rec_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RETENC_EMIT_DET_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RETENC_EMIT_DET_INFO_CCollection"/> object.</value>
+		public CTACTE_RETENC_EMIT_DET_INFO_CCollection CTACTE_RETENC_EMIT_DET_INFO_CCollection
+		{
+			get
+			{
+				if(null == _ctacte_retenc_emit_det_info_c)
+					_ctacte_retenc_emit_det_info_c = new CTACTE_RETENC_EMIT_DET_INFO_CCollection((CBAV2)this);
+				return _ctacte_retenc_emit_det_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RETENC_EMIT_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RETENC_EMIT_INFO_COMPCollection"/> object.</value>
+		public CTACTE_RETENC_EMIT_INFO_COMPCollection CTACTE_RETENC_EMIT_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_retenc_emit_info_comp)
+					_ctacte_retenc_emit_info_comp = new CTACTE_RETENC_EMIT_INFO_COMPCollection((CBAV2)this);
+				return _ctacte_retenc_emit_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RETENC_REC_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RETENC_REC_INFO_COMPLCollection"/> object.</value>
+		public CTACTE_RETENC_REC_INFO_COMPLCollection CTACTE_RETENC_REC_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctacte_retenc_rec_info_compl)
+					_ctacte_retenc_rec_info_compl = new CTACTE_RETENC_REC_INFO_COMPLCollection((CBAV2)this);
+				return _ctacte_retenc_rec_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RETENCIONES_EMIT_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RETENCIONES_EMIT_DETCollection"/> object.</value>
+		public CTACTE_RETENCIONES_EMIT_DETCollection CTACTE_RETENCIONES_EMIT_DETCollection
+		{
+			get
+			{
+				if(null == _ctacte_retenciones_emit_det)
+					_ctacte_retenciones_emit_det = new CTACTE_RETENCIONES_EMIT_DETCollection((CBAV2)this);
+				return _ctacte_retenciones_emit_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RETENCIONES_EMITIDAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RETENCIONES_EMITIDASCollection"/> object.</value>
+		public CTACTE_RETENCIONES_EMITIDASCollection CTACTE_RETENCIONES_EMITIDASCollection
+		{
+			get
+			{
+				if(null == _ctacte_retenciones_emitidas)
+					_ctacte_retenciones_emitidas = new CTACTE_RETENCIONES_EMITIDASCollection((CBAV2)this);
+				return _ctacte_retenciones_emitidas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RETENCIONES_REC_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RETENCIONES_REC_DETCollection"/> object.</value>
+		public CTACTE_RETENCIONES_REC_DETCollection CTACTE_RETENCIONES_REC_DETCollection
+		{
+			get
+			{
+				if(null == _ctacte_retenciones_rec_det)
+					_ctacte_retenciones_rec_det = new CTACTE_RETENCIONES_REC_DETCollection((CBAV2)this);
+				return _ctacte_retenciones_rec_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_RETENCIONES_RECIBIDAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_RETENCIONES_RECIBIDASCollection"/> object.</value>
+		public CTACTE_RETENCIONES_RECIBIDASCollection CTACTE_RETENCIONES_RECIBIDASCollection
+		{
+			get
+			{
+				if(null == _ctacte_retenciones_recibidas)
+					_ctacte_retenciones_recibidas = new CTACTE_RETENCIONES_RECIBIDASCollection((CBAV2)this);
+				return _ctacte_retenciones_recibidas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_TARJETA_CONF_PROC_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_TARJETA_CONF_PROC_INF_COMPCollection"/> object.</value>
+		public CTACTE_TARJETA_CONF_PROC_INF_COMPCollection CTACTE_TARJETA_CONF_PROC_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_tarjeta_conf_proc_inf_comp)
+					_ctacte_tarjeta_conf_proc_inf_comp = new CTACTE_TARJETA_CONF_PROC_INF_COMPCollection((CBAV2)this);
+				return _ctacte_tarjeta_conf_proc_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_TARJETA_CREDI_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_TARJETA_CREDI_INF_COMPCollection"/> object.</value>
+		public CTACTE_TARJETA_CREDI_INF_COMPCollection CTACTE_TARJETA_CREDI_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _ctacte_tarjeta_credi_inf_comp)
+					_ctacte_tarjeta_credi_inf_comp = new CTACTE_TARJETA_CREDI_INF_COMPCollection((CBAV2)this);
+				return _ctacte_tarjeta_credi_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_TARJETAS_CONFIG_PROCESOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_TARJETAS_CONFIG_PROCESOSCollection"/> object.</value>
+		public CTACTE_TARJETAS_CONFIG_PROCESOSCollection CTACTE_TARJETAS_CONFIG_PROCESOSCollection
+		{
+			get
+			{
+				if(null == _ctacte_tarjetas_config_procesos)
+					_ctacte_tarjetas_config_procesos = new CTACTE_TARJETAS_CONFIG_PROCESOSCollection((CBAV2)this);
+				return _ctacte_tarjetas_config_procesos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_TARJETAS_CRED_EMISORA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_TARJETAS_CRED_EMISORACollection"/> object.</value>
+		public CTACTE_TARJETAS_CRED_EMISORACollection CTACTE_TARJETAS_CRED_EMISORACollection
+		{
+			get
+			{
+				if(null == _ctacte_tarjetas_cred_emisora)
+					_ctacte_tarjetas_cred_emisora = new CTACTE_TARJETAS_CRED_EMISORACollection((CBAV2)this);
+				return _ctacte_tarjetas_cred_emisora;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_TARJETAS_CREDITO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_TARJETAS_CREDITOCollection"/> object.</value>
+		public CTACTE_TARJETAS_CREDITOCollection CTACTE_TARJETAS_CREDITOCollection
+		{
+			get
+			{
+				if(null == _ctacte_tarjetas_credito)
+					_ctacte_tarjetas_credito = new CTACTE_TARJETAS_CREDITOCollection((CBAV2)this);
+				return _ctacte_tarjetas_credito;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTACTE_VALORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTACTE_VALORESCollection"/> object.</value>
+		public CTACTE_VALORESCollection CTACTE_VALORESCollection
+		{
+			get
+			{
+				if(null == _ctacte_valores)
+					_ctacte_valores = new CTACTE_VALORESCollection((CBAV2)this);
+				return _ctacte_valores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ARCHIVOS_MARANGATU</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ARCHIVOS_MARANGATUCollection"/> object.</value>
+		public CTB_ARCHIVOS_MARANGATUCollection CTB_ARCHIVOS_MARANGATUCollection
+		{
+			get
+			{
+				if(null == _ctb_archivos_marangatu)
+					_ctb_archivos_marangatu = new CTB_ARCHIVOS_MARANGATUCollection((CBAV2)this);
+				return _ctb_archivos_marangatu;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOSCollection"/> object.</value>
+		public CTB_ASIENTOSCollection CTB_ASIENTOSCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos)
+					_ctb_asientos = new CTB_ASIENTOSCollection((CBAV2)this);
+				return _ctb_asientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_AUTO_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_AUTO_DETCollection"/> object.</value>
+		public CTB_ASIENTOS_AUTO_DETCollection CTB_ASIENTOS_AUTO_DETCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_auto_det)
+					_ctb_asientos_auto_det = new CTB_ASIENTOS_AUTO_DETCollection((CBAV2)this);
+				return _ctb_asientos_auto_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_AUTO_DET_INFO_COM</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_AUTO_DET_INFO_COMCollection"/> object.</value>
+		public CTB_ASIENTOS_AUTO_DET_INFO_COMCollection CTB_ASIENTOS_AUTO_DET_INFO_COMCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_auto_det_info_com)
+					_ctb_asientos_auto_det_info_com = new CTB_ASIENTOS_AUTO_DET_INFO_COMCollection((CBAV2)this);
+				return _ctb_asientos_auto_det_info_com;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_AUTO_REL_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_AUTO_REL_INFO_CCollection"/> object.</value>
+		public CTB_ASIENTOS_AUTO_REL_INFO_CCollection CTB_ASIENTOS_AUTO_REL_INFO_CCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_auto_rel_info_c)
+					_ctb_asientos_auto_rel_info_c = new CTB_ASIENTOS_AUTO_REL_INFO_CCollection((CBAV2)this);
+				return _ctb_asientos_auto_rel_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_AUTO_RELACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_AUTO_RELACIONESCollection"/> object.</value>
+		public CTB_ASIENTOS_AUTO_RELACIONESCollection CTB_ASIENTOS_AUTO_RELACIONESCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_auto_relaciones)
+					_ctb_asientos_auto_relaciones = new CTB_ASIENTOS_AUTO_RELACIONESCollection((CBAV2)this);
+				return _ctb_asientos_auto_relaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_AUTOM_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_AUTOM_INFO_COMPLCollection"/> object.</value>
+		public CTB_ASIENTOS_AUTOM_INFO_COMPLCollection CTB_ASIENTOS_AUTOM_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_autom_info_compl)
+					_ctb_asientos_autom_info_compl = new CTB_ASIENTOS_AUTOM_INFO_COMPLCollection((CBAV2)this);
+				return _ctb_asientos_autom_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_AUTOMATICOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_AUTOMATICOSCollection"/> object.</value>
+		public CTB_ASIENTOS_AUTOMATICOSCollection CTB_ASIENTOS_AUTOMATICOSCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_automaticos)
+					_ctb_asientos_automaticos = new CTB_ASIENTOS_AUTOMATICOSCollection((CBAV2)this);
+				return _ctb_asientos_automaticos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_AUTOMATICOS_ERROR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_AUTOMATICOS_ERRORCollection"/> object.</value>
+		public CTB_ASIENTOS_AUTOMATICOS_ERRORCollection CTB_ASIENTOS_AUTOMATICOS_ERRORCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_automaticos_error)
+					_ctb_asientos_automaticos_error = new CTB_ASIENTOS_AUTOMATICOS_ERRORCollection((CBAV2)this);
+				return _ctb_asientos_automaticos_error;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_DET_CENT_C_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_DET_CENT_C_INFO_CCollection"/> object.</value>
+		public CTB_ASIENTOS_DET_CENT_C_INFO_CCollection CTB_ASIENTOS_DET_CENT_C_INFO_CCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_det_cent_c_info_c)
+					_ctb_asientos_det_cent_c_info_c = new CTB_ASIENTOS_DET_CENT_C_INFO_CCollection((CBAV2)this);
+				return _ctb_asientos_det_cent_c_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_DET_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_DET_INFO_COMPLETACollection"/> object.</value>
+		public CTB_ASIENTOS_DET_INFO_COMPLETACollection CTB_ASIENTOS_DET_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_det_info_completa)
+					_ctb_asientos_det_info_completa = new CTB_ASIENTOS_DET_INFO_COMPLETACollection((CBAV2)this);
+				return _ctb_asientos_det_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_DETALLECollection"/> object.</value>
+		public CTB_ASIENTOS_DETALLECollection CTB_ASIENTOS_DETALLECollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_detalle)
+					_ctb_asientos_detalle = new CTB_ASIENTOS_DETALLECollection((CBAV2)this);
+				return _ctb_asientos_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_DETALLE_CENT_COST</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_DETALLE_CENT_COSTCollection"/> object.</value>
+		public CTB_ASIENTOS_DETALLE_CENT_COSTCollection CTB_ASIENTOS_DETALLE_CENT_COSTCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_detalle_cent_cost)
+					_ctb_asientos_detalle_cent_cost = new CTB_ASIENTOS_DETALLE_CENT_COSTCollection((CBAV2)this);
+				return _ctb_asientos_detalle_cent_cost;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_DETALLE_REL</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_DETALLE_RELCollection"/> object.</value>
+		public CTB_ASIENTOS_DETALLE_RELCollection CTB_ASIENTOS_DETALLE_RELCollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_detalle_rel)
+					_ctb_asientos_detalle_rel = new CTB_ASIENTOS_DETALLE_RELCollection((CBAV2)this);
+				return _ctb_asientos_detalle_rel;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ASIENTOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ASIENTOS_INFO_COMPLETACollection"/> object.</value>
+		public CTB_ASIENTOS_INFO_COMPLETACollection CTB_ASIENTOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctb_asientos_info_completa)
+					_ctb_asientos_info_completa = new CTB_ASIENTOS_INFO_COMPLETACollection((CBAV2)this);
+				return _ctb_asientos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_CLASIFICACION_CUENTAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_CLASIFICACION_CUENTASCollection"/> object.</value>
+		public CTB_CLASIFICACION_CUENTASCollection CTB_CLASIFICACION_CUENTASCollection
+		{
+			get
+			{
+				if(null == _ctb_clasificacion_cuentas)
+					_ctb_clasificacion_cuentas = new CTB_CLASIFICACION_CUENTASCollection((CBAV2)this);
+				return _ctb_clasificacion_cuentas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_CUENTAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_CUENTASCollection"/> object.</value>
+		public CTB_CUENTASCollection CTB_CUENTASCollection
+		{
+			get
+			{
+				if(null == _ctb_cuentas)
+					_ctb_cuentas = new CTB_CUENTASCollection((CBAV2)this);
+				return _ctb_cuentas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_CUENTAS_GRUPOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_CUENTAS_GRUPOSCollection"/> object.</value>
+		public CTB_CUENTAS_GRUPOSCollection CTB_CUENTAS_GRUPOSCollection
+		{
+			get
+			{
+				if(null == _ctb_cuentas_grupos)
+					_ctb_cuentas_grupos = new CTB_CUENTAS_GRUPOSCollection((CBAV2)this);
+				return _ctb_cuentas_grupos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_CUENTAS_GRUPOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_CUENTAS_GRUPOS_DETCollection"/> object.</value>
+		public CTB_CUENTAS_GRUPOS_DETCollection CTB_CUENTAS_GRUPOS_DETCollection
+		{
+			get
+			{
+				if(null == _ctb_cuentas_grupos_det)
+					_ctb_cuentas_grupos_det = new CTB_CUENTAS_GRUPOS_DETCollection((CBAV2)this);
+				return _ctb_cuentas_grupos_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_CUENTAS_GRUPOS_DET_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_CUENTAS_GRUPOS_DET_INF_CCollection"/> object.</value>
+		public CTB_CUENTAS_GRUPOS_DET_INF_CCollection CTB_CUENTAS_GRUPOS_DET_INF_CCollection
+		{
+			get
+			{
+				if(null == _ctb_cuentas_grupos_det_inf_c)
+					_ctb_cuentas_grupos_det_inf_c = new CTB_CUENTAS_GRUPOS_DET_INF_CCollection((CBAV2)this);
+				return _ctb_cuentas_grupos_det_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_CUENTAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_CUENTAS_INFO_COMPLETACollection"/> object.</value>
+		public CTB_CUENTAS_INFO_COMPLETACollection CTB_CUENTAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctb_cuentas_info_completa)
+					_ctb_cuentas_info_completa = new CTB_CUENTAS_INFO_COMPLETACollection((CBAV2)this);
+				return _ctb_cuentas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_CUENTAS_PLANTILLAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_CUENTAS_PLANTILLASCollection"/> object.</value>
+		public CTB_CUENTAS_PLANTILLASCollection CTB_CUENTAS_PLANTILLASCollection
+		{
+			get
+			{
+				if(null == _ctb_cuentas_plantillas)
+					_ctb_cuentas_plantillas = new CTB_CUENTAS_PLANTILLASCollection((CBAV2)this);
+				return _ctb_cuentas_plantillas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_DEVENGAMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_DEVENGAMIENTOSCollection"/> object.</value>
+		public CTB_DEVENGAMIENTOSCollection CTB_DEVENGAMIENTOSCollection
+		{
+			get
+			{
+				if(null == _ctb_devengamientos)
+					_ctb_devengamientos = new CTB_DEVENGAMIENTOSCollection((CBAV2)this);
+				return _ctb_devengamientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_DEVENGAMIENTOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_DEVENGAMIENTOS_DETCollection"/> object.</value>
+		public CTB_DEVENGAMIENTOS_DETCollection CTB_DEVENGAMIENTOS_DETCollection
+		{
+			get
+			{
+				if(null == _ctb_devengamientos_det)
+					_ctb_devengamientos_det = new CTB_DEVENGAMIENTOS_DETCollection((CBAV2)this);
+				return _ctb_devengamientos_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_EJERCICIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_EJERCICIOSCollection"/> object.</value>
+		public CTB_EJERCICIOSCollection CTB_EJERCICIOSCollection
+		{
+			get
+			{
+				if(null == _ctb_ejercicios)
+					_ctb_ejercicios = new CTB_EJERCICIOSCollection((CBAV2)this);
+				return _ctb_ejercicios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_EJERCICIOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_EJERCICIOS_INFO_COMPLETACollection"/> object.</value>
+		public CTB_EJERCICIOS_INFO_COMPLETACollection CTB_EJERCICIOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctb_ejercicios_info_completa)
+					_ctb_ejercicios_info_completa = new CTB_EJERCICIOS_INFO_COMPLETACollection((CBAV2)this);
+				return _ctb_ejercicios_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_ENTIDADES_CUENTAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_ENTIDADES_CUENTASCollection"/> object.</value>
+		public CTB_ENTIDADES_CUENTASCollection CTB_ENTIDADES_CUENTASCollection
+		{
+			get
+			{
+				if(null == _ctb_entidades_cuentas)
+					_ctb_entidades_cuentas = new CTB_ENTIDADES_CUENTASCollection((CBAV2)this);
+				return _ctb_entidades_cuentas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_INDICADORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_INDICADORESCollection"/> object.</value>
+		public CTB_INDICADORESCollection CTB_INDICADORESCollection
+		{
+			get
+			{
+				if(null == _ctb_indicadores)
+					_ctb_indicadores = new CTB_INDICADORESCollection((CBAV2)this);
+				return _ctb_indicadores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_INDICADORES_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_INDICADORES_DET_INFO_COMPLCollection"/> object.</value>
+		public CTB_INDICADORES_DET_INFO_COMPLCollection CTB_INDICADORES_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctb_indicadores_det_info_compl)
+					_ctb_indicadores_det_info_compl = new CTB_INDICADORES_DET_INFO_COMPLCollection((CBAV2)this);
+				return _ctb_indicadores_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_INDICADORES_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_INDICADORES_DETALLECollection"/> object.</value>
+		public CTB_INDICADORES_DETALLECollection CTB_INDICADORES_DETALLECollection
+		{
+			get
+			{
+				if(null == _ctb_indicadores_detalle)
+					_ctb_indicadores_detalle = new CTB_INDICADORES_DETALLECollection((CBAV2)this);
+				return _ctb_indicadores_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_INDICADORES_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_INDICADORES_INFO_COMPLCollection"/> object.</value>
+		public CTB_INDICADORES_INFO_COMPLCollection CTB_INDICADORES_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctb_indicadores_info_compl)
+					_ctb_indicadores_info_compl = new CTB_INDICADORES_INFO_COMPLCollection((CBAV2)this);
+				return _ctb_indicadores_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_INDICADORES_OPERACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_INDICADORES_OPERACIONESCollection"/> object.</value>
+		public CTB_INDICADORES_OPERACIONESCollection CTB_INDICADORES_OPERACIONESCollection
+		{
+			get
+			{
+				if(null == _ctb_indicadores_operaciones)
+					_ctb_indicadores_operaciones = new CTB_INDICADORES_OPERACIONESCollection((CBAV2)this);
+				return _ctb_indicadores_operaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_PERIODOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_PERIODOSCollection"/> object.</value>
+		public CTB_PERIODOSCollection CTB_PERIODOSCollection
+		{
+			get
+			{
+				if(null == _ctb_periodos)
+					_ctb_periodos = new CTB_PERIODOSCollection((CBAV2)this);
+				return _ctb_periodos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_PERIODOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_PERIODOS_INFO_COMPLETACollection"/> object.</value>
+		public CTB_PERIODOS_INFO_COMPLETACollection CTB_PERIODOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctb_periodos_info_completa)
+					_ctb_periodos_info_completa = new CTB_PERIODOS_INFO_COMPLETACollection((CBAV2)this);
+				return _ctb_periodos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_PLANES_CUENTA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_PLANES_CUENTACollection"/> object.</value>
+		public CTB_PLANES_CUENTACollection CTB_PLANES_CUENTACollection
+		{
+			get
+			{
+				if(null == _ctb_planes_cuenta)
+					_ctb_planes_cuenta = new CTB_PLANES_CUENTACollection((CBAV2)this);
+				return _ctb_planes_cuenta;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_PLANES_CUENTA_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_PLANES_CUENTA_INFO_COMPLCollection"/> object.</value>
+		public CTB_PLANES_CUENTA_INFO_COMPLCollection CTB_PLANES_CUENTA_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ctb_planes_cuenta_info_compl)
+					_ctb_planes_cuenta_info_compl = new CTB_PLANES_CUENTA_INFO_COMPLCollection((CBAV2)this);
+				return _ctb_planes_cuenta_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_PRESUPUESTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_PRESUPUESTOSCollection"/> object.</value>
+		public CTB_PRESUPUESTOSCollection CTB_PRESUPUESTOSCollection
+		{
+			get
+			{
+				if(null == _ctb_presupuestos)
+					_ctb_presupuestos = new CTB_PRESUPUESTOSCollection((CBAV2)this);
+				return _ctb_presupuestos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_PRESUPUESTOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_PRESUPUESTOS_DETCollection"/> object.</value>
+		public CTB_PRESUPUESTOS_DETCollection CTB_PRESUPUESTOS_DETCollection
+		{
+			get
+			{
+				if(null == _ctb_presupuestos_det)
+					_ctb_presupuestos_det = new CTB_PRESUPUESTOS_DETCollection((CBAV2)this);
+				return _ctb_presupuestos_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_REPORTES_CUENTAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_REPORTES_CUENTASCollection"/> object.</value>
+		public CTB_REPORTES_CUENTASCollection CTB_REPORTES_CUENTASCollection
+		{
+			get
+			{
+				if(null == _ctb_reportes_cuentas)
+					_ctb_reportes_cuentas = new CTB_REPORTES_CUENTASCollection((CBAV2)this);
+				return _ctb_reportes_cuentas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_REVALUOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_REVALUOSCollection"/> object.</value>
+		public CTB_REVALUOSCollection CTB_REVALUOSCollection
+		{
+			get
+			{
+				if(null == _ctb_revaluos)
+					_ctb_revaluos = new CTB_REVALUOSCollection((CBAV2)this);
+				return _ctb_revaluos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_REVALUOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_REVALUOS_INFO_COMPLETACollection"/> object.</value>
+		public CTB_REVALUOS_INFO_COMPLETACollection CTB_REVALUOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ctb_revaluos_info_completa)
+					_ctb_revaluos_info_completa = new CTB_REVALUOS_INFO_COMPLETACollection((CBAV2)this);
+				return _ctb_revaluos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_TIPO_COMPROBANTE_SET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_TIPO_COMPROBANTE_SETCollection"/> object.</value>
+		public CTB_TIPO_COMPROBANTE_SETCollection CTB_TIPO_COMPROBANTE_SETCollection
+		{
+			get
+			{
+				if(null == _ctb_tipo_comprobante_set)
+					_ctb_tipo_comprobante_set = new CTB_TIPO_COMPROBANTE_SETCollection((CBAV2)this);
+				return _ctb_tipo_comprobante_set;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CTB_TIPOS_ASIENTO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CTB_TIPOS_ASIENTOCollection"/> object.</value>
+		public CTB_TIPOS_ASIENTOCollection CTB_TIPOS_ASIENTOCollection
+		{
+			get
+			{
+				if(null == _ctb_tipos_asiento)
+					_ctb_tipos_asiento = new CTB_TIPOS_ASIENTOCollection((CBAV2)this);
+				return _ctb_tipos_asiento;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CUSTODIA_VALORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CUSTODIA_VALORESCollection"/> object.</value>
+		public CUSTODIA_VALORESCollection CUSTODIA_VALORESCollection
+		{
+			get
+			{
+				if(null == _custodia_valores)
+					_custodia_valores = new CUSTODIA_VALORESCollection((CBAV2)this);
+				return _custodia_valores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CUSTODIA_VALORES_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CUSTODIA_VALORES_DETCollection"/> object.</value>
+		public CUSTODIA_VALORES_DETCollection CUSTODIA_VALORES_DETCollection
+		{
+			get
+			{
+				if(null == _custodia_valores_det)
+					_custodia_valores_det = new CUSTODIA_VALORES_DETCollection((CBAV2)this);
+				return _custodia_valores_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CUSTODIA_VALORES_DET_ENT_IN_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CUSTODIA_VALORES_DET_ENT_IN_CCollection"/> object.</value>
+		public CUSTODIA_VALORES_DET_ENT_IN_CCollection CUSTODIA_VALORES_DET_ENT_IN_CCollection
+		{
+			get
+			{
+				if(null == _custodia_valores_det_ent_in_c)
+					_custodia_valores_det_ent_in_c = new CUSTODIA_VALORES_DET_ENT_IN_CCollection((CBAV2)this);
+				return _custodia_valores_det_ent_in_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CUSTODIA_VALORES_DET_ENTRADA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CUSTODIA_VALORES_DET_ENTRADACollection"/> object.</value>
+		public CUSTODIA_VALORES_DET_ENTRADACollection CUSTODIA_VALORES_DET_ENTRADACollection
+		{
+			get
+			{
+				if(null == _custodia_valores_det_entrada)
+					_custodia_valores_det_entrada = new CUSTODIA_VALORES_DET_ENTRADACollection((CBAV2)this);
+				return _custodia_valores_det_entrada;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CUSTODIA_VALORES_DET_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CUSTODIA_VALORES_DET_INF_COMPCollection"/> object.</value>
+		public CUSTODIA_VALORES_DET_INF_COMPCollection CUSTODIA_VALORES_DET_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _custodia_valores_det_inf_comp)
+					_custodia_valores_det_inf_comp = new CUSTODIA_VALORES_DET_INF_COMPCollection((CBAV2)this);
+				return _custodia_valores_det_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CUSTODIA_VALORES_DET_SAL_IN_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CUSTODIA_VALORES_DET_SAL_IN_CCollection"/> object.</value>
+		public CUSTODIA_VALORES_DET_SAL_IN_CCollection CUSTODIA_VALORES_DET_SAL_IN_CCollection
+		{
+			get
+			{
+				if(null == _custodia_valores_det_sal_in_c)
+					_custodia_valores_det_sal_in_c = new CUSTODIA_VALORES_DET_SAL_IN_CCollection((CBAV2)this);
+				return _custodia_valores_det_sal_in_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CUSTODIA_VALORES_DET_SALIDA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="CUSTODIA_VALORES_DET_SALIDACollection"/> object.</value>
+		public CUSTODIA_VALORES_DET_SALIDACollection CUSTODIA_VALORES_DET_SALIDACollection
+		{
+			get
+			{
+				if(null == _custodia_valores_det_salida)
+					_custodia_valores_det_salida = new CUSTODIA_VALORES_DET_SALIDACollection((CBAV2)this);
+				return _custodia_valores_det_salida;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>CUSTODIA_VALORES_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="CUSTODIA_VALORES_INFO_COMPCollection"/> object.</value>
+		public CUSTODIA_VALORES_INFO_COMPCollection CUSTODIA_VALORES_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _custodia_valores_info_comp)
+					_custodia_valores_info_comp = new CUSTODIA_VALORES_INFO_COMPCollection((CBAV2)this);
+				return _custodia_valores_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DEPARTAMENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DEPARTAMENTOSCollection"/> object.</value>
+		public DEPARTAMENTOSCollection DEPARTAMENTOSCollection
+		{
+			get
+			{
+				if(null == _departamentos)
+					_departamentos = new DEPARTAMENTOSCollection((CBAV2)this);
+				return _departamentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DEPOSITO_PREP_ESTADO_ACTUAL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DEPOSITO_PREP_ESTADO_ACTUALCollection"/> object.</value>
+		public DEPOSITO_PREP_ESTADO_ACTUALCollection DEPOSITO_PREP_ESTADO_ACTUALCollection
+		{
+			get
+			{
+				if(null == _deposito_prep_estado_actual)
+					_deposito_prep_estado_actual = new DEPOSITO_PREP_ESTADO_ACTUALCollection((CBAV2)this);
+				return _deposito_prep_estado_actual;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DEPOSITO_PREP_ESTADO_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DEPOSITO_PREP_ESTADO_INFO_COMPCollection"/> object.</value>
+		public DEPOSITO_PREP_ESTADO_INFO_COMPCollection DEPOSITO_PREP_ESTADO_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _deposito_prep_estado_info_comp)
+					_deposito_prep_estado_info_comp = new DEPOSITO_PREP_ESTADO_INFO_COMPCollection((CBAV2)this);
+				return _deposito_prep_estado_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DEPOSITO_PREPARACION_ESTADO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DEPOSITO_PREPARACION_ESTADOCollection"/> object.</value>
+		public DEPOSITO_PREPARACION_ESTADOCollection DEPOSITO_PREPARACION_ESTADOCollection
+		{
+			get
+			{
+				if(null == _deposito_preparacion_estado)
+					_deposito_preparacion_estado = new DEPOSITO_PREPARACION_ESTADOCollection((CBAV2)this);
+				return _deposito_preparacion_estado;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DEPOSITOS_BANC_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DEPOSITOS_BANC_DET_INFO_COMPLCollection"/> object.</value>
+		public DEPOSITOS_BANC_DET_INFO_COMPLCollection DEPOSITOS_BANC_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _depositos_banc_det_info_compl)
+					_depositos_banc_det_info_compl = new DEPOSITOS_BANC_DET_INFO_COMPLCollection((CBAV2)this);
+				return _depositos_banc_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DEPOSITOS_BANCARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DEPOSITOS_BANCARIOSCollection"/> object.</value>
+		public DEPOSITOS_BANCARIOSCollection DEPOSITOS_BANCARIOSCollection
+		{
+			get
+			{
+				if(null == _depositos_bancarios)
+					_depositos_bancarios = new DEPOSITOS_BANCARIOSCollection((CBAV2)this);
+				return _depositos_bancarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DEPOSITOS_BANCARIOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DEPOSITOS_BANCARIOS_DETCollection"/> object.</value>
+		public DEPOSITOS_BANCARIOS_DETCollection DEPOSITOS_BANCARIOS_DETCollection
+		{
+			get
+			{
+				if(null == _depositos_bancarios_det)
+					_depositos_bancarios_det = new DEPOSITOS_BANCARIOS_DETCollection((CBAV2)this);
+				return _depositos_bancarios_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DEPOSITOS_BANCARIOS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DEPOSITOS_BANCARIOS_INFO_COMPLCollection"/> object.</value>
+		public DEPOSITOS_BANCARIOS_INFO_COMPLCollection DEPOSITOS_BANCARIOS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _depositos_bancarios_info_compl)
+					_depositos_bancarios_info_compl = new DEPOSITOS_BANCARIOS_INFO_COMPLCollection((CBAV2)this);
+				return _depositos_bancarios_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESC_DOCS_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESC_DOCS_DET_INFO_COMPLCollection"/> object.</value>
+		public DESC_DOCS_DET_INFO_COMPLCollection DESC_DOCS_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _desc_docs_det_info_compl)
+					_desc_docs_det_info_compl = new DESC_DOCS_DET_INFO_COMPLCollection((CBAV2)this);
+				return _desc_docs_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESC_DOCS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESC_DOCS_INFO_COMPLCollection"/> object.</value>
+		public DESC_DOCS_INFO_COMPLCollection DESC_DOCS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _desc_docs_info_compl)
+					_desc_docs_info_compl = new DESC_DOCS_INFO_COMPLCollection((CBAV2)this);
+				return _desc_docs_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESC_DOCS_PAGOS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESC_DOCS_PAGOS_INFO_COMPLCollection"/> object.</value>
+		public DESC_DOCS_PAGOS_INFO_COMPLCollection DESC_DOCS_PAGOS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _desc_docs_pagos_info_compl)
+					_desc_docs_pagos_info_compl = new DESC_DOCS_PAGOS_INFO_COMPLCollection((CBAV2)this);
+				return _desc_docs_pagos_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTO_DOC_CLI_DET_DESGLOSE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTO_DOC_CLI_DET_DESGLOSECollection"/> object.</value>
+		public DESCUENTO_DOC_CLI_DET_DESGLOSECollection DESCUENTO_DOC_CLI_DET_DESGLOSECollection
+		{
+			get
+			{
+				if(null == _descuento_doc_cli_det_desglose)
+					_descuento_doc_cli_det_desglose = new DESCUENTO_DOC_CLI_DET_DESGLOSECollection((CBAV2)this);
+				return _descuento_doc_cli_det_desglose;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTO_DOC_CLI_DET_VENCIM</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTO_DOC_CLI_DET_VENCIMCollection"/> object.</value>
+		public DESCUENTO_DOC_CLI_DET_VENCIMCollection DESCUENTO_DOC_CLI_DET_VENCIMCollection
+		{
+			get
+			{
+				if(null == _descuento_doc_cli_det_vencim)
+					_descuento_doc_cli_det_vencim = new DESCUENTO_DOC_CLI_DET_VENCIMCollection((CBAV2)this);
+				return _descuento_doc_cli_det_vencim;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTO_DOCUMENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTO_DOCUMENTOSCollection"/> object.</value>
+		public DESCUENTO_DOCUMENTOSCollection DESCUENTO_DOCUMENTOSCollection
+		{
+			get
+			{
+				if(null == _descuento_documentos)
+					_descuento_documentos = new DESCUENTO_DOCUMENTOSCollection((CBAV2)this);
+				return _descuento_documentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTO_DOCUMENTOS_CLI_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTO_DOCUMENTOS_CLI_DETCollection"/> object.</value>
+		public DESCUENTO_DOCUMENTOS_CLI_DETCollection DESCUENTO_DOCUMENTOS_CLI_DETCollection
+		{
+			get
+			{
+				if(null == _descuento_documentos_cli_det)
+					_descuento_documentos_cli_det = new DESCUENTO_DOCUMENTOS_CLI_DETCollection((CBAV2)this);
+				return _descuento_documentos_cli_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTO_DOCUMENTOS_CLI_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTO_DOCUMENTOS_CLI_INF_CCollection"/> object.</value>
+		public DESCUENTO_DOCUMENTOS_CLI_INF_CCollection DESCUENTO_DOCUMENTOS_CLI_INF_CCollection
+		{
+			get
+			{
+				if(null == _descuento_documentos_cli_inf_c)
+					_descuento_documentos_cli_inf_c = new DESCUENTO_DOCUMENTOS_CLI_INF_CCollection((CBAV2)this);
+				return _descuento_documentos_cli_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTO_DOCUMENTOS_CLIENTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTO_DOCUMENTOS_CLIENTECollection"/> object.</value>
+		public DESCUENTO_DOCUMENTOS_CLIENTECollection DESCUENTO_DOCUMENTOS_CLIENTECollection
+		{
+			get
+			{
+				if(null == _descuento_documentos_cliente)
+					_descuento_documentos_cliente = new DESCUENTO_DOCUMENTOS_CLIENTECollection((CBAV2)this);
+				return _descuento_documentos_cliente;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTO_DOCUMENTOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTO_DOCUMENTOS_DETCollection"/> object.</value>
+		public DESCUENTO_DOCUMENTOS_DETCollection DESCUENTO_DOCUMENTOS_DETCollection
+		{
+			get
+			{
+				if(null == _descuento_documentos_det)
+					_descuento_documentos_det = new DESCUENTO_DOCUMENTOS_DETCollection((CBAV2)this);
+				return _descuento_documentos_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTO_DOCUMENTOS_PAGOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTO_DOCUMENTOS_PAGOSCollection"/> object.</value>
+		public DESCUENTO_DOCUMENTOS_PAGOSCollection DESCUENTO_DOCUMENTOS_PAGOSCollection
+		{
+			get
+			{
+				if(null == _descuento_documentos_pagos)
+					_descuento_documentos_pagos = new DESCUENTO_DOCUMENTOS_PAGOSCollection((CBAV2)this);
+				return _descuento_documentos_pagos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTOSCollection"/> object.</value>
+		public DESCUENTOSCollection DESCUENTOSCollection
+		{
+			get
+			{
+				if(null == _descuentos)
+					_descuentos = new DESCUENTOSCollection((CBAV2)this);
+				return _descuentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTOS_LLEGADAS_TAR_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTOS_LLEGADAS_TAR_DETCollection"/> object.</value>
+		public DESCUENTOS_LLEGADAS_TAR_DETCollection DESCUENTOS_LLEGADAS_TAR_DETCollection
+		{
+			get
+			{
+				if(null == _descuentos_llegadas_tar_det)
+					_descuentos_llegadas_tar_det = new DESCUENTOS_LLEGADAS_TAR_DETCollection((CBAV2)this);
+				return _descuentos_llegadas_tar_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESCUENTOS_LLEGADAS_TARDIAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESCUENTOS_LLEGADAS_TARDIASCollection"/> object.</value>
+		public DESCUENTOS_LLEGADAS_TARDIASCollection DESCUENTOS_LLEGADAS_TARDIASCollection
+		{
+			get
+			{
+				if(null == _descuentos_llegadas_tardias)
+					_descuentos_llegadas_tardias = new DESCUENTOS_LLEGADAS_TARDIASCollection((CBAV2)this);
+				return _descuentos_llegadas_tardias;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESEM_GIROS_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESEM_GIROS_DET_INFO_COMPLCollection"/> object.</value>
+		public DESEM_GIROS_DET_INFO_COMPLCollection DESEM_GIROS_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _desem_giros_det_info_compl)
+					_desem_giros_det_info_compl = new DESEM_GIROS_DET_INFO_COMPLCollection((CBAV2)this);
+				return _desem_giros_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESEMBOLSOS_GIROS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESEMBOLSOS_GIROSCollection"/> object.</value>
+		public DESEMBOLSOS_GIROSCollection DESEMBOLSOS_GIROSCollection
+		{
+			get
+			{
+				if(null == _desembolsos_giros)
+					_desembolsos_giros = new DESEMBOLSOS_GIROSCollection((CBAV2)this);
+				return _desembolsos_giros;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESEMBOLSOS_GIROS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESEMBOLSOS_GIROS_DETCollection"/> object.</value>
+		public DESEMBOLSOS_GIROS_DETCollection DESEMBOLSOS_GIROS_DETCollection
+		{
+			get
+			{
+				if(null == _desembolsos_giros_det)
+					_desembolsos_giros_det = new DESEMBOLSOS_GIROS_DETCollection((CBAV2)this);
+				return _desembolsos_giros_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DESEMBOLSOS_GIROS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DESEMBOLSOS_GIROS_INFO_COMPLCollection"/> object.</value>
+		public DESEMBOLSOS_GIROS_INFO_COMPLCollection DESEMBOLSOS_GIROS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _desembolsos_giros_info_compl)
+					_desembolsos_giros_info_compl = new DESEMBOLSOS_GIROS_INFO_COMPLCollection((CBAV2)this);
+				return _desembolsos_giros_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DETALLES_PERSON_HIST_INF_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DETALLES_PERSON_HIST_INF_COMPLCollection"/> object.</value>
+		public DETALLES_PERSON_HIST_INF_COMPLCollection DETALLES_PERSON_HIST_INF_COMPLCollection
+		{
+			get
+			{
+				if(null == _detalles_person_hist_inf_compl)
+					_detalles_person_hist_inf_compl = new DETALLES_PERSON_HIST_INF_COMPLCollection((CBAV2)this);
+				return _detalles_person_hist_inf_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DETALLES_PERSONALIZ_INF_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="DETALLES_PERSONALIZ_INF_COMPLCollection"/> object.</value>
+		public DETALLES_PERSONALIZ_INF_COMPLCollection DETALLES_PERSONALIZ_INF_COMPLCollection
+		{
+			get
+			{
+				if(null == _detalles_personaliz_inf_compl)
+					_detalles_personaliz_inf_compl = new DETALLES_PERSONALIZ_INF_COMPLCollection((CBAV2)this);
+				return _detalles_personaliz_inf_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DETALLES_PERSONALIZADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DETALLES_PERSONALIZADOSCollection"/> object.</value>
+		public DETALLES_PERSONALIZADOSCollection DETALLES_PERSONALIZADOSCollection
+		{
+			get
+			{
+				if(null == _detalles_personalizados)
+					_detalles_personalizados = new DETALLES_PERSONALIZADOSCollection((CBAV2)this);
+				return _detalles_personalizados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DETALLES_PERSONALIZADOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DETALLES_PERSONALIZADOS_DETCollection"/> object.</value>
+		public DETALLES_PERSONALIZADOS_DETCollection DETALLES_PERSONALIZADOS_DETCollection
+		{
+			get
+			{
+				if(null == _detalles_personalizados_det)
+					_detalles_personalizados_det = new DETALLES_PERSONALIZADOS_DETCollection((CBAV2)this);
+				return _detalles_personalizados_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DETALLES_PERSONALIZADOS_HIST</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DETALLES_PERSONALIZADOS_HISTCollection"/> object.</value>
+		public DETALLES_PERSONALIZADOS_HISTCollection DETALLES_PERSONALIZADOS_HISTCollection
+		{
+			get
+			{
+				if(null == _detalles_personalizados_hist)
+					_detalles_personalizados_hist = new DETALLES_PERSONALIZADOS_HISTCollection((CBAV2)this);
+				return _detalles_personalizados_hist;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DETALLES_PERSONALIZADOS_HIST_D</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DETALLES_PERSONALIZADOS_HIST_DCollection"/> object.</value>
+		public DETALLES_PERSONALIZADOS_HIST_DCollection DETALLES_PERSONALIZADOS_HIST_DCollection
+		{
+			get
+			{
+				if(null == _detalles_personalizados_hist_d)
+					_detalles_personalizados_hist_d = new DETALLES_PERSONALIZADOS_HIST_DCollection((CBAV2)this);
+				return _detalles_personalizados_hist_d;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DIAS_SEMANA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DIAS_SEMANACollection"/> object.</value>
+		public DIAS_SEMANACollection DIAS_SEMANACollection
+		{
+			get
+			{
+				if(null == _dias_semana)
+					_dias_semana = new DIAS_SEMANACollection((CBAV2)this);
+				return _dias_semana;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>DISPOSITIVOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="DISPOSITIVOSCollection"/> object.</value>
+		public DISPOSITIVOSCollection DISPOSITIVOSCollection
+		{
+			get
+			{
+				if(null == _dispositivos)
+					_dispositivos = new DISPOSITIVOSCollection((CBAV2)this);
+				return _dispositivos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EDI</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EDICollection"/> object.</value>
+		public EDICollection EDICollection
+		{
+			get
+			{
+				if(null == _edi)
+					_edi = new EDICollection((CBAV2)this);
+				return _edi;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EGRESO_PROD_DET_MATERIALES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EGRESO_PROD_DET_MATERIALESCollection"/> object.</value>
+		public EGRESO_PROD_DET_MATERIALESCollection EGRESO_PROD_DET_MATERIALESCollection
+		{
+			get
+			{
+				if(null == _egreso_prod_det_materiales)
+					_egreso_prod_det_materiales = new EGRESO_PROD_DET_MATERIALESCollection((CBAV2)this);
+				return _egreso_prod_det_materiales;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EGRESO_PRODUCTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EGRESO_PRODUCTOSCollection"/> object.</value>
+		public EGRESO_PRODUCTOSCollection EGRESO_PRODUCTOSCollection
+		{
+			get
+			{
+				if(null == _egreso_productos)
+					_egreso_productos = new EGRESO_PRODUCTOSCollection((CBAV2)this);
+				return _egreso_productos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EGRESO_PRODUCTOS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EGRESO_PRODUCTOS_DETALLESCollection"/> object.</value>
+		public EGRESO_PRODUCTOS_DETALLESCollection EGRESO_PRODUCTOS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _egreso_productos_detalles)
+					_egreso_productos_detalles = new EGRESO_PRODUCTOS_DETALLESCollection((CBAV2)this);
+				return _egreso_productos_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EGRESO_PRODUCTOS_SOBRANTES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EGRESO_PRODUCTOS_SOBRANTESCollection"/> object.</value>
+		public EGRESO_PRODUCTOS_SOBRANTESCollection EGRESO_PRODUCTOS_SOBRANTESCollection
+		{
+			get
+			{
+				if(null == _egreso_productos_sobrantes)
+					_egreso_productos_sobrantes = new EGRESO_PRODUCTOS_SOBRANTESCollection((CBAV2)this);
+				return _egreso_productos_sobrantes;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EGRESOS_VARIOS_CAJA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EGRESOS_VARIOS_CAJACollection"/> object.</value>
+		public EGRESOS_VARIOS_CAJACollection EGRESOS_VARIOS_CAJACollection
+		{
+			get
+			{
+				if(null == _egresos_varios_caja)
+					_egresos_varios_caja = new EGRESOS_VARIOS_CAJACollection((CBAV2)this);
+				return _egresos_varios_caja;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EGRESOS_VARIOS_CAJA_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EGRESOS_VARIOS_CAJA_DETCollection"/> object.</value>
+		public EGRESOS_VARIOS_CAJA_DETCollection EGRESOS_VARIOS_CAJA_DETCollection
+		{
+			get
+			{
+				if(null == _egresos_varios_caja_det)
+					_egresos_varios_caja_det = new EGRESOS_VARIOS_CAJA_DETCollection((CBAV2)this);
+				return _egresos_varios_caja_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EGRESOS_VARIOS_CAJA_DET_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="EGRESOS_VARIOS_CAJA_DET_INF_CCollection"/> object.</value>
+		public EGRESOS_VARIOS_CAJA_DET_INF_CCollection EGRESOS_VARIOS_CAJA_DET_INF_CCollection
+		{
+			get
+			{
+				if(null == _egresos_varios_caja_det_inf_c)
+					_egresos_varios_caja_det_inf_c = new EGRESOS_VARIOS_CAJA_DET_INF_CCollection((CBAV2)this);
+				return _egresos_varios_caja_det_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EGRESOS_VARIOS_CAJA_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="EGRESOS_VARIOS_CAJA_INFO_COMPLCollection"/> object.</value>
+		public EGRESOS_VARIOS_CAJA_INFO_COMPLCollection EGRESOS_VARIOS_CAJA_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _egresos_varios_caja_info_compl)
+					_egresos_varios_caja_info_compl = new EGRESOS_VARIOS_CAJA_INFO_COMPLCollection((CBAV2)this);
+				return _egresos_varios_caja_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EGRESOS_VARIOS_CAJA_VAL</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EGRESOS_VARIOS_CAJA_VALCollection"/> object.</value>
+		public EGRESOS_VARIOS_CAJA_VALCollection EGRESOS_VARIOS_CAJA_VALCollection
+		{
+			get
+			{
+				if(null == _egresos_varios_caja_val)
+					_egresos_varios_caja_val = new EGRESOS_VARIOS_CAJA_VALCollection((CBAV2)this);
+				return _egresos_varios_caja_val;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EGRESOS_VARIOS_CAJA_VAL_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="EGRESOS_VARIOS_CAJA_VAL_INF_CCollection"/> object.</value>
+		public EGRESOS_VARIOS_CAJA_VAL_INF_CCollection EGRESOS_VARIOS_CAJA_VAL_INF_CCollection
+		{
+			get
+			{
+				if(null == _egresos_varios_caja_val_inf_c)
+					_egresos_varios_caja_val_inf_c = new EGRESOS_VARIOS_CAJA_VAL_INF_CCollection((CBAV2)this);
+				return _egresos_varios_caja_val_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EMPRESA_CARGOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EMPRESA_CARGOSCollection"/> object.</value>
+		public EMPRESA_CARGOSCollection EMPRESA_CARGOSCollection
+		{
+			get
+			{
+				if(null == _empresa_cargos)
+					_empresa_cargos = new EMPRESA_CARGOSCollection((CBAV2)this);
+				return _empresa_cargos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EMPRESA_CARGOS_FUNC_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="EMPRESA_CARGOS_FUNC_INFO_COMPCollection"/> object.</value>
+		public EMPRESA_CARGOS_FUNC_INFO_COMPCollection EMPRESA_CARGOS_FUNC_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _empresa_cargos_func_info_comp)
+					_empresa_cargos_func_info_comp = new EMPRESA_CARGOS_FUNC_INFO_COMPCollection((CBAV2)this);
+				return _empresa_cargos_func_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EMPRESA_CARGOS_FUNCIONARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EMPRESA_CARGOS_FUNCIONARIOSCollection"/> object.</value>
+		public EMPRESA_CARGOS_FUNCIONARIOSCollection EMPRESA_CARGOS_FUNCIONARIOSCollection
+		{
+			get
+			{
+				if(null == _empresa_cargos_funcionarios)
+					_empresa_cargos_funcionarios = new EMPRESA_CARGOS_FUNCIONARIOSCollection((CBAV2)this);
+				return _empresa_cargos_funcionarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EMPRESA_CARGOS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="EMPRESA_CARGOS_INFO_COMPCollection"/> object.</value>
+		public EMPRESA_CARGOS_INFO_COMPCollection EMPRESA_CARGOS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _empresa_cargos_info_comp)
+					_empresa_cargos_info_comp = new EMPRESA_CARGOS_INFO_COMPCollection((CBAV2)this);
+				return _empresa_cargos_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EMPRESA_DEPARTAMENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EMPRESA_DEPARTAMENTOSCollection"/> object.</value>
+		public EMPRESA_DEPARTAMENTOSCollection EMPRESA_DEPARTAMENTOSCollection
+		{
+			get
+			{
+				if(null == _empresa_departamentos)
+					_empresa_departamentos = new EMPRESA_DEPARTAMENTOSCollection((CBAV2)this);
+				return _empresa_departamentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EMPRESA_FAJAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EMPRESA_FAJASCollection"/> object.</value>
+		public EMPRESA_FAJASCollection EMPRESA_FAJASCollection
+		{
+			get
+			{
+				if(null == _empresa_fajas)
+					_empresa_fajas = new EMPRESA_FAJASCollection((CBAV2)this);
+				return _empresa_fajas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EMPRESA_SECCIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EMPRESA_SECCIONESCollection"/> object.</value>
+		public EMPRESA_SECCIONESCollection EMPRESA_SECCIONESCollection
+		{
+			get
+			{
+				if(null == _empresa_secciones)
+					_empresa_secciones = new EMPRESA_SECCIONESCollection((CBAV2)this);
+				return _empresa_secciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ENCUESTAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ENCUESTASCollection"/> object.</value>
+		public ENCUESTASCollection ENCUESTASCollection
+		{
+			get
+			{
+				if(null == _encuestas)
+					_encuestas = new ENCUESTASCollection((CBAV2)this);
+				return _encuestas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ENCUESTAS_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ENCUESTAS_DETALLECollection"/> object.</value>
+		public ENCUESTAS_DETALLECollection ENCUESTAS_DETALLECollection
+		{
+			get
+			{
+				if(null == _encuestas_detalle)
+					_encuestas_detalle = new ENCUESTAS_DETALLECollection((CBAV2)this);
+				return _encuestas_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ENCUESTAS_PREGUNTAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ENCUESTAS_PREGUNTASCollection"/> object.</value>
+		public ENCUESTAS_PREGUNTASCollection ENCUESTAS_PREGUNTASCollection
+		{
+			get
+			{
+				if(null == _encuestas_preguntas)
+					_encuestas_preguntas = new ENCUESTAS_PREGUNTASCollection((CBAV2)this);
+				return _encuestas_preguntas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ENCUESTAS_RESPUESTAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ENCUESTAS_RESPUESTASCollection"/> object.</value>
+		public ENCUESTAS_RESPUESTASCollection ENCUESTAS_RESPUESTASCollection
+		{
+			get
+			{
+				if(null == _encuestas_respuestas)
+					_encuestas_respuestas = new ENCUESTAS_RESPUESTASCollection((CBAV2)this);
+				return _encuestas_respuestas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ENTIDADES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ENTIDADESCollection"/> object.</value>
+		public ENTIDADESCollection ENTIDADESCollection
+		{
+			get
+			{
+				if(null == _entidades)
+					_entidades = new ENTIDADESCollection((CBAV2)this);
+				return _entidades;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ENTIDADES_CONFIG_MAIL</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ENTIDADES_CONFIG_MAILCollection"/> object.</value>
+		public ENTIDADES_CONFIG_MAILCollection ENTIDADES_CONFIG_MAILCollection
+		{
+			get
+			{
+				if(null == _entidades_config_mail)
+					_entidades_config_mail = new ENTIDADES_CONFIG_MAILCollection((CBAV2)this);
+				return _entidades_config_mail;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ENTIDADES_TEXTO_PREDEFINIDO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ENTIDADES_TEXTO_PREDEFINIDOCollection"/> object.</value>
+		public ENTIDADES_TEXTO_PREDEFINIDOCollection ENTIDADES_TEXTO_PREDEFINIDOCollection
+		{
+			get
+			{
+				if(null == _entidades_texto_predefinido)
+					_entidades_texto_predefinido = new ENTIDADES_TEXTO_PREDEFINIDOCollection((CBAV2)this);
+				return _entidades_texto_predefinido;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ENTIDADES_UUID</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ENTIDADES_UUIDCollection"/> object.</value>
+		public ENTIDADES_UUIDCollection ENTIDADES_UUIDCollection
+		{
+			get
+			{
+				if(null == _entidades_uuid)
+					_entidades_uuid = new ENTIDADES_UUIDCollection((CBAV2)this);
+				return _entidades_uuid;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ENVASES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ENVASESCollection"/> object.</value>
+		public ENVASESCollection ENVASESCollection
+		{
+			get
+			{
+				if(null == _envases)
+					_envases = new ENVASESCollection((CBAV2)this);
+				return _envases;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EQUIPOS_AUTORIZADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EQUIPOS_AUTORIZADOSCollection"/> object.</value>
+		public EQUIPOS_AUTORIZADOSCollection EQUIPOS_AUTORIZADOSCollection
+		{
+			get
+			{
+				if(null == _equipos_autorizados)
+					_equipos_autorizados = new EQUIPOS_AUTORIZADOSCollection((CBAV2)this);
+				return _equipos_autorizados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EQUIPOS_AUTORIZADOS_CHOFERES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EQUIPOS_AUTORIZADOS_CHOFERESCollection"/> object.</value>
+		public EQUIPOS_AUTORIZADOS_CHOFERESCollection EQUIPOS_AUTORIZADOS_CHOFERESCollection
+		{
+			get
+			{
+				if(null == _equipos_autorizados_choferes)
+					_equipos_autorizados_choferes = new EQUIPOS_AUTORIZADOS_CHOFERESCollection((CBAV2)this);
+				return _equipos_autorizados_choferes;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EQUIPOS_AUTORIZADOS_DET_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="EQUIPOS_AUTORIZADOS_DET_INF_CCollection"/> object.</value>
+		public EQUIPOS_AUTORIZADOS_DET_INF_CCollection EQUIPOS_AUTORIZADOS_DET_INF_CCollection
+		{
+			get
+			{
+				if(null == _equipos_autorizados_det_inf_c)
+					_equipos_autorizados_det_inf_c = new EQUIPOS_AUTORIZADOS_DET_INF_CCollection((CBAV2)this);
+				return _equipos_autorizados_det_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>EQUIPOS_AUTORIZADOS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="EQUIPOS_AUTORIZADOS_DETALLESCollection"/> object.</value>
+		public EQUIPOS_AUTORIZADOS_DETALLESCollection EQUIPOS_AUTORIZADOS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _equipos_autorizados_detalles)
+					_equipos_autorizados_detalles = new EQUIPOS_AUTORIZADOS_DETALLESCollection((CBAV2)this);
+				return _equipos_autorizados_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ESCALAS_COMISIONES_COBRA_DEF</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ESCALAS_COMISIONES_COBRA_DEFCollection"/> object.</value>
+		public ESCALAS_COMISIONES_COBRA_DEFCollection ESCALAS_COMISIONES_COBRA_DEFCollection
+		{
+			get
+			{
+				if(null == _escalas_comisiones_cobra_def)
+					_escalas_comisiones_cobra_def = new ESCALAS_COMISIONES_COBRA_DEFCollection((CBAV2)this);
+				return _escalas_comisiones_cobra_def;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ESCALAS_COMISIONES_COBRADORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ESCALAS_COMISIONES_COBRADORESCollection"/> object.</value>
+		public ESCALAS_COMISIONES_COBRADORESCollection ESCALAS_COMISIONES_COBRADORESCollection
+		{
+			get
+			{
+				if(null == _escalas_comisiones_cobradores)
+					_escalas_comisiones_cobradores = new ESCALAS_COMISIONES_COBRADORESCollection((CBAV2)this);
+				return _escalas_comisiones_cobradores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ESCALAS_PREMIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ESCALAS_PREMIOSCollection"/> object.</value>
+		public ESCALAS_PREMIOSCollection ESCALAS_PREMIOSCollection
+		{
+			get
+			{
+				if(null == _escalas_premios)
+					_escalas_premios = new ESCALAS_PREMIOSCollection((CBAV2)this);
+				return _escalas_premios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ESCALAS_PREMIOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ESCALAS_PREMIOS_INFO_COMPLETACollection"/> object.</value>
+		public ESCALAS_PREMIOS_INFO_COMPLETACollection ESCALAS_PREMIOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _escalas_premios_info_completa)
+					_escalas_premios_info_completa = new ESCALAS_PREMIOS_INFO_COMPLETACollection((CBAV2)this);
+				return _escalas_premios_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ESTADO_MOROSIDAD</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ESTADO_MOROSIDADCollection"/> object.</value>
+		public ESTADO_MOROSIDADCollection ESTADO_MOROSIDADCollection
+		{
+			get
+			{
+				if(null == _estado_morosidad)
+					_estado_morosidad = new ESTADO_MOROSIDADCollection((CBAV2)this);
+				return _estado_morosidad;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ESTADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ESTADOSCollection"/> object.</value>
+		public ESTADOSCollection ESTADOSCollection
+		{
+			get
+			{
+				if(null == _estados)
+					_estados = new ESTADOSCollection((CBAV2)this);
+				return _estados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ESTADOS_CIVIL</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ESTADOS_CIVILCollection"/> object.</value>
+		public ESTADOS_CIVILCollection ESTADOS_CIVILCollection
+		{
+			get
+			{
+				if(null == _estados_civil)
+					_estados_civil = new ESTADOS_CIVILCollection((CBAV2)this);
+				return _estados_civil;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ESTADOS_DOCUMENTACION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ESTADOS_DOCUMENTACIONCollection"/> object.</value>
+		public ESTADOS_DOCUMENTACIONCollection ESTADOS_DOCUMENTACIONCollection
+		{
+			get
+			{
+				if(null == _estados_documentacion)
+					_estados_documentacion = new ESTADOS_DOCUMENTACIONCollection((CBAV2)this);
+				return _estados_documentacion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURA_ENVASES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURA_ENVASESCollection"/> object.</value>
+		public FACTURA_ENVASESCollection FACTURA_ENVASESCollection
+		{
+			get
+			{
+				if(null == _factura_envases)
+					_factura_envases = new FACTURA_ENVASESCollection((CBAV2)this);
+				return _factura_envases;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURA_ENVASES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURA_ENVASES_INFO_COMPLETACollection"/> object.</value>
+		public FACTURA_ENVASES_INFO_COMPLETACollection FACTURA_ENVASES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _factura_envases_info_completa)
+					_factura_envases_info_completa = new FACTURA_ENVASES_INFO_COMPLETACollection((CBAV2)this);
+				return _factura_envases_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_CLIENTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_CLIENTECollection"/> object.</value>
+		public FACTURAS_CLIENTECollection FACTURAS_CLIENTECollection
+		{
+			get
+			{
+				if(null == _facturas_cliente)
+					_facturas_cliente = new FACTURAS_CLIENTECollection((CBAV2)this);
+				return _facturas_cliente;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_CLIENTE_DET_ART_PADRE</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_CLIENTE_DET_ART_PADRECollection"/> object.</value>
+		public FACTURAS_CLIENTE_DET_ART_PADRECollection FACTURAS_CLIENTE_DET_ART_PADRECollection
+		{
+			get
+			{
+				if(null == _facturas_cliente_det_art_padre)
+					_facturas_cliente_det_art_padre = new FACTURAS_CLIENTE_DET_ART_PADRECollection((CBAV2)this);
+				return _facturas_cliente_det_art_padre;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_CLIENTE_DET_CC_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_CLIENTE_DET_CC_INFO_CCollection"/> object.</value>
+		public FACTURAS_CLIENTE_DET_CC_INFO_CCollection FACTURAS_CLIENTE_DET_CC_INFO_CCollection
+		{
+			get
+			{
+				if(null == _facturas_cliente_det_cc_info_c)
+					_facturas_cliente_det_cc_info_c = new FACTURAS_CLIENTE_DET_CC_INFO_CCollection((CBAV2)this);
+				return _facturas_cliente_det_cc_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_CLIENTE_DET_CENT_C</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_CLIENTE_DET_CENT_CCollection"/> object.</value>
+		public FACTURAS_CLIENTE_DET_CENT_CCollection FACTURAS_CLIENTE_DET_CENT_CCollection
+		{
+			get
+			{
+				if(null == _facturas_cliente_det_cent_c)
+					_facturas_cliente_det_cent_c = new FACTURAS_CLIENTE_DET_CENT_CCollection((CBAV2)this);
+				return _facturas_cliente_det_cent_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_CLIENTE_DET_IMPRESION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_CLIENTE_DET_IMPRESIONCollection"/> object.</value>
+		public FACTURAS_CLIENTE_DET_IMPRESIONCollection FACTURAS_CLIENTE_DET_IMPRESIONCollection
+		{
+			get
+			{
+				if(null == _facturas_cliente_det_impresion)
+					_facturas_cliente_det_impresion = new FACTURAS_CLIENTE_DET_IMPRESIONCollection((CBAV2)this);
+				return _facturas_cliente_det_impresion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_CLIENTE_DET_INF_CO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_CLIENTE_DET_INF_COCollection"/> object.</value>
+		public FACTURAS_CLIENTE_DET_INF_COCollection FACTURAS_CLIENTE_DET_INF_COCollection
+		{
+			get
+			{
+				if(null == _facturas_cliente_det_inf_co)
+					_facturas_cliente_det_inf_co = new FACTURAS_CLIENTE_DET_INF_COCollection((CBAV2)this);
+				return _facturas_cliente_det_inf_co;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_CLIENTE_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_CLIENTE_DETALLECollection"/> object.</value>
+		public FACTURAS_CLIENTE_DETALLECollection FACTURAS_CLIENTE_DETALLECollection
+		{
+			get
+			{
+				if(null == _facturas_cliente_detalle)
+					_facturas_cliente_detalle = new FACTURAS_CLIENTE_DETALLECollection((CBAV2)this);
+				return _facturas_cliente_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_CLIENTE_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_CLIENTE_INFO_COMPLETACollection"/> object.</value>
+		public FACTURAS_CLIENTE_INFO_COMPLETACollection FACTURAS_CLIENTE_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _facturas_cliente_info_completa)
+					_facturas_cliente_info_completa = new FACTURAS_CLIENTE_INFO_COMPLETACollection((CBAV2)this);
+				return _facturas_cliente_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_PROV_DET_CC_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_PROV_DET_CC_INFO_CCollection"/> object.</value>
+		public FACTURAS_PROV_DET_CC_INFO_CCollection FACTURAS_PROV_DET_CC_INFO_CCollection
+		{
+			get
+			{
+				if(null == _facturas_prov_det_cc_info_c)
+					_facturas_prov_det_cc_info_c = new FACTURAS_PROV_DET_CC_INFO_CCollection((CBAV2)this);
+				return _facturas_prov_det_cc_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_PROV_DET_CTB_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_PROV_DET_CTB_INFO_CCollection"/> object.</value>
+		public FACTURAS_PROV_DET_CTB_INFO_CCollection FACTURAS_PROV_DET_CTB_INFO_CCollection
+		{
+			get
+			{
+				if(null == _facturas_prov_det_ctb_info_c)
+					_facturas_prov_det_ctb_info_c = new FACTURAS_PROV_DET_CTB_INFO_CCollection((CBAV2)this);
+				return _facturas_prov_det_ctb_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_PROVEEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_PROVEEDORCollection"/> object.</value>
+		public FACTURAS_PROVEEDORCollection FACTURAS_PROVEEDORCollection
+		{
+			get
+			{
+				if(null == _facturas_proveedor)
+					_facturas_proveedor = new FACTURAS_PROVEEDORCollection((CBAV2)this);
+				return _facturas_proveedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_PROVEEDOR_DET_CENT_C</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_PROVEEDOR_DET_CENT_CCollection"/> object.</value>
+		public FACTURAS_PROVEEDOR_DET_CENT_CCollection FACTURAS_PROVEEDOR_DET_CENT_CCollection
+		{
+			get
+			{
+				if(null == _facturas_proveedor_det_cent_c)
+					_facturas_proveedor_det_cent_c = new FACTURAS_PROVEEDOR_DET_CENT_CCollection((CBAV2)this);
+				return _facturas_proveedor_det_cent_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_PROVEEDOR_DET_CTB</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_PROVEEDOR_DET_CTBCollection"/> object.</value>
+		public FACTURAS_PROVEEDOR_DET_CTBCollection FACTURAS_PROVEEDOR_DET_CTBCollection
+		{
+			get
+			{
+				if(null == _facturas_proveedor_det_ctb)
+					_facturas_proveedor_det_ctb = new FACTURAS_PROVEEDOR_DET_CTBCollection((CBAV2)this);
+				return _facturas_proveedor_det_ctb;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_PROVEEDOR_DET_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_PROVEEDOR_DET_INFO_CCollection"/> object.</value>
+		public FACTURAS_PROVEEDOR_DET_INFO_CCollection FACTURAS_PROVEEDOR_DET_INFO_CCollection
+		{
+			get
+			{
+				if(null == _facturas_proveedor_det_info_c)
+					_facturas_proveedor_det_info_c = new FACTURAS_PROVEEDOR_DET_INFO_CCollection((CBAV2)this);
+				return _facturas_proveedor_det_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_PROVEEDOR_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_PROVEEDOR_DETALLECollection"/> object.</value>
+		public FACTURAS_PROVEEDOR_DETALLECollection FACTURAS_PROVEEDOR_DETALLECollection
+		{
+			get
+			{
+				if(null == _facturas_proveedor_detalle)
+					_facturas_proveedor_detalle = new FACTURAS_PROVEEDOR_DETALLECollection((CBAV2)this);
+				return _facturas_proveedor_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FACTURAS_PROVEEDOR_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FACTURAS_PROVEEDOR_INFO_COMPCollection"/> object.</value>
+		public FACTURAS_PROVEEDOR_INFO_COMPCollection FACTURAS_PROVEEDOR_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _facturas_proveedor_info_comp)
+					_facturas_proveedor_info_comp = new FACTURAS_PROVEEDOR_INFO_COMPCollection((CBAV2)this);
+				return _facturas_proveedor_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FC_PROV_PAGO_TERC_PERS_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FC_PROV_PAGO_TERC_PERS_INFO_CCollection"/> object.</value>
+		public FC_PROV_PAGO_TERC_PERS_INFO_CCollection FC_PROV_PAGO_TERC_PERS_INFO_CCollection
+		{
+			get
+			{
+				if(null == _fc_prov_pago_terc_pers_info_c)
+					_fc_prov_pago_terc_pers_info_c = new FC_PROV_PAGO_TERC_PERS_INFO_CCollection((CBAV2)this);
+				return _fc_prov_pago_terc_pers_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FC_PROV_PAGO_TERC_PERSONAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FC_PROV_PAGO_TERC_PERSONASCollection"/> object.</value>
+		public FC_PROV_PAGO_TERC_PERSONASCollection FC_PROV_PAGO_TERC_PERSONASCollection
+		{
+			get
+			{
+				if(null == _fc_prov_pago_terc_personas)
+					_fc_prov_pago_terc_personas = new FC_PROV_PAGO_TERC_PERSONASCollection((CBAV2)this);
+				return _fc_prov_pago_terc_personas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FLUJOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FLUJOSCollection"/> object.</value>
+		public FLUJOSCollection FLUJOSCollection
+		{
+			get
+			{
+				if(null == _flujos)
+					_flujos = new FLUJOSCollection((CBAV2)this);
+				return _flujos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FORMATOS_REPORTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FORMATOS_REPORTECollection"/> object.</value>
+		public FORMATOS_REPORTECollection FORMATOS_REPORTECollection
+		{
+			get
+			{
+				if(null == _formatos_reporte)
+					_formatos_reporte = new FORMATOS_REPORTECollection((CBAV2)this);
+				return _formatos_reporte;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNC_ADELANTOS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNC_ADELANTOS_INFO_COMPLCollection"/> object.</value>
+		public FUNC_ADELANTOS_INFO_COMPLCollection FUNC_ADELANTOS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _func_adelantos_info_compl)
+					_func_adelantos_info_compl = new FUNC_ADELANTOS_INFO_COMPLCollection((CBAV2)this);
+				return _func_adelantos_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNC_HIJOS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNC_HIJOS_INFO_COMPLCollection"/> object.</value>
+		public FUNC_HIJOS_INFO_COMPLCollection FUNC_HIJOS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _func_hijos_info_compl)
+					_func_hijos_info_compl = new FUNC_HIJOS_INFO_COMPLCollection((CBAV2)this);
+				return _func_hijos_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNC_HIJOS_MENORES</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNC_HIJOS_MENORESCollection"/> object.</value>
+		public FUNC_HIJOS_MENORESCollection FUNC_HIJOS_MENORESCollection
+		{
+			get
+			{
+				if(null == _func_hijos_menores)
+					_func_hijos_menores = new FUNC_HIJOS_MENORESCollection((CBAV2)this);
+				return _func_hijos_menores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNC_LIQ_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNC_LIQ_DET_INFO_COMPLCollection"/> object.</value>
+		public FUNC_LIQ_DET_INFO_COMPLCollection FUNC_LIQ_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _func_liq_det_info_compl)
+					_func_liq_det_info_compl = new FUNC_LIQ_DET_INFO_COMPLCollection((CBAV2)this);
+				return _func_liq_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOSCollection"/> object.</value>
+		public FUNCIONARIOSCollection FUNCIONARIOSCollection
+		{
+			get
+			{
+				if(null == _funcionarios)
+					_funcionarios = new FUNCIONARIOSCollection((CBAV2)this);
+				return _funcionarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_ADELANTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_ADELANTOSCollection"/> object.</value>
+		public FUNCIONARIOS_ADELANTOSCollection FUNCIONARIOS_ADELANTOSCollection
+		{
+			get
+			{
+				if(null == _funcionarios_adelantos)
+					_funcionarios_adelantos = new FUNCIONARIOS_ADELANTOSCollection((CBAV2)this);
+				return _funcionarios_adelantos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_BONIF_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_BONIF_INFO_COMPLCollection"/> object.</value>
+		public FUNCIONARIOS_BONIF_INFO_COMPLCollection FUNCIONARIOS_BONIF_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _funcionarios_bonif_info_compl)
+					_funcionarios_bonif_info_compl = new FUNCIONARIOS_BONIF_INFO_COMPLCollection((CBAV2)this);
+				return _funcionarios_bonif_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_BONIFICACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_BONIFICACIONESCollection"/> object.</value>
+		public FUNCIONARIOS_BONIFICACIONESCollection FUNCIONARIOS_BONIFICACIONESCollection
+		{
+			get
+			{
+				if(null == _funcionarios_bonificaciones)
+					_funcionarios_bonificaciones = new FUNCIONARIOS_BONIFICACIONESCollection((CBAV2)this);
+				return _funcionarios_bonificaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_COMISIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_COMISIONESCollection"/> object.</value>
+		public FUNCIONARIOS_COMISIONESCollection FUNCIONARIOS_COMISIONESCollection
+		{
+			get
+			{
+				if(null == _funcionarios_comisiones)
+					_funcionarios_comisiones = new FUNCIONARIOS_COMISIONESCollection((CBAV2)this);
+				return _funcionarios_comisiones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_COMISIONES_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_COMISIONES_INFO_CCollection"/> object.</value>
+		public FUNCIONARIOS_COMISIONES_INFO_CCollection FUNCIONARIOS_COMISIONES_INFO_CCollection
+		{
+			get
+			{
+				if(null == _funcionarios_comisiones_info_c)
+					_funcionarios_comisiones_info_c = new FUNCIONARIOS_COMISIONES_INFO_CCollection((CBAV2)this);
+				return _funcionarios_comisiones_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_DESC_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_DESC_INFO_COMPLCollection"/> object.</value>
+		public FUNCIONARIOS_DESC_INFO_COMPLCollection FUNCIONARIOS_DESC_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _funcionarios_desc_info_compl)
+					_funcionarios_desc_info_compl = new FUNCIONARIOS_DESC_INFO_COMPLCollection((CBAV2)this);
+				return _funcionarios_desc_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_DESCUENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_DESCUENTOSCollection"/> object.</value>
+		public FUNCIONARIOS_DESCUENTOSCollection FUNCIONARIOS_DESCUENTOSCollection
+		{
+			get
+			{
+				if(null == _funcionarios_descuentos)
+					_funcionarios_descuentos = new FUNCIONARIOS_DESCUENTOSCollection((CBAV2)this);
+				return _funcionarios_descuentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_DIAS_TRABAJADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_DIAS_TRABAJADOSCollection"/> object.</value>
+		public FUNCIONARIOS_DIAS_TRABAJADOSCollection FUNCIONARIOS_DIAS_TRABAJADOSCollection
+		{
+			get
+			{
+				if(null == _funcionarios_dias_trabajados)
+					_funcionarios_dias_trabajados = new FUNCIONARIOS_DIAS_TRABAJADOSCollection((CBAV2)this);
+				return _funcionarios_dias_trabajados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_HIJOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_HIJOSCollection"/> object.</value>
+		public FUNCIONARIOS_HIJOSCollection FUNCIONARIOS_HIJOSCollection
+		{
+			get
+			{
+				if(null == _funcionarios_hijos)
+					_funcionarios_hijos = new FUNCIONARIOS_HIJOSCollection((CBAV2)this);
+				return _funcionarios_hijos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_INFO_COMPLETACollection"/> object.</value>
+		public FUNCIONARIOS_INFO_COMPLETACollection FUNCIONARIOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _funcionarios_info_completa)
+					_funcionarios_info_completa = new FUNCIONARIOS_INFO_COMPLETACollection((CBAV2)this);
+				return _funcionarios_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_LIQ_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_LIQ_INFO_COMPCollection"/> object.</value>
+		public FUNCIONARIOS_LIQ_INFO_COMPCollection FUNCIONARIOS_LIQ_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _funcionarios_liq_info_comp)
+					_funcionarios_liq_info_comp = new FUNCIONARIOS_LIQ_INFO_COMPCollection((CBAV2)this);
+				return _funcionarios_liq_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_LIQUIDACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_LIQUIDACIONESCollection"/> object.</value>
+		public FUNCIONARIOS_LIQUIDACIONESCollection FUNCIONARIOS_LIQUIDACIONESCollection
+		{
+			get
+			{
+				if(null == _funcionarios_liquidaciones)
+					_funcionarios_liquidaciones = new FUNCIONARIOS_LIQUIDACIONESCollection((CBAV2)this);
+				return _funcionarios_liquidaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_LIQUIDACIONES_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_LIQUIDACIONES_DETCollection"/> object.</value>
+		public FUNCIONARIOS_LIQUIDACIONES_DETCollection FUNCIONARIOS_LIQUIDACIONES_DETCollection
+		{
+			get
+			{
+				if(null == _funcionarios_liquidaciones_det)
+					_funcionarios_liquidaciones_det = new FUNCIONARIOS_LIQUIDACIONES_DETCollection((CBAV2)this);
+				return _funcionarios_liquidaciones_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_MONTOS_COBRADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_MONTOS_COBRADOSCollection"/> object.</value>
+		public FUNCIONARIOS_MONTOS_COBRADOSCollection FUNCIONARIOS_MONTOS_COBRADOSCollection
+		{
+			get
+			{
+				if(null == _funcionarios_montos_cobrados)
+					_funcionarios_montos_cobrados = new FUNCIONARIOS_MONTOS_COBRADOSCollection((CBAV2)this);
+				return _funcionarios_montos_cobrados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>FUNCIONARIOS_VACACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="FUNCIONARIOS_VACACIONESCollection"/> object.</value>
+		public FUNCIONARIOS_VACACIONESCollection FUNCIONARIOS_VACACIONESCollection
+		{
+			get
+			{
+				if(null == _funcionarios_vacaciones)
+					_funcionarios_vacaciones = new FUNCIONARIOS_VACACIONESCollection((CBAV2)this);
+				return _funcionarios_vacaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>GASTOS_COBRANZAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="GASTOS_COBRANZASCollection"/> object.</value>
+		public GASTOS_COBRANZASCollection GASTOS_COBRANZASCollection
+		{
+			get
+			{
+				if(null == _gastos_cobranzas)
+					_gastos_cobranzas = new GASTOS_COBRANZASCollection((CBAV2)this);
+				return _gastos_cobranzas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>GASTOS_COBRANZAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="GASTOS_COBRANZAS_INFO_COMPLETACollection"/> object.</value>
+		public GASTOS_COBRANZAS_INFO_COMPLETACollection GASTOS_COBRANZAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _gastos_cobranzas_info_completa)
+					_gastos_cobranzas_info_completa = new GASTOS_COBRANZAS_INFO_COMPLETACollection((CBAV2)this);
+				return _gastos_cobranzas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>GEN_FC_CLIE_ART_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="GEN_FC_CLIE_ART_INFO_COMPLCollection"/> object.</value>
+		public GEN_FC_CLIE_ART_INFO_COMPLCollection GEN_FC_CLIE_ART_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _gen_fc_clie_art_info_compl)
+					_gen_fc_clie_art_info_compl = new GEN_FC_CLIE_ART_INFO_COMPLCollection((CBAV2)this);
+				return _gen_fc_clie_art_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>GEN_FC_CLIE_PER_ART</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="GEN_FC_CLIE_PER_ARTCollection"/> object.</value>
+		public GEN_FC_CLIE_PER_ARTCollection GEN_FC_CLIE_PER_ARTCollection
+		{
+			get
+			{
+				if(null == _gen_fc_clie_per_art)
+					_gen_fc_clie_per_art = new GEN_FC_CLIE_PER_ARTCollection((CBAV2)this);
+				return _gen_fc_clie_per_art;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>GEN_FC_CLIE_PER_ART_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="GEN_FC_CLIE_PER_ART_INFO_COMPCollection"/> object.</value>
+		public GEN_FC_CLIE_PER_ART_INFO_COMPCollection GEN_FC_CLIE_PER_ART_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _gen_fc_clie_per_art_info_comp)
+					_gen_fc_clie_per_art_info_comp = new GEN_FC_CLIE_PER_ART_INFO_COMPCollection((CBAV2)this);
+				return _gen_fc_clie_per_art_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>GEN_FC_CLIE_PERS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="GEN_FC_CLIE_PERS_INFO_COMPLCollection"/> object.</value>
+		public GEN_FC_CLIE_PERS_INFO_COMPLCollection GEN_FC_CLIE_PERS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _gen_fc_clie_pers_info_compl)
+					_gen_fc_clie_pers_info_compl = new GEN_FC_CLIE_PERS_INFO_COMPLCollection((CBAV2)this);
+				return _gen_fc_clie_pers_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>GEN_FC_CLIENTES_ARTICULOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="GEN_FC_CLIENTES_ARTICULOSCollection"/> object.</value>
+		public GEN_FC_CLIENTES_ARTICULOSCollection GEN_FC_CLIENTES_ARTICULOSCollection
+		{
+			get
+			{
+				if(null == _gen_fc_clientes_articulos)
+					_gen_fc_clientes_articulos = new GEN_FC_CLIENTES_ARTICULOSCollection((CBAV2)this);
+				return _gen_fc_clientes_articulos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>GEN_FC_CLIENTES_PERSONAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="GEN_FC_CLIENTES_PERSONASCollection"/> object.</value>
+		public GEN_FC_CLIENTES_PERSONASCollection GEN_FC_CLIENTES_PERSONASCollection
+		{
+			get
+			{
+				if(null == _gen_fc_clientes_personas)
+					_gen_fc_clientes_personas = new GEN_FC_CLIENTES_PERSONASCollection((CBAV2)this);
+				return _gen_fc_clientes_personas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>GENER_FC_CLIENTE_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="GENER_FC_CLIENTE_INFO_COMPLETACollection"/> object.</value>
+		public GENER_FC_CLIENTE_INFO_COMPLETACollection GENER_FC_CLIENTE_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _gener_fc_cliente_info_completa)
+					_gener_fc_cliente_info_completa = new GENER_FC_CLIENTE_INFO_COMPLETACollection((CBAV2)this);
+				return _gener_fc_cliente_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>GENERADOR_FC_CLIENTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="GENERADOR_FC_CLIENTECollection"/> object.</value>
+		public GENERADOR_FC_CLIENTECollection GENERADOR_FC_CLIENTECollection
+		{
+			get
+			{
+				if(null == _generador_fc_cliente)
+					_generador_fc_cliente = new GENERADOR_FC_CLIENTECollection((CBAV2)this);
+				return _generador_fc_cliente;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>HISTORICO_PASSWORD</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="HISTORICO_PASSWORDCollection"/> object.</value>
+		public HISTORICO_PASSWORDCollection HISTORICO_PASSWORDCollection
+		{
+			get
+			{
+				if(null == _historico_password)
+					_historico_password = new HISTORICO_PASSWORDCollection((CBAV2)this);
+				return _historico_password;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>HORARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="HORARIOSCollection"/> object.</value>
+		public HORARIOSCollection HORARIOSCollection
+		{
+			get
+			{
+				if(null == _horarios)
+					_horarios = new HORARIOSCollection((CBAV2)this);
+				return _horarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>HORARIOS_COMPLETOS</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="HORARIOS_COMPLETOSCollection"/> object.</value>
+		public HORARIOS_COMPLETOSCollection HORARIOS_COMPLETOSCollection
+		{
+			get
+			{
+				if(null == _horarios_completos)
+					_horarios_completos = new HORARIOS_COMPLETOSCollection((CBAV2)this);
+				return _horarios_completos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>HORARIOS_DIAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="HORARIOS_DIASCollection"/> object.</value>
+		public HORARIOS_DIASCollection HORARIOS_DIASCollection
+		{
+			get
+			{
+				if(null == _horarios_dias)
+					_horarios_dias = new HORARIOS_DIASCollection((CBAV2)this);
+				return _horarios_dias;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>HORARIOS_FUNC_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="HORARIOS_FUNC_INFO_COMPLCollection"/> object.</value>
+		public HORARIOS_FUNC_INFO_COMPLCollection HORARIOS_FUNC_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _horarios_func_info_compl)
+					_horarios_func_info_compl = new HORARIOS_FUNC_INFO_COMPLCollection((CBAV2)this);
+				return _horarios_func_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>HORARIOS_FUNCIONARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="HORARIOS_FUNCIONARIOSCollection"/> object.</value>
+		public HORARIOS_FUNCIONARIOSCollection HORARIOS_FUNCIONARIOSCollection
+		{
+			get
+			{
+				if(null == _horarios_funcionarios)
+					_horarios_funcionarios = new HORARIOS_FUNCIONARIOSCollection((CBAV2)this);
+				return _horarios_funcionarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>HORARIOS_TURNOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="HORARIOS_TURNOSCollection"/> object.</value>
+		public HORARIOS_TURNOSCollection HORARIOS_TURNOSCollection
+		{
+			get
+			{
+				if(null == _horarios_turnos)
+					_horarios_turnos = new HORARIOS_TURNOSCollection((CBAV2)this);
+				return _horarios_turnos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>HORARIOSDIAS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="HORARIOSDIAS_INFO_COMPLCollection"/> object.</value>
+		public HORARIOSDIAS_INFO_COMPLCollection HORARIOSDIAS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _horariosdias_info_compl)
+					_horariosdias_info_compl = new HORARIOSDIAS_INFO_COMPLCollection((CBAV2)this);
+				return _horariosdias_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IDIOMAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="IDIOMASCollection"/> object.</value>
+		public IDIOMASCollection IDIOMASCollection
+		{
+			get
+			{
+				if(null == _idiomas)
+					_idiomas = new IDIOMASCollection((CBAV2)this);
+				return _idiomas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORT_INGRE_COSTOS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORT_INGRE_COSTOS_INFO_COMPLCollection"/> object.</value>
+		public IMPORT_INGRE_COSTOS_INFO_COMPLCollection IMPORT_INGRE_COSTOS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _import_ingre_costos_info_compl)
+					_import_ingre_costos_info_compl = new IMPORT_INGRE_COSTOS_INFO_COMPLCollection((CBAV2)this);
+				return _import_ingre_costos_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACION_ARTICULOS</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACION_ARTICULOSCollection"/> object.</value>
+		public IMPORTACION_ARTICULOSCollection IMPORTACION_ARTICULOSCollection
+		{
+			get
+			{
+				if(null == _importacion_articulos)
+					_importacion_articulos = new IMPORTACION_ARTICULOSCollection((CBAV2)this);
+				return _importacion_articulos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACION_ARTICULOS_PEDIDOS</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACION_ARTICULOS_PEDIDOSCollection"/> object.</value>
+		public IMPORTACION_ARTICULOS_PEDIDOSCollection IMPORTACION_ARTICULOS_PEDIDOSCollection
+		{
+			get
+			{
+				if(null == _importacion_articulos_pedidos)
+					_importacion_articulos_pedidos = new IMPORTACION_ARTICULOS_PEDIDOSCollection((CBAV2)this);
+				return _importacion_articulos_pedidos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACION_INGRESO_COSTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACION_INGRESO_COSTOSCollection"/> object.</value>
+		public IMPORTACION_INGRESO_COSTOSCollection IMPORTACION_INGRESO_COSTOSCollection
+		{
+			get
+			{
+				if(null == _importacion_ingreso_costos)
+					_importacion_ingreso_costos = new IMPORTACION_INGRESO_COSTOSCollection((CBAV2)this);
+				return _importacion_ingreso_costos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACIONESCollection"/> object.</value>
+		public IMPORTACIONESCollection IMPORTACIONESCollection
+		{
+			get
+			{
+				if(null == _importaciones)
+					_importaciones = new IMPORTACIONESCollection((CBAV2)this);
+				return _importaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACIONES_CONTEN_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACIONES_CONTEN_INFO_COMPCollection"/> object.</value>
+		public IMPORTACIONES_CONTEN_INFO_COMPCollection IMPORTACIONES_CONTEN_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _importaciones_conten_info_comp)
+					_importaciones_conten_info_comp = new IMPORTACIONES_CONTEN_INFO_COMPCollection((CBAV2)this);
+				return _importaciones_conten_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACIONES_CONTENEDORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACIONES_CONTENEDORESCollection"/> object.</value>
+		public IMPORTACIONES_CONTENEDORESCollection IMPORTACIONES_CONTENEDORESCollection
+		{
+			get
+			{
+				if(null == _importaciones_contenedores)
+					_importaciones_contenedores = new IMPORTACIONES_CONTENEDORESCollection((CBAV2)this);
+				return _importaciones_contenedores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACIONES_GASTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACIONES_GASTOSCollection"/> object.</value>
+		public IMPORTACIONES_GASTOSCollection IMPORTACIONES_GASTOSCollection
+		{
+			get
+			{
+				if(null == _importaciones_gastos)
+					_importaciones_gastos = new IMPORTACIONES_GASTOSCollection((CBAV2)this);
+				return _importaciones_gastos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACIONES_GASTOS_INFO_COM</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACIONES_GASTOS_INFO_COMCollection"/> object.</value>
+		public IMPORTACIONES_GASTOS_INFO_COMCollection IMPORTACIONES_GASTOS_INFO_COMCollection
+		{
+			get
+			{
+				if(null == _importaciones_gastos_info_com)
+					_importaciones_gastos_info_com = new IMPORTACIONES_GASTOS_INFO_COMCollection((CBAV2)this);
+				return _importaciones_gastos_info_com;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACIONES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACIONES_INFO_COMPLETACollection"/> object.</value>
+		public IMPORTACIONES_INFO_COMPLETACollection IMPORTACIONES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _importaciones_info_completa)
+					_importaciones_info_completa = new IMPORTACIONES_INFO_COMPLETACollection((CBAV2)this);
+				return _importaciones_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACIONES_PROVE_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACIONES_PROVE_INFO_COMPCollection"/> object.</value>
+		public IMPORTACIONES_PROVE_INFO_COMPCollection IMPORTACIONES_PROVE_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _importaciones_prove_info_comp)
+					_importaciones_prove_info_comp = new IMPORTACIONES_PROVE_INFO_COMPCollection((CBAV2)this);
+				return _importaciones_prove_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPORTACIONES_PROVEEDORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPORTACIONES_PROVEEDORESCollection"/> object.</value>
+		public IMPORTACIONES_PROVEEDORESCollection IMPORTACIONES_PROVEEDORESCollection
+		{
+			get
+			{
+				if(null == _importaciones_proveedores)
+					_importaciones_proveedores = new IMPORTACIONES_PROVEEDORESCollection((CBAV2)this);
+				return _importaciones_proveedores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPUESTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPUESTOSCollection"/> object.</value>
+		public IMPUESTOSCollection IMPUESTOSCollection
+		{
+			get
+			{
+				if(null == _impuestos)
+					_impuestos = new IMPUESTOSCollection((CBAV2)this);
+				return _impuestos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPUESTOS_COMPUESTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPUESTOS_COMPUESTOSCollection"/> object.</value>
+		public IMPUESTOS_COMPUESTOSCollection IMPUESTOS_COMPUESTOSCollection
+		{
+			get
+			{
+				if(null == _impuestos_compuestos)
+					_impuestos_compuestos = new IMPUESTOS_COMPUESTOSCollection((CBAV2)this);
+				return _impuestos_compuestos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPUESTOS_COMPUESTOS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPUESTOS_COMPUESTOS_INFO_COMPCollection"/> object.</value>
+		public IMPUESTOS_COMPUESTOS_INFO_COMPCollection IMPUESTOS_COMPUESTOS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _impuestos_compuestos_info_comp)
+					_impuestos_compuestos_info_comp = new IMPUESTOS_COMPUESTOS_INFO_COMPCollection((CBAV2)this);
+				return _impuestos_compuestos_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>IMPUESTOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="IMPUESTOS_INFO_COMPLETACollection"/> object.</value>
+		public IMPUESTOS_INFO_COMPLETACollection IMPUESTOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _impuestos_info_completa)
+					_impuestos_info_completa = new IMPUESTOS_INFO_COMPLETACollection((CBAV2)this);
+				return _impuestos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INGRESO_INSUMOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="INGRESO_INSUMOSCollection"/> object.</value>
+		public INGRESO_INSUMOSCollection INGRESO_INSUMOSCollection
+		{
+			get
+			{
+				if(null == _ingreso_insumos)
+					_ingreso_insumos = new INGRESO_INSUMOSCollection((CBAV2)this);
+				return _ingreso_insumos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INGRESO_INSUMOS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="INGRESO_INSUMOS_DETALLESCollection"/> object.</value>
+		public INGRESO_INSUMOS_DETALLESCollection INGRESO_INSUMOS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _ingreso_insumos_detalles)
+					_ingreso_insumos_detalles = new INGRESO_INSUMOS_DETALLESCollection((CBAV2)this);
+				return _ingreso_insumos_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INGRESO_STOCK</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="INGRESO_STOCKCollection"/> object.</value>
+		public INGRESO_STOCKCollection INGRESO_STOCKCollection
+		{
+			get
+			{
+				if(null == _ingreso_stock)
+					_ingreso_stock = new INGRESO_STOCKCollection((CBAV2)this);
+				return _ingreso_stock;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INGRESO_STOCK_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="INGRESO_STOCK_DET_INFO_COMPLCollection"/> object.</value>
+		public INGRESO_STOCK_DET_INFO_COMPLCollection INGRESO_STOCK_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ingreso_stock_det_info_compl)
+					_ingreso_stock_det_info_compl = new INGRESO_STOCK_DET_INFO_COMPLCollection((CBAV2)this);
+				return _ingreso_stock_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INGRESO_STOCK_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="INGRESO_STOCK_DETALLESCollection"/> object.</value>
+		public INGRESO_STOCK_DETALLESCollection INGRESO_STOCK_DETALLESCollection
+		{
+			get
+			{
+				if(null == _ingreso_stock_detalles)
+					_ingreso_stock_detalles = new INGRESO_STOCK_DETALLESCollection((CBAV2)this);
+				return _ingreso_stock_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INGRESO_STOCK_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="INGRESO_STOCK_INFO_COMPLETACollection"/> object.</value>
+		public INGRESO_STOCK_INFO_COMPLETACollection INGRESO_STOCK_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ingreso_stock_info_completa)
+					_ingreso_stock_info_completa = new INGRESO_STOCK_INFO_COMPLETACollection((CBAV2)this);
+				return _ingreso_stock_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INMUEBLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="INMUEBLESCollection"/> object.</value>
+		public INMUEBLESCollection INMUEBLESCollection
+		{
+			get
+			{
+				if(null == _inmuebles)
+					_inmuebles = new INMUEBLESCollection((CBAV2)this);
+				return _inmuebles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INMUEBLES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="INMUEBLES_INFO_COMPLETACollection"/> object.</value>
+		public INMUEBLES_INFO_COMPLETACollection INMUEBLES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _inmuebles_info_completa)
+					_inmuebles_info_completa = new INMUEBLES_INFO_COMPLETACollection((CBAV2)this);
+				return _inmuebles_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INSPECCIONES_OBSERVACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="INSPECCIONES_OBSERVACIONESCollection"/> object.</value>
+		public INSPECCIONES_OBSERVACIONESCollection INSPECCIONES_OBSERVACIONESCollection
+		{
+			get
+			{
+				if(null == _inspecciones_observaciones)
+					_inspecciones_observaciones = new INSPECCIONES_OBSERVACIONESCollection((CBAV2)this);
+				return _inspecciones_observaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INSUMOS_UTILIZADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="INSUMOS_UTILIZADOSCollection"/> object.</value>
+		public INSUMOS_UTILIZADOSCollection INSUMOS_UTILIZADOSCollection
+		{
+			get
+			{
+				if(null == _insumos_utilizados)
+					_insumos_utilizados = new INSUMOS_UTILIZADOSCollection((CBAV2)this);
+				return _insumos_utilizados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>INTERCAMBIO_EQUIPOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="INTERCAMBIO_EQUIPOSCollection"/> object.</value>
+		public INTERCAMBIO_EQUIPOSCollection INTERCAMBIO_EQUIPOSCollection
+		{
+			get
+			{
+				if(null == _intercambio_equipos)
+					_intercambio_equipos = new INTERCAMBIO_EQUIPOSCollection((CBAV2)this);
+				return _intercambio_equipos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_INGR_DEP_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_INGR_DEP_DET_INFO_COMPLCollection"/> object.</value>
+		public ITEMS_INGR_DEP_DET_INFO_COMPLCollection ITEMS_INGR_DEP_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _items_ingr_dep_det_info_compl)
+					_items_ingr_dep_det_info_compl = new ITEMS_INGR_DEP_DET_INFO_COMPLCollection((CBAV2)this);
+				return _items_ingr_dep_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_INGRESO_DEP_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_INGRESO_DEP_INFO_COMPLCollection"/> object.</value>
+		public ITEMS_INGRESO_DEP_INFO_COMPLCollection ITEMS_INGRESO_DEP_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _items_ingreso_dep_info_compl)
+					_items_ingreso_dep_info_compl = new ITEMS_INGRESO_DEP_INFO_COMPLCollection((CBAV2)this);
+				return _items_ingreso_dep_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_INGRESO_DEPOSITO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_INGRESO_DEPOSITOCollection"/> object.</value>
+		public ITEMS_INGRESO_DEPOSITOCollection ITEMS_INGRESO_DEPOSITOCollection
+		{
+			get
+			{
+				if(null == _items_ingreso_deposito)
+					_items_ingreso_deposito = new ITEMS_INGRESO_DEPOSITOCollection((CBAV2)this);
+				return _items_ingreso_deposito;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_INGRESO_DEPOSITO_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_INGRESO_DEPOSITO_DETCollection"/> object.</value>
+		public ITEMS_INGRESO_DEPOSITO_DETCollection ITEMS_INGRESO_DEPOSITO_DETCollection
+		{
+			get
+			{
+				if(null == _items_ingreso_deposito_det)
+					_items_ingreso_deposito_det = new ITEMS_INGRESO_DEPOSITO_DETCollection((CBAV2)this);
+				return _items_ingreso_deposito_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_INGRESOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_INGRESOSCollection"/> object.</value>
+		public ITEMS_INGRESOSCollection ITEMS_INGRESOSCollection
+		{
+			get
+			{
+				if(null == _items_ingresos)
+					_items_ingresos = new ITEMS_INGRESOSCollection((CBAV2)this);
+				return _items_ingresos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_INGRESOS_DET_INFO_COMPLE</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_INGRESOS_DET_INFO_COMPLECollection"/> object.</value>
+		public ITEMS_INGRESOS_DET_INFO_COMPLECollection ITEMS_INGRESOS_DET_INFO_COMPLECollection
+		{
+			get
+			{
+				if(null == _items_ingresos_det_info_comple)
+					_items_ingresos_det_info_comple = new ITEMS_INGRESOS_DET_INFO_COMPLECollection((CBAV2)this);
+				return _items_ingresos_det_info_comple;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_INGRESOS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_INGRESOS_DETALLESCollection"/> object.</value>
+		public ITEMS_INGRESOS_DETALLESCollection ITEMS_INGRESOS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _items_ingresos_detalles)
+					_items_ingresos_detalles = new ITEMS_INGRESOS_DETALLESCollection((CBAV2)this);
+				return _items_ingresos_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_INGRESOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_INGRESOS_INFO_COMPLETACollection"/> object.</value>
+		public ITEMS_INGRESOS_INFO_COMPLETACollection ITEMS_INGRESOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _items_ingresos_info_completa)
+					_items_ingresos_info_completa = new ITEMS_INGRESOS_INFO_COMPLETACollection((CBAV2)this);
+				return _items_ingresos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_MARCAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_MARCASCollection"/> object.</value>
+		public ITEMS_MARCASCollection ITEMS_MARCASCollection
+		{
+			get
+			{
+				if(null == _items_marcas)
+					_items_marcas = new ITEMS_MARCASCollection((CBAV2)this);
+				return _items_marcas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_MODELOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_MODELOSCollection"/> object.</value>
+		public ITEMS_MODELOSCollection ITEMS_MODELOSCollection
+		{
+			get
+			{
+				if(null == _items_modelos)
+					_items_modelos = new ITEMS_MODELOSCollection((CBAV2)this);
+				return _items_modelos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_SAL_DEP_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_SAL_DEP_DET_INFO_COMPLCollection"/> object.</value>
+		public ITEMS_SAL_DEP_DET_INFO_COMPLCollection ITEMS_SAL_DEP_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _items_sal_dep_det_info_compl)
+					_items_sal_dep_det_info_compl = new ITEMS_SAL_DEP_DET_INFO_COMPLCollection((CBAV2)this);
+				return _items_sal_dep_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_SALIDA_DEP_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_SALIDA_DEP_INFO_COMPLETACollection"/> object.</value>
+		public ITEMS_SALIDA_DEP_INFO_COMPLETACollection ITEMS_SALIDA_DEP_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _items_salida_dep_info_completa)
+					_items_salida_dep_info_completa = new ITEMS_SALIDA_DEP_INFO_COMPLETACollection((CBAV2)this);
+				return _items_salida_dep_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_SALIDA_DEPOSITO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_SALIDA_DEPOSITOCollection"/> object.</value>
+		public ITEMS_SALIDA_DEPOSITOCollection ITEMS_SALIDA_DEPOSITOCollection
+		{
+			get
+			{
+				if(null == _items_salida_deposito)
+					_items_salida_deposito = new ITEMS_SALIDA_DEPOSITOCollection((CBAV2)this);
+				return _items_salida_deposito;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ITEMS_SALIDA_DEPOSITO_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ITEMS_SALIDA_DEPOSITO_DETALLESCollection"/> object.</value>
+		public ITEMS_SALIDA_DEPOSITO_DETALLESCollection ITEMS_SALIDA_DEPOSITO_DETALLESCollection
+		{
+			get
+			{
+				if(null == _items_salida_deposito_detalles)
+					_items_salida_deposito_detalles = new ITEMS_SALIDA_DEPOSITO_DETALLESCollection((CBAV2)this);
+				return _items_salida_deposito_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LEGAJO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LEGAJOCollection"/> object.</value>
+		public LEGAJOCollection LEGAJOCollection
+		{
+			get
+			{
+				if(null == _legajo)
+					_legajo = new LEGAJOCollection((CBAV2)this);
+				return _legajo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LEGAJO_ENTRADAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LEGAJO_ENTRADASCollection"/> object.</value>
+		public LEGAJO_ENTRADASCollection LEGAJO_ENTRADASCollection
+		{
+			get
+			{
+				if(null == _legajo_entradas)
+					_legajo_entradas = new LEGAJO_ENTRADASCollection((CBAV2)this);
+				return _legajo_entradas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LEGAJO_FUNCIONARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LEGAJO_FUNCIONARIOSCollection"/> object.</value>
+		public LEGAJO_FUNCIONARIOSCollection LEGAJO_FUNCIONARIOSCollection
+		{
+			get
+			{
+				if(null == _legajo_funcionarios)
+					_legajo_funcionarios = new LEGAJO_FUNCIONARIOSCollection((CBAV2)this);
+				return _legajo_funcionarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LEGAJO_FUNCIONARIOS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LEGAJO_FUNCIONARIOS_INFO_COMPLCollection"/> object.</value>
+		public LEGAJO_FUNCIONARIOS_INFO_COMPLCollection LEGAJO_FUNCIONARIOS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _legajo_funcionarios_info_compl)
+					_legajo_funcionarios_info_compl = new LEGAJO_FUNCIONARIOS_INFO_COMPLCollection((CBAV2)this);
+				return _legajo_funcionarios_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LEGAJO_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LEGAJO_INFO_COMPLETACollection"/> object.</value>
+		public LEGAJO_INFO_COMPLETACollection LEGAJO_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _legajo_info_completa)
+					_legajo_info_completa = new LEGAJO_INFO_COMPLETACollection((CBAV2)this);
+				return _legajo_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LEGAJO_SUBENTRADAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LEGAJO_SUBENTRADASCollection"/> object.</value>
+		public LEGAJO_SUBENTRADASCollection LEGAJO_SUBENTRADASCollection
+		{
+			get
+			{
+				if(null == _legajo_subentradas)
+					_legajo_subentradas = new LEGAJO_SUBENTRADASCollection((CBAV2)this);
+				return _legajo_subentradas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LEGAJO_SUBENTS_INF_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LEGAJO_SUBENTS_INF_COMPLCollection"/> object.</value>
+		public LEGAJO_SUBENTS_INF_COMPLCollection LEGAJO_SUBENTS_INF_COMPLCollection
+		{
+			get
+			{
+				if(null == _legajo_subents_inf_compl)
+					_legajo_subents_inf_compl = new LEGAJO_SUBENTS_INF_COMPLCollection((CBAV2)this);
+				return _legajo_subents_inf_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LINEA_CREDITO_FACTURA_PEND</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LINEA_CREDITO_FACTURA_PENDCollection"/> object.</value>
+		public LINEA_CREDITO_FACTURA_PENDCollection LINEA_CREDITO_FACTURA_PENDCollection
+		{
+			get
+			{
+				if(null == _linea_credito_factura_pend)
+					_linea_credito_factura_pend = new LINEA_CREDITO_FACTURA_PENDCollection((CBAV2)this);
+				return _linea_credito_factura_pend;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LINEA_CREDITO_PEDIDO_PENDIENTE</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LINEA_CREDITO_PEDIDO_PENDIENTECollection"/> object.</value>
+		public LINEA_CREDITO_PEDIDO_PENDIENTECollection LINEA_CREDITO_PEDIDO_PENDIENTECollection
+		{
+			get
+			{
+				if(null == _linea_credito_pedido_pendiente)
+					_linea_credito_pedido_pendiente = new LINEA_CREDITO_PEDIDO_PENDIENTECollection((CBAV2)this);
+				return _linea_credito_pedido_pendiente;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LINEAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LINEASCollection"/> object.</value>
+		public LINEASCollection LINEASCollection
+		{
+			get
+			{
+				if(null == _lineas)
+					_lineas = new LINEASCollection((CBAV2)this);
+				return _lineas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LINEAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LINEAS_INFO_COMPLETACollection"/> object.</value>
+		public LINEAS_INFO_COMPLETACollection LINEAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _lineas_info_completa)
+					_lineas_info_completa = new LINEAS_INFO_COMPLETACollection((CBAV2)this);
+				return _lineas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LINEAS_MOVIMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LINEAS_MOVIMIENTOSCollection"/> object.</value>
+		public LINEAS_MOVIMIENTOSCollection LINEAS_MOVIMIENTOSCollection
+		{
+			get
+			{
+				if(null == _lineas_movimientos)
+					_lineas_movimientos = new LINEAS_MOVIMIENTOSCollection((CBAV2)this);
+				return _lineas_movimientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LISTA_PRECIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LISTA_PRECIOSCollection"/> object.</value>
+		public LISTA_PRECIOSCollection LISTA_PRECIOSCollection
+		{
+			get
+			{
+				if(null == _lista_precios)
+					_lista_precios = new LISTA_PRECIOSCollection((CBAV2)this);
+				return _lista_precios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LISTA_PRECIOS_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LISTA_PRECIOS_DET_INFO_COMPLCollection"/> object.</value>
+		public LISTA_PRECIOS_DET_INFO_COMPLCollection LISTA_PRECIOS_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _lista_precios_det_info_compl)
+					_lista_precios_det_info_compl = new LISTA_PRECIOS_DET_INFO_COMPLCollection((CBAV2)this);
+				return _lista_precios_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LISTA_PRECIOS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LISTA_PRECIOS_DETALLESCollection"/> object.</value>
+		public LISTA_PRECIOS_DETALLESCollection LISTA_PRECIOS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _lista_precios_detalles)
+					_lista_precios_detalles = new LISTA_PRECIOS_DETALLESCollection((CBAV2)this);
+				return _lista_precios_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LISTA_PRECIOS_HISTORICO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LISTA_PRECIOS_HISTORICOCollection"/> object.</value>
+		public LISTA_PRECIOS_HISTORICOCollection LISTA_PRECIOS_HISTORICOCollection
+		{
+			get
+			{
+				if(null == _lista_precios_historico)
+					_lista_precios_historico = new LISTA_PRECIOS_HISTORICOCollection((CBAV2)this);
+				return _lista_precios_historico;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LISTA_PRECIOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LISTA_PRECIOS_INFO_COMPLETACollection"/> object.</value>
+		public LISTA_PRECIOS_INFO_COMPLETACollection LISTA_PRECIOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _lista_precios_info_completa)
+					_lista_precios_info_completa = new LISTA_PRECIOS_INFO_COMPLETACollection((CBAV2)this);
+				return _lista_precios_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LISTA_PRECIOS_MODIF_DET_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LISTA_PRECIOS_MODIF_DET_INF_CCollection"/> object.</value>
+		public LISTA_PRECIOS_MODIF_DET_INF_CCollection LISTA_PRECIOS_MODIF_DET_INF_CCollection
+		{
+			get
+			{
+				if(null == _lista_precios_modif_det_inf_c)
+					_lista_precios_modif_det_inf_c = new LISTA_PRECIOS_MODIF_DET_INF_CCollection((CBAV2)this);
+				return _lista_precios_modif_det_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LISTA_PRECIOS_MODIF_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LISTA_PRECIOS_MODIF_INFO_COMPCollection"/> object.</value>
+		public LISTA_PRECIOS_MODIF_INFO_COMPCollection LISTA_PRECIOS_MODIF_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _lista_precios_modif_info_comp)
+					_lista_precios_modif_info_comp = new LISTA_PRECIOS_MODIF_INFO_COMPCollection((CBAV2)this);
+				return _lista_precios_modif_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LISTA_PRECIOS_MODIFICAR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LISTA_PRECIOS_MODIFICARCollection"/> object.</value>
+		public LISTA_PRECIOS_MODIFICARCollection LISTA_PRECIOS_MODIFICARCollection
+		{
+			get
+			{
+				if(null == _lista_precios_modificar)
+					_lista_precios_modificar = new LISTA_PRECIOS_MODIFICARCollection((CBAV2)this);
+				return _lista_precios_modificar;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LISTA_PRECIOS_MODIFICAR_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LISTA_PRECIOS_MODIFICAR_DETCollection"/> object.</value>
+		public LISTA_PRECIOS_MODIFICAR_DETCollection LISTA_PRECIOS_MODIFICAR_DETCollection
+		{
+			get
+			{
+				if(null == _lista_precios_modificar_det)
+					_lista_precios_modificar_det = new LISTA_PRECIOS_MODIFICAR_DETCollection((CBAV2)this);
+				return _lista_precios_modificar_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LISTADO_ARTICULOS_SIN_PRECIO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="LISTADO_ARTICULOS_SIN_PRECIOCollection"/> object.</value>
+		public LISTADO_ARTICULOS_SIN_PRECIOCollection LISTADO_ARTICULOS_SIN_PRECIOCollection
+		{
+			get
+			{
+				if(null == _listado_articulos_sin_precio)
+					_listado_articulos_sin_precio = new LISTADO_ARTICULOS_SIN_PRECIOCollection((CBAV2)this);
+				return _listado_articulos_sin_precio;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LOG_ACTIVIDADES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LOG_ACTIVIDADESCollection"/> object.</value>
+		public LOG_ACTIVIDADESCollection LOG_ACTIVIDADESCollection
+		{
+			get
+			{
+				if(null == _log_actividades)
+					_log_actividades = new LOG_ACTIVIDADESCollection((CBAV2)this);
+				return _log_actividades;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LOG_CAMBIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LOG_CAMBIOSCollection"/> object.</value>
+		public LOG_CAMBIOSCollection LOG_CAMBIOSCollection
+		{
+			get
+			{
+				if(null == _log_cambios)
+					_log_cambios = new LOG_CAMBIOSCollection((CBAV2)this);
+				return _log_cambios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LOG_CAMPOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LOG_CAMPOSCollection"/> object.</value>
+		public LOG_CAMPOSCollection LOG_CAMPOSCollection
+		{
+			get
+			{
+				if(null == _log_campos)
+					_log_campos = new LOG_CAMPOSCollection((CBAV2)this);
+				return _log_campos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>LOG_SESIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="LOG_SESIONESCollection"/> object.</value>
+		public LOG_SESIONESCollection LOG_SESIONESCollection
+		{
+			get
+			{
+				if(null == _log_sesiones)
+					_log_sesiones = new LOG_SESIONESCollection((CBAV2)this);
+				return _log_sesiones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MANIFIESTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MANIFIESTOSCollection"/> object.</value>
+		public MANIFIESTOSCollection MANIFIESTOSCollection
+		{
+			get
+			{
+				if(null == _manifiestos)
+					_manifiestos = new MANIFIESTOSCollection((CBAV2)this);
+				return _manifiestos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MANIFIESTOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MANIFIESTOS_INFO_COMPLETACollection"/> object.</value>
+		public MANIFIESTOS_INFO_COMPLETACollection MANIFIESTOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _manifiestos_info_completa)
+					_manifiestos_info_completa = new MANIFIESTOS_INFO_COMPLETACollection((CBAV2)this);
+				return _manifiestos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MANUALES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MANUALESCollection"/> object.</value>
+		public MANUALESCollection MANUALESCollection
+		{
+			get
+			{
+				if(null == _manuales)
+					_manuales = new MANUALESCollection((CBAV2)this);
+				return _manuales;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MARCACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MARCACIONESCollection"/> object.</value>
+		public MARCACIONESCollection MARCACIONESCollection
+		{
+			get
+			{
+				if(null == _marcaciones)
+					_marcaciones = new MARCACIONESCollection((CBAV2)this);
+				return _marcaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MARCACIONES_ENTRADAS_SALIDAS</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MARCACIONES_ENTRADAS_SALIDASCollection"/> object.</value>
+		public MARCACIONES_ENTRADAS_SALIDASCollection MARCACIONES_ENTRADAS_SALIDASCollection
+		{
+			get
+			{
+				if(null == _marcaciones_entradas_salidas)
+					_marcaciones_entradas_salidas = new MARCACIONES_ENTRADAS_SALIDASCollection((CBAV2)this);
+				return _marcaciones_entradas_salidas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MARCACIONES_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MARCACIONES_INFO_COMPLCollection"/> object.</value>
+		public MARCACIONES_INFO_COMPLCollection MARCACIONES_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _marcaciones_info_compl)
+					_marcaciones_info_compl = new MARCACIONES_INFO_COMPLCollection((CBAV2)this);
+				return _marcaciones_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MENSAJES_SISTEMA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MENSAJES_SISTEMACollection"/> object.</value>
+		public MENSAJES_SISTEMACollection MENSAJES_SISTEMACollection
+		{
+			get
+			{
+				if(null == _mensajes_sistema)
+					_mensajes_sistema = new MENSAJES_SISTEMACollection((CBAV2)this);
+				return _mensajes_sistema;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MENSAJES_SISTEMA_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MENSAJES_SISTEMA_INFO_COMPLCollection"/> object.</value>
+		public MENSAJES_SISTEMA_INFO_COMPLCollection MENSAJES_SISTEMA_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _mensajes_sistema_info_compl)
+					_mensajes_sistema_info_compl = new MENSAJES_SISTEMA_INFO_COMPLCollection((CBAV2)this);
+				return _mensajes_sistema_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MONEDAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MONEDASCollection"/> object.</value>
+		public MONEDASCollection MONEDASCollection
+		{
+			get
+			{
+				if(null == _monedas)
+					_monedas = new MONEDASCollection((CBAV2)this);
+				return _monedas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MONEDAS_DENOM_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MONEDAS_DENOM_INFO_COMPLCollection"/> object.</value>
+		public MONEDAS_DENOM_INFO_COMPLCollection MONEDAS_DENOM_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _monedas_denom_info_compl)
+					_monedas_denom_info_compl = new MONEDAS_DENOM_INFO_COMPLCollection((CBAV2)this);
+				return _monedas_denom_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MONEDAS_DENOMINACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MONEDAS_DENOMINACIONESCollection"/> object.</value>
+		public MONEDAS_DENOMINACIONESCollection MONEDAS_DENOMINACIONESCollection
+		{
+			get
+			{
+				if(null == _monedas_denominaciones)
+					_monedas_denominaciones = new MONEDAS_DENOMINACIONESCollection((CBAV2)this);
+				return _monedas_denominaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOV_FONDO_FIJO_DET_CC_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOV_FONDO_FIJO_DET_CC_INFO_CCollection"/> object.</value>
+		public MOV_FONDO_FIJO_DET_CC_INFO_CCollection MOV_FONDO_FIJO_DET_CC_INFO_CCollection
+		{
+			get
+			{
+				if(null == _mov_fondo_fijo_det_cc_info_c)
+					_mov_fondo_fijo_det_cc_info_c = new MOV_FONDO_FIJO_DET_CC_INFO_CCollection((CBAV2)this);
+				return _mov_fondo_fijo_det_cc_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOV_FONDO_FIJO_DET_CENT_C</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOV_FONDO_FIJO_DET_CENT_CCollection"/> object.</value>
+		public MOV_FONDO_FIJO_DET_CENT_CCollection MOV_FONDO_FIJO_DET_CENT_CCollection
+		{
+			get
+			{
+				if(null == _mov_fondo_fijo_det_cent_c)
+					_mov_fondo_fijo_det_cent_c = new MOV_FONDO_FIJO_DET_CENT_CCollection((CBAV2)this);
+				return _mov_fondo_fijo_det_cent_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOV_FONDO_FIJO_DET_CTB</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOV_FONDO_FIJO_DET_CTBCollection"/> object.</value>
+		public MOV_FONDO_FIJO_DET_CTBCollection MOV_FONDO_FIJO_DET_CTBCollection
+		{
+			get
+			{
+				if(null == _mov_fondo_fijo_det_ctb)
+					_mov_fondo_fijo_det_ctb = new MOV_FONDO_FIJO_DET_CTBCollection((CBAV2)this);
+				return _mov_fondo_fijo_det_ctb;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOV_FONDO_FIJO_DET_CTB_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOV_FONDO_FIJO_DET_CTB_INFO_CCollection"/> object.</value>
+		public MOV_FONDO_FIJO_DET_CTB_INFO_CCollection MOV_FONDO_FIJO_DET_CTB_INFO_CCollection
+		{
+			get
+			{
+				if(null == _mov_fondo_fijo_det_ctb_info_c)
+					_mov_fondo_fijo_det_ctb_info_c = new MOV_FONDO_FIJO_DET_CTB_INFO_CCollection((CBAV2)this);
+				return _mov_fondo_fijo_det_ctb_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOV_VARIOS_TESO_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOV_VARIOS_TESO_DET_INFO_COMPLCollection"/> object.</value>
+		public MOV_VARIOS_TESO_DET_INFO_COMPLCollection MOV_VARIOS_TESO_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _mov_varios_teso_det_info_compl)
+					_mov_varios_teso_det_info_compl = new MOV_VARIOS_TESO_DET_INFO_COMPLCollection((CBAV2)this);
+				return _mov_varios_teso_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOV_VARIOS_TESO_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOV_VARIOS_TESO_INFO_COMPLCollection"/> object.</value>
+		public MOV_VARIOS_TESO_INFO_COMPLCollection MOV_VARIOS_TESO_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _mov_varios_teso_info_compl)
+					_mov_varios_teso_info_compl = new MOV_VARIOS_TESO_INFO_COMPLCollection((CBAV2)this);
+				return _mov_varios_teso_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOVIMIENTO_FONDO_FIJO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOVIMIENTO_FONDO_FIJOCollection"/> object.</value>
+		public MOVIMIENTO_FONDO_FIJOCollection MOVIMIENTO_FONDO_FIJOCollection
+		{
+			get
+			{
+				if(null == _movimiento_fondo_fijo)
+					_movimiento_fondo_fijo = new MOVIMIENTO_FONDO_FIJOCollection((CBAV2)this);
+				return _movimiento_fondo_fijo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOVIMIENTO_FONDO_FIJO_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOVIMIENTO_FONDO_FIJO_DETCollection"/> object.</value>
+		public MOVIMIENTO_FONDO_FIJO_DETCollection MOVIMIENTO_FONDO_FIJO_DETCollection
+		{
+			get
+			{
+				if(null == _movimiento_fondo_fijo_det)
+					_movimiento_fondo_fijo_det = new MOVIMIENTO_FONDO_FIJO_DETCollection((CBAV2)this);
+				return _movimiento_fondo_fijo_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOVIMIENTO_FONDO_FIJO_DET_I_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOVIMIENTO_FONDO_FIJO_DET_I_CCollection"/> object.</value>
+		public MOVIMIENTO_FONDO_FIJO_DET_I_CCollection MOVIMIENTO_FONDO_FIJO_DET_I_CCollection
+		{
+			get
+			{
+				if(null == _movimiento_fondo_fijo_det_i_c)
+					_movimiento_fondo_fijo_det_i_c = new MOVIMIENTO_FONDO_FIJO_DET_I_CCollection((CBAV2)this);
+				return _movimiento_fondo_fijo_det_i_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOVIMIENTO_FONDO_FIJO_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOVIMIENTO_FONDO_FIJO_INFO_CCollection"/> object.</value>
+		public MOVIMIENTO_FONDO_FIJO_INFO_CCollection MOVIMIENTO_FONDO_FIJO_INFO_CCollection
+		{
+			get
+			{
+				if(null == _movimiento_fondo_fijo_info_c)
+					_movimiento_fondo_fijo_info_c = new MOVIMIENTO_FONDO_FIJO_INFO_CCollection((CBAV2)this);
+				return _movimiento_fondo_fijo_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOVIMIENTOS_VARIOS_TESO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOVIMIENTOS_VARIOS_TESOCollection"/> object.</value>
+		public MOVIMIENTOS_VARIOS_TESOCollection MOVIMIENTOS_VARIOS_TESOCollection
+		{
+			get
+			{
+				if(null == _movimientos_varios_teso)
+					_movimientos_varios_teso = new MOVIMIENTOS_VARIOS_TESOCollection((CBAV2)this);
+				return _movimientos_varios_teso;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MOVIMIENTOS_VARIOS_TESO_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MOVIMIENTOS_VARIOS_TESO_DETCollection"/> object.</value>
+		public MOVIMIENTOS_VARIOS_TESO_DETCollection MOVIMIENTOS_VARIOS_TESO_DETCollection
+		{
+			get
+			{
+				if(null == _movimientos_varios_teso_det)
+					_movimientos_varios_teso_det = new MOVIMIENTOS_VARIOS_TESO_DETCollection((CBAV2)this);
+				return _movimientos_varios_teso_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>MUELLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="MUELLESCollection"/> object.</value>
+		public MUELLESCollection MUELLESCollection
+		{
+			get
+			{
+				if(null == _muelles)
+					_muelles = new MUELLESCollection((CBAV2)this);
+				return _muelles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ND_PERSONA_DET_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ND_PERSONA_DET_INFO_COMPLETACollection"/> object.</value>
+		public ND_PERSONA_DET_INFO_COMPLETACollection ND_PERSONA_DET_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _nd_persona_det_info_completa)
+					_nd_persona_det_info_completa = new ND_PERSONA_DET_INFO_COMPLETACollection((CBAV2)this);
+				return _nd_persona_det_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ND_PERSONA_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ND_PERSONA_INFO_COMPLETACollection"/> object.</value>
+		public ND_PERSONA_INFO_COMPLETACollection ND_PERSONA_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _nd_persona_info_completa)
+					_nd_persona_info_completa = new ND_PERSONA_INFO_COMPLETACollection((CBAV2)this);
+				return _nd_persona_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ND_PROVEEDOR_DET_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ND_PROVEEDOR_DET_INFO_COMPLETACollection"/> object.</value>
+		public ND_PROVEEDOR_DET_INFO_COMPLETACollection ND_PROVEEDOR_DET_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _nd_proveedor_det_info_completa)
+					_nd_proveedor_det_info_completa = new ND_PROVEEDOR_DET_INFO_COMPLETACollection((CBAV2)this);
+				return _nd_proveedor_det_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ND_PROVEEDOR_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ND_PROVEEDOR_INFO_COMPLETACollection"/> object.</value>
+		public ND_PROVEEDOR_INFO_COMPLETACollection ND_PROVEEDOR_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _nd_proveedor_info_completa)
+					_nd_proveedor_info_completa = new ND_PROVEEDOR_INFO_COMPLETACollection((CBAV2)this);
+				return _nd_proveedor_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOMINA_CONTENED_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOMINA_CONTENED_DET_INFO_COMPLCollection"/> object.</value>
+		public NOMINA_CONTENED_DET_INFO_COMPLCollection NOMINA_CONTENED_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _nomina_contened_det_info_compl)
+					_nomina_contened_det_info_compl = new NOMINA_CONTENED_DET_INFO_COMPLCollection((CBAV2)this);
+				return _nomina_contened_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOMINA_CONTENEDORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOMINA_CONTENEDORESCollection"/> object.</value>
+		public NOMINA_CONTENEDORESCollection NOMINA_CONTENEDORESCollection
+		{
+			get
+			{
+				if(null == _nomina_contenedores)
+					_nomina_contenedores = new NOMINA_CONTENEDORESCollection((CBAV2)this);
+				return _nomina_contenedores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOMINA_CONTENEDORES_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOMINA_CONTENEDORES_DETALLESCollection"/> object.</value>
+		public NOMINA_CONTENEDORES_DETALLESCollection NOMINA_CONTENEDORES_DETALLESCollection
+		{
+			get
+			{
+				if(null == _nomina_contenedores_detalles)
+					_nomina_contenedores_detalles = new NOMINA_CONTENEDORES_DETALLESCollection((CBAV2)this);
+				return _nomina_contenedores_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOMINA_CONTENEDORES_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOMINA_CONTENEDORES_INFO_COMPLCollection"/> object.</value>
+		public NOMINA_CONTENEDORES_INFO_COMPLCollection NOMINA_CONTENEDORES_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _nomina_contenedores_info_compl)
+					_nomina_contenedores_info_compl = new NOMINA_CONTENEDORES_INFO_COMPLCollection((CBAV2)this);
+				return _nomina_contenedores_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTA_CR_PROV_DET_CTB_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTA_CR_PROV_DET_CTB_INFO_CCollection"/> object.</value>
+		public NOTA_CR_PROV_DET_CTB_INFO_CCollection NOTA_CR_PROV_DET_CTB_INFO_CCollection
+		{
+			get
+			{
+				if(null == _nota_cr_prov_det_ctb_info_c)
+					_nota_cr_prov_det_ctb_info_c = new NOTA_CR_PROV_DET_CTB_INFO_CCollection((CBAV2)this);
+				return _nota_cr_prov_det_ctb_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTA_CREDITO_PROVEEDOR_DET_CTB</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTA_CREDITO_PROVEEDOR_DET_CTBCollection"/> object.</value>
+		public NOTA_CREDITO_PROVEEDOR_DET_CTBCollection NOTA_CREDITO_PROVEEDOR_DET_CTBCollection
+		{
+			get
+			{
+				if(null == _nota_credito_proveedor_det_ctb)
+					_nota_credito_proveedor_det_ctb = new NOTA_CREDITO_PROVEEDOR_DET_CTBCollection((CBAV2)this);
+				return _nota_credito_proveedor_det_ctb;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTA_DEBITO_PERSONA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTA_DEBITO_PERSONACollection"/> object.</value>
+		public NOTA_DEBITO_PERSONACollection NOTA_DEBITO_PERSONACollection
+		{
+			get
+			{
+				if(null == _nota_debito_persona)
+					_nota_debito_persona = new NOTA_DEBITO_PERSONACollection((CBAV2)this);
+				return _nota_debito_persona;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTA_DEBITO_PERSONA_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTA_DEBITO_PERSONA_DETALLECollection"/> object.</value>
+		public NOTA_DEBITO_PERSONA_DETALLECollection NOTA_DEBITO_PERSONA_DETALLECollection
+		{
+			get
+			{
+				if(null == _nota_debito_persona_detalle)
+					_nota_debito_persona_detalle = new NOTA_DEBITO_PERSONA_DETALLECollection((CBAV2)this);
+				return _nota_debito_persona_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTA_DEBITO_PROVEEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTA_DEBITO_PROVEEDORCollection"/> object.</value>
+		public NOTA_DEBITO_PROVEEDORCollection NOTA_DEBITO_PROVEEDORCollection
+		{
+			get
+			{
+				if(null == _nota_debito_proveedor)
+					_nota_debito_proveedor = new NOTA_DEBITO_PROVEEDORCollection((CBAV2)this);
+				return _nota_debito_proveedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTA_DEBITO_PROVEEDOR_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTA_DEBITO_PROVEEDOR_DETALLECollection"/> object.</value>
+		public NOTA_DEBITO_PROVEEDOR_DETALLECollection NOTA_DEBITO_PROVEEDOR_DETALLECollection
+		{
+			get
+			{
+				if(null == _nota_debito_proveedor_detalle)
+					_nota_debito_proveedor_detalle = new NOTA_DEBITO_PROVEEDOR_DETALLECollection((CBAV2)this);
+				return _nota_debito_proveedor_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTAS_CRED_PER_DET_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTAS_CRED_PER_DET_INF_COMPCollection"/> object.</value>
+		public NOTAS_CRED_PER_DET_INF_COMPCollection NOTAS_CRED_PER_DET_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _notas_cred_per_det_inf_comp)
+					_notas_cred_per_det_inf_comp = new NOTAS_CRED_PER_DET_INF_COMPCollection((CBAV2)this);
+				return _notas_cred_per_det_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTAS_CRED_PRO_DET_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTAS_CRED_PRO_DET_INF_COMPCollection"/> object.</value>
+		public NOTAS_CRED_PRO_DET_INF_COMPCollection NOTAS_CRED_PRO_DET_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _notas_cred_pro_det_inf_comp)
+					_notas_cred_pro_det_inf_comp = new NOTAS_CRED_PRO_DET_INF_COMPCollection((CBAV2)this);
+				return _notas_cred_pro_det_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTAS_CRED_PROV_DET_C_C_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTAS_CRED_PROV_DET_C_C_INF_CCollection"/> object.</value>
+		public NOTAS_CRED_PROV_DET_C_C_INF_CCollection NOTAS_CRED_PROV_DET_C_C_INF_CCollection
+		{
+			get
+			{
+				if(null == _notas_cred_prov_det_c_c_inf_c)
+					_notas_cred_prov_det_c_c_inf_c = new NOTAS_CRED_PROV_DET_C_C_INF_CCollection((CBAV2)this);
+				return _notas_cred_prov_det_c_c_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTAS_CREDITO_PERSONA_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTAS_CREDITO_PERSONA_INF_COMPCollection"/> object.</value>
+		public NOTAS_CREDITO_PERSONA_INF_COMPCollection NOTAS_CREDITO_PERSONA_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _notas_credito_persona_inf_comp)
+					_notas_credito_persona_inf_comp = new NOTAS_CREDITO_PERSONA_INF_COMPCollection((CBAV2)this);
+				return _notas_credito_persona_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTAS_CREDITO_PERSONAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTAS_CREDITO_PERSONASCollection"/> object.</value>
+		public NOTAS_CREDITO_PERSONASCollection NOTAS_CREDITO_PERSONASCollection
+		{
+			get
+			{
+				if(null == _notas_credito_personas)
+					_notas_credito_personas = new NOTAS_CREDITO_PERSONASCollection((CBAV2)this);
+				return _notas_credito_personas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTAS_CREDITO_PERSONAS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTAS_CREDITO_PERSONAS_DETCollection"/> object.</value>
+		public NOTAS_CREDITO_PERSONAS_DETCollection NOTAS_CREDITO_PERSONAS_DETCollection
+		{
+			get
+			{
+				if(null == _notas_credito_personas_det)
+					_notas_credito_personas_det = new NOTAS_CREDITO_PERSONAS_DETCollection((CBAV2)this);
+				return _notas_credito_personas_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTAS_CREDITO_PROV_DET_CENT_C</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTAS_CREDITO_PROV_DET_CENT_CCollection"/> object.</value>
+		public NOTAS_CREDITO_PROV_DET_CENT_CCollection NOTAS_CREDITO_PROV_DET_CENT_CCollection
+		{
+			get
+			{
+				if(null == _notas_credito_prov_det_cent_c)
+					_notas_credito_prov_det_cent_c = new NOTAS_CREDITO_PROV_DET_CENT_CCollection((CBAV2)this);
+				return _notas_credito_prov_det_cent_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTAS_CREDITO_PROVEED_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTAS_CREDITO_PROVEED_INF_COMPCollection"/> object.</value>
+		public NOTAS_CREDITO_PROVEED_INF_COMPCollection NOTAS_CREDITO_PROVEED_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _notas_credito_proveed_inf_comp)
+					_notas_credito_proveed_inf_comp = new NOTAS_CREDITO_PROVEED_INF_COMPCollection((CBAV2)this);
+				return _notas_credito_proveed_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTAS_CREDITO_PROVEEDORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTAS_CREDITO_PROVEEDORESCollection"/> object.</value>
+		public NOTAS_CREDITO_PROVEEDORESCollection NOTAS_CREDITO_PROVEEDORESCollection
+		{
+			get
+			{
+				if(null == _notas_credito_proveedores)
+					_notas_credito_proveedores = new NOTAS_CREDITO_PROVEEDORESCollection((CBAV2)this);
+				return _notas_credito_proveedores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTAS_CREDITO_PROVEEDORES_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTAS_CREDITO_PROVEEDORES_DETCollection"/> object.</value>
+		public NOTAS_CREDITO_PROVEEDORES_DETCollection NOTAS_CREDITO_PROVEEDORES_DETCollection
+		{
+			get
+			{
+				if(null == _notas_credito_proveedores_det)
+					_notas_credito_proveedores_det = new NOTAS_CREDITO_PROVEEDORES_DETCollection((CBAV2)this);
+				return _notas_credito_proveedores_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTIFICACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTIFICACIONESCollection"/> object.</value>
+		public NOTIFICACIONESCollection NOTIFICACIONESCollection
+		{
+			get
+			{
+				if(null == _notificaciones)
+					_notificaciones = new NOTIFICACIONESCollection((CBAV2)this);
+				return _notificaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NOTIFICACIONES_SUSCRIPCIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NOTIFICACIONES_SUSCRIPCIONESCollection"/> object.</value>
+		public NOTIFICACIONES_SUSCRIPCIONESCollection NOTIFICACIONES_SUSCRIPCIONESCollection
+		{
+			get
+			{
+				if(null == _notificaciones_suscripciones)
+					_notificaciones_suscripciones = new NOTIFICACIONES_SUSCRIPCIONESCollection((CBAV2)this);
+				return _notificaciones_suscripciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>NUMEROS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="NUMEROSCollection"/> object.</value>
+		public NUMEROSCollection NUMEROSCollection
+		{
+			get
+			{
+				if(null == _numeros)
+					_numeros = new NUMEROSCollection((CBAV2)this);
+				return _numeros;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJ_VEND_ART_DET_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJ_VEND_ART_DET_INFO_COMPLETACollection"/> object.</value>
+		public OBJ_VEND_ART_DET_INFO_COMPLETACollection OBJ_VEND_ART_DET_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _obj_vend_art_det_info_completa)
+					_obj_vend_art_det_info_completa = new OBJ_VEND_ART_DET_INFO_COMPLETACollection((CBAV2)this);
+				return _obj_vend_art_det_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJ_VEND_ART_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJ_VEND_ART_INFO_COMPLETACollection"/> object.</value>
+		public OBJ_VEND_ART_INFO_COMPLETACollection OBJ_VEND_ART_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _obj_vend_art_info_completa)
+					_obj_vend_art_info_completa = new OBJ_VEND_ART_INFO_COMPLETACollection((CBAV2)this);
+				return _obj_vend_art_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJ_VEND_ARTI_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJ_VEND_ARTI_DETALLECollection"/> object.</value>
+		public OBJ_VEND_ARTI_DETALLECollection OBJ_VEND_ARTI_DETALLECollection
+		{
+			get
+			{
+				if(null == _obj_vend_arti_detalle)
+					_obj_vend_arti_detalle = new OBJ_VEND_ARTI_DETALLECollection((CBAV2)this);
+				return _obj_vend_arti_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJ_VEND_CLI_DET_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJ_VEND_CLI_DET_INFO_COMPLETACollection"/> object.</value>
+		public OBJ_VEND_CLI_DET_INFO_COMPLETACollection OBJ_VEND_CLI_DET_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _obj_vend_cli_det_info_completa)
+					_obj_vend_cli_det_info_completa = new OBJ_VEND_CLI_DET_INFO_COMPLETACollection((CBAV2)this);
+				return _obj_vend_cli_det_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJ_VEND_CLI_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJ_VEND_CLI_INFO_COMPLETACollection"/> object.</value>
+		public OBJ_VEND_CLI_INFO_COMPLETACollection OBJ_VEND_CLI_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _obj_vend_cli_info_completa)
+					_obj_vend_cli_info_completa = new OBJ_VEND_CLI_INFO_COMPLETACollection((CBAV2)this);
+				return _obj_vend_cli_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJ_VEND_CLIE_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJ_VEND_CLIE_DETALLECollection"/> object.</value>
+		public OBJ_VEND_CLIE_DETALLECollection OBJ_VEND_CLIE_DETALLECollection
+		{
+			get
+			{
+				if(null == _obj_vend_clie_detalle)
+					_obj_vend_clie_detalle = new OBJ_VEND_CLIE_DETALLECollection((CBAV2)this);
+				return _obj_vend_clie_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJETIVO_VENDEDOR_ARTICULO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJETIVO_VENDEDOR_ARTICULOCollection"/> object.</value>
+		public OBJETIVO_VENDEDOR_ARTICULOCollection OBJETIVO_VENDEDOR_ARTICULOCollection
+		{
+			get
+			{
+				if(null == _objetivo_vendedor_articulo)
+					_objetivo_vendedor_articulo = new OBJETIVO_VENDEDOR_ARTICULOCollection((CBAV2)this);
+				return _objetivo_vendedor_articulo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJETIVO_VENDEDOR_CLIENTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJETIVO_VENDEDOR_CLIENTECollection"/> object.</value>
+		public OBJETIVO_VENDEDOR_CLIENTECollection OBJETIVO_VENDEDOR_CLIENTECollection
+		{
+			get
+			{
+				if(null == _objetivo_vendedor_cliente)
+					_objetivo_vendedor_cliente = new OBJETIVO_VENDEDOR_CLIENTECollection((CBAV2)this);
+				return _objetivo_vendedor_cliente;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJETIVO_VENDEDOR_EXPLOTACION</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJETIVO_VENDEDOR_EXPLOTACIONCollection"/> object.</value>
+		public OBJETIVO_VENDEDOR_EXPLOTACIONCollection OBJETIVO_VENDEDOR_EXPLOTACIONCollection
+		{
+			get
+			{
+				if(null == _objetivo_vendedor_explotacion)
+					_objetivo_vendedor_explotacion = new OBJETIVO_VENDEDOR_EXPLOTACIONCollection((CBAV2)this);
+				return _objetivo_vendedor_explotacion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJETIVOS_COBRADORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJETIVOS_COBRADORESCollection"/> object.</value>
+		public OBJETIVOS_COBRADORESCollection OBJETIVOS_COBRADORESCollection
+		{
+			get
+			{
+				if(null == _objetivos_cobradores)
+					_objetivos_cobradores = new OBJETIVOS_COBRADORESCollection((CBAV2)this);
+				return _objetivos_cobradores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJETIVOS_COBRADORES_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJETIVOS_COBRADORES_INFO_COMPCollection"/> object.</value>
+		public OBJETIVOS_COBRADORES_INFO_COMPCollection OBJETIVOS_COBRADORES_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _objetivos_cobradores_info_comp)
+					_objetivos_cobradores_info_comp = new OBJETIVOS_COBRADORES_INFO_COMPCollection((CBAV2)this);
+				return _objetivos_cobradores_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJETIVOS_PROMOTORAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJETIVOS_PROMOTORASCollection"/> object.</value>
+		public OBJETIVOS_PROMOTORASCollection OBJETIVOS_PROMOTORASCollection
+		{
+			get
+			{
+				if(null == _objetivos_promotoras)
+					_objetivos_promotoras = new OBJETIVOS_PROMOTORASCollection((CBAV2)this);
+				return _objetivos_promotoras;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OBJETIVOS_PROMOTORAS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="OBJETIVOS_PROMOTORAS_INFO_COMPCollection"/> object.</value>
+		public OBJETIVOS_PROMOTORAS_INFO_COMPCollection OBJETIVOS_PROMOTORAS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _objetivos_promotoras_info_comp)
+					_objetivos_promotoras_info_comp = new OBJETIVOS_PROMOTORAS_INFO_COMPCollection((CBAV2)this);
+				return _objetivos_promotoras_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OPERACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="OPERACIONESCollection"/> object.</value>
+		public OPERACIONESCollection OPERACIONESCollection
+		{
+			get
+			{
+				if(null == _operaciones)
+					_operaciones = new OPERACIONESCollection((CBAV2)this);
+				return _operaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OPERACIONES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="OPERACIONES_INFO_COMPLETACollection"/> object.</value>
+		public OPERACIONES_INFO_COMPLETACollection OPERACIONES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _operaciones_info_completa)
+					_operaciones_info_completa = new OPERACIONES_INFO_COMPLETACollection((CBAV2)this);
+				return _operaciones_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>OPERACIONES_TIPO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="OPERACIONES_TIPOCollection"/> object.</value>
+		public OPERACIONES_TIPOCollection OPERACIONES_TIPOCollection
+		{
+			get
+			{
+				if(null == _operaciones_tipo)
+					_operaciones_tipo = new OPERACIONES_TIPOCollection((CBAV2)this);
+				return _operaciones_tipo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_COMPRA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_COMPRACollection"/> object.</value>
+		public ORDENES_COMPRACollection ORDENES_COMPRACollection
+		{
+			get
+			{
+				if(null == _ordenes_compra)
+					_ordenes_compra = new ORDENES_COMPRACollection((CBAV2)this);
+				return _ordenes_compra;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_COMPRA_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_COMPRA_DET_INFO_COMPLCollection"/> object.</value>
+		public ORDENES_COMPRA_DET_INFO_COMPLCollection ORDENES_COMPRA_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ordenes_compra_det_info_compl)
+					_ordenes_compra_det_info_compl = new ORDENES_COMPRA_DET_INFO_COMPLCollection((CBAV2)this);
+				return _ordenes_compra_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_COMPRA_DET_RELACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_COMPRA_DET_RELACIONESCollection"/> object.</value>
+		public ORDENES_COMPRA_DET_RELACIONESCollection ORDENES_COMPRA_DET_RELACIONESCollection
+		{
+			get
+			{
+				if(null == _ordenes_compra_det_relaciones)
+					_ordenes_compra_det_relaciones = new ORDENES_COMPRA_DET_RELACIONESCollection((CBAV2)this);
+				return _ordenes_compra_det_relaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_COMPRA_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_COMPRA_DETALLESCollection"/> object.</value>
+		public ORDENES_COMPRA_DETALLESCollection ORDENES_COMPRA_DETALLESCollection
+		{
+			get
+			{
+				if(null == _ordenes_compra_detalles)
+					_ordenes_compra_detalles = new ORDENES_COMPRA_DETALLESCollection((CBAV2)this);
+				return _ordenes_compra_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_COMPRA_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_COMPRA_INFO_COMPLETACollection"/> object.</value>
+		public ORDENES_COMPRA_INFO_COMPLETACollection ORDENES_COMPRA_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ordenes_compra_info_completa)
+					_ordenes_compra_info_completa = new ORDENES_COMPRA_INFO_COMPLETACollection((CBAV2)this);
+				return _ordenes_compra_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_PAGO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_PAGOCollection"/> object.</value>
+		public ORDENES_PAGOCollection ORDENES_PAGOCollection
+		{
+			get
+			{
+				if(null == _ordenes_pago)
+					_ordenes_pago = new ORDENES_PAGOCollection((CBAV2)this);
+				return _ordenes_pago;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_PAGO_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_PAGO_DETCollection"/> object.</value>
+		public ORDENES_PAGO_DETCollection ORDENES_PAGO_DETCollection
+		{
+			get
+			{
+				if(null == _ordenes_pago_det)
+					_ordenes_pago_det = new ORDENES_PAGO_DETCollection((CBAV2)this);
+				return _ordenes_pago_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_PAGO_DET_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_PAGO_DET_INFO_COMPCollection"/> object.</value>
+		public ORDENES_PAGO_DET_INFO_COMPCollection ORDENES_PAGO_DET_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ordenes_pago_det_info_comp)
+					_ordenes_pago_det_info_comp = new ORDENES_PAGO_DET_INFO_COMPCollection((CBAV2)this);
+				return _ordenes_pago_det_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_PAGO_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_PAGO_INFO_COMPLETACollection"/> object.</value>
+		public ORDENES_PAGO_INFO_COMPLETACollection ORDENES_PAGO_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ordenes_pago_info_completa)
+					_ordenes_pago_info_completa = new ORDENES_PAGO_INFO_COMPLETACollection((CBAV2)this);
+				return _ordenes_pago_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_PAGO_TIPO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_PAGO_TIPOCollection"/> object.</value>
+		public ORDENES_PAGO_TIPOCollection ORDENES_PAGO_TIPOCollection
+		{
+			get
+			{
+				if(null == _ordenes_pago_tipo)
+					_ordenes_pago_tipo = new ORDENES_PAGO_TIPOCollection((CBAV2)this);
+				return _ordenes_pago_tipo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_PAGO_VALORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_PAGO_VALORESCollection"/> object.</value>
+		public ORDENES_PAGO_VALORESCollection ORDENES_PAGO_VALORESCollection
+		{
+			get
+			{
+				if(null == _ordenes_pago_valores)
+					_ordenes_pago_valores = new ORDENES_PAGO_VALORESCollection((CBAV2)this);
+				return _ordenes_pago_valores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_PAGO_VALORES_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_PAGO_VALORES_INFO_COMPCollection"/> object.</value>
+		public ORDENES_PAGO_VALORES_INFO_COMPCollection ORDENES_PAGO_VALORES_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _ordenes_pago_valores_info_comp)
+					_ordenes_pago_valores_info_comp = new ORDENES_PAGO_VALORES_INFO_COMPCollection((CBAV2)this);
+				return _ordenes_pago_valores_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERV_CAS_ASOC_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERV_CAS_ASOC_INF_COMPCollection"/> object.</value>
+		public ORDENES_SERV_CAS_ASOC_INF_COMPCollection ORDENES_SERV_CAS_ASOC_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _ordenes_serv_cas_asoc_inf_comp)
+					_ordenes_serv_cas_asoc_inf_comp = new ORDENES_SERV_CAS_ASOC_INF_COMPCollection((CBAV2)this);
+				return _ordenes_serv_cas_asoc_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERV_DET_CC_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERV_DET_CC_INF_CCollection"/> object.</value>
+		public ORDENES_SERV_DET_CC_INF_CCollection ORDENES_SERV_DET_CC_INF_CCollection
+		{
+			get
+			{
+				if(null == _ordenes_serv_det_cc_inf_c)
+					_ordenes_serv_det_cc_inf_c = new ORDENES_SERV_DET_CC_INF_CCollection((CBAV2)this);
+				return _ordenes_serv_det_cc_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERV_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERV_DET_INFO_COMPLCollection"/> object.</value>
+		public ORDENES_SERV_DET_INFO_COMPLCollection ORDENES_SERV_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ordenes_serv_det_info_compl)
+					_ordenes_serv_det_info_compl = new ORDENES_SERV_DET_INFO_COMPLCollection((CBAV2)this);
+				return _ordenes_serv_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERV_DET_RELACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERV_DET_RELACIONESCollection"/> object.</value>
+		public ORDENES_SERV_DET_RELACIONESCollection ORDENES_SERV_DET_RELACIONESCollection
+		{
+			get
+			{
+				if(null == _ordenes_serv_det_relaciones)
+					_ordenes_serv_det_relaciones = new ORDENES_SERV_DET_RELACIONESCollection((CBAV2)this);
+				return _ordenes_serv_det_relaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERV_FUNC_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERV_FUNC_INFO_COMPLCollection"/> object.</value>
+		public ORDENES_SERV_FUNC_INFO_COMPLCollection ORDENES_SERV_FUNC_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _ordenes_serv_func_info_compl)
+					_ordenes_serv_func_info_compl = new ORDENES_SERV_FUNC_INFO_COMPLCollection((CBAV2)this);
+				return _ordenes_serv_func_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERVICIO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERVICIOCollection"/> object.</value>
+		public ORDENES_SERVICIOCollection ORDENES_SERVICIOCollection
+		{
+			get
+			{
+				if(null == _ordenes_servicio)
+					_ordenes_servicio = new ORDENES_SERVICIOCollection((CBAV2)this);
+				return _ordenes_servicio;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERVICIO_CASOS_ASOC</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERVICIO_CASOS_ASOCCollection"/> object.</value>
+		public ORDENES_SERVICIO_CASOS_ASOCCollection ORDENES_SERVICIO_CASOS_ASOCCollection
+		{
+			get
+			{
+				if(null == _ordenes_servicio_casos_asoc)
+					_ordenes_servicio_casos_asoc = new ORDENES_SERVICIO_CASOS_ASOCCollection((CBAV2)this);
+				return _ordenes_servicio_casos_asoc;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERVICIO_DET_CENT_COS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERVICIO_DET_CENT_COSCollection"/> object.</value>
+		public ORDENES_SERVICIO_DET_CENT_COSCollection ORDENES_SERVICIO_DET_CENT_COSCollection
+		{
+			get
+			{
+				if(null == _ordenes_servicio_det_cent_cos)
+					_ordenes_servicio_det_cent_cos = new ORDENES_SERVICIO_DET_CENT_COSCollection((CBAV2)this);
+				return _ordenes_servicio_det_cent_cos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERVICIO_DET_INSUMOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERVICIO_DET_INSUMOSCollection"/> object.</value>
+		public ORDENES_SERVICIO_DET_INSUMOSCollection ORDENES_SERVICIO_DET_INSUMOSCollection
+		{
+			get
+			{
+				if(null == _ordenes_servicio_det_insumos)
+					_ordenes_servicio_det_insumos = new ORDENES_SERVICIO_DET_INSUMOSCollection((CBAV2)this);
+				return _ordenes_servicio_det_insumos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERVICIO_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERVICIO_DETALLESCollection"/> object.</value>
+		public ORDENES_SERVICIO_DETALLESCollection ORDENES_SERVICIO_DETALLESCollection
+		{
+			get
+			{
+				if(null == _ordenes_servicio_detalles)
+					_ordenes_servicio_detalles = new ORDENES_SERVICIO_DETALLESCollection((CBAV2)this);
+				return _ordenes_servicio_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERVICIO_FUNCIONARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERVICIO_FUNCIONARIOSCollection"/> object.</value>
+		public ORDENES_SERVICIO_FUNCIONARIOSCollection ORDENES_SERVICIO_FUNCIONARIOSCollection
+		{
+			get
+			{
+				if(null == _ordenes_servicio_funcionarios)
+					_ordenes_servicio_funcionarios = new ORDENES_SERVICIO_FUNCIONARIOSCollection((CBAV2)this);
+				return _ordenes_servicio_funcionarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ORDENES_SERVICIO_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ORDENES_SERVICIO_INFO_COMPLETACollection"/> object.</value>
+		public ORDENES_SERVICIO_INFO_COMPLETACollection ORDENES_SERVICIO_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _ordenes_servicio_info_completa)
+					_ordenes_servicio_info_completa = new ORDENES_SERVICIO_INFO_COMPLETACollection((CBAV2)this);
+				return _ordenes_servicio_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PAGO_CONTRAT_DET_CC_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PAGO_CONTRAT_DET_CC_INFO_CCollection"/> object.</value>
+		public PAGO_CONTRAT_DET_CC_INFO_CCollection PAGO_CONTRAT_DET_CC_INFO_CCollection
+		{
+			get
+			{
+				if(null == _pago_contrat_det_cc_info_c)
+					_pago_contrat_det_cc_info_c = new PAGO_CONTRAT_DET_CC_INFO_CCollection((CBAV2)this);
+				return _pago_contrat_det_cc_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PAGO_CONTRAT_DET_CTB_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PAGO_CONTRAT_DET_CTB_INFO_CCollection"/> object.</value>
+		public PAGO_CONTRAT_DET_CTB_INFO_CCollection PAGO_CONTRAT_DET_CTB_INFO_CCollection
+		{
+			get
+			{
+				if(null == _pago_contrat_det_ctb_info_c)
+					_pago_contrat_det_ctb_info_c = new PAGO_CONTRAT_DET_CTB_INFO_CCollection((CBAV2)this);
+				return _pago_contrat_det_ctb_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PAGO_CONTRATISTAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PAGO_CONTRATISTASCollection"/> object.</value>
+		public PAGO_CONTRATISTASCollection PAGO_CONTRATISTASCollection
+		{
+			get
+			{
+				if(null == _pago_contratistas)
+					_pago_contratistas = new PAGO_CONTRATISTASCollection((CBAV2)this);
+				return _pago_contratistas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PAGO_CONTRATISTAS_DET_CENT_C</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PAGO_CONTRATISTAS_DET_CENT_CCollection"/> object.</value>
+		public PAGO_CONTRATISTAS_DET_CENT_CCollection PAGO_CONTRATISTAS_DET_CENT_CCollection
+		{
+			get
+			{
+				if(null == _pago_contratistas_det_cent_c)
+					_pago_contratistas_det_cent_c = new PAGO_CONTRATISTAS_DET_CENT_CCollection((CBAV2)this);
+				return _pago_contratistas_det_cent_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PAGO_CONTRATISTAS_DET_CTB</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PAGO_CONTRATISTAS_DET_CTBCollection"/> object.</value>
+		public PAGO_CONTRATISTAS_DET_CTBCollection PAGO_CONTRATISTAS_DET_CTBCollection
+		{
+			get
+			{
+				if(null == _pago_contratistas_det_ctb)
+					_pago_contratistas_det_ctb = new PAGO_CONTRATISTAS_DET_CTBCollection((CBAV2)this);
+				return _pago_contratistas_det_ctb;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PAGO_CONTRATISTAS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PAGO_CONTRATISTAS_DETALLESCollection"/> object.</value>
+		public PAGO_CONTRATISTAS_DETALLESCollection PAGO_CONTRATISTAS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _pago_contratistas_detalles)
+					_pago_contratistas_detalles = new PAGO_CONTRATISTAS_DETALLESCollection((CBAV2)this);
+				return _pago_contratistas_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PAISES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PAISESCollection"/> object.</value>
+		public PAISESCollection PAISESCollection
+		{
+			get
+			{
+				if(null == _paises)
+					_paises = new PAISESCollection((CBAV2)this);
+				return _paises;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PANEL_CONTROL</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PANEL_CONTROLCollection"/> object.</value>
+		public PANEL_CONTROLCollection PANEL_CONTROLCollection
+		{
+			get
+			{
+				if(null == _panel_control)
+					_panel_control = new PANEL_CONTROLCollection((CBAV2)this);
+				return _panel_control;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PANEL_CONTROL_USUARIO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PANEL_CONTROL_USUARIOCollection"/> object.</value>
+		public PANEL_CONTROL_USUARIOCollection PANEL_CONTROL_USUARIOCollection
+		{
+			get
+			{
+				if(null == _panel_control_usuario)
+					_panel_control_usuario = new PANEL_CONTROL_USUARIOCollection((CBAV2)this);
+				return _panel_control_usuario;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PANEL_CONTROL_USUARIO_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PANEL_CONTROL_USUARIO_INF_CCollection"/> object.</value>
+		public PANEL_CONTROL_USUARIO_INF_CCollection PANEL_CONTROL_USUARIO_INF_CCollection
+		{
+			get
+			{
+				if(null == _panel_control_usuario_inf_c)
+					_panel_control_usuario_inf_c = new PANEL_CONTROL_USUARIO_INF_CCollection((CBAV2)this);
+				return _panel_control_usuario_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PEDIDOS_CLIENTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PEDIDOS_CLIENTECollection"/> object.</value>
+		public PEDIDOS_CLIENTECollection PEDIDOS_CLIENTECollection
+		{
+			get
+			{
+				if(null == _pedidos_cliente)
+					_pedidos_cliente = new PEDIDOS_CLIENTECollection((CBAV2)this);
+				return _pedidos_cliente;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PEDIDOS_CLIENTE_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PEDIDOS_CLIENTE_DET_INFO_COMPLCollection"/> object.</value>
+		public PEDIDOS_CLIENTE_DET_INFO_COMPLCollection PEDIDOS_CLIENTE_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _pedidos_cliente_det_info_compl)
+					_pedidos_cliente_det_info_compl = new PEDIDOS_CLIENTE_DET_INFO_COMPLCollection((CBAV2)this);
+				return _pedidos_cliente_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PEDIDOS_CLIENTE_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PEDIDOS_CLIENTE_DETALLECollection"/> object.</value>
+		public PEDIDOS_CLIENTE_DETALLECollection PEDIDOS_CLIENTE_DETALLECollection
+		{
+			get
+			{
+				if(null == _pedidos_cliente_detalle)
+					_pedidos_cliente_detalle = new PEDIDOS_CLIENTE_DETALLECollection((CBAV2)this);
+				return _pedidos_cliente_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PEDIDOS_CLIENTE_DETALLE_ITEMS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PEDIDOS_CLIENTE_DETALLE_ITEMSCollection"/> object.</value>
+		public PEDIDOS_CLIENTE_DETALLE_ITEMSCollection PEDIDOS_CLIENTE_DETALLE_ITEMSCollection
+		{
+			get
+			{
+				if(null == _pedidos_cliente_detalle_items)
+					_pedidos_cliente_detalle_items = new PEDIDOS_CLIENTE_DETALLE_ITEMSCollection((CBAV2)this);
+				return _pedidos_cliente_detalle_items;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PEDIDOS_CLIENTE_FC_RELACION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PEDIDOS_CLIENTE_FC_RELACIONCollection"/> object.</value>
+		public PEDIDOS_CLIENTE_FC_RELACIONCollection PEDIDOS_CLIENTE_FC_RELACIONCollection
+		{
+			get
+			{
+				if(null == _pedidos_cliente_fc_relacion)
+					_pedidos_cliente_fc_relacion = new PEDIDOS_CLIENTE_FC_RELACIONCollection((CBAV2)this);
+				return _pedidos_cliente_fc_relacion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PEDIDOS_CLIENTE_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PEDIDOS_CLIENTE_INFO_COMPLCollection"/> object.</value>
+		public PEDIDOS_CLIENTE_INFO_COMPLCollection PEDIDOS_CLIENTE_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _pedidos_cliente_info_compl)
+					_pedidos_cliente_info_compl = new PEDIDOS_CLIENTE_INFO_COMPLCollection((CBAV2)this);
+				return _pedidos_cliente_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PEDIDOS_PROV_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PEDIDOS_PROV_DET_INFO_COMPLCollection"/> object.</value>
+		public PEDIDOS_PROV_DET_INFO_COMPLCollection PEDIDOS_PROV_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _pedidos_prov_det_info_compl)
+					_pedidos_prov_det_info_compl = new PEDIDOS_PROV_DET_INFO_COMPLCollection((CBAV2)this);
+				return _pedidos_prov_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PEDIDOS_PROVEEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PEDIDOS_PROVEEDORCollection"/> object.</value>
+		public PEDIDOS_PROVEEDORCollection PEDIDOS_PROVEEDORCollection
+		{
+			get
+			{
+				if(null == _pedidos_proveedor)
+					_pedidos_proveedor = new PEDIDOS_PROVEEDORCollection((CBAV2)this);
+				return _pedidos_proveedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PEDIDOS_PROVEEDOR_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PEDIDOS_PROVEEDOR_DETALLECollection"/> object.</value>
+		public PEDIDOS_PROVEEDOR_DETALLECollection PEDIDOS_PROVEEDOR_DETALLECollection
+		{
+			get
+			{
+				if(null == _pedidos_proveedor_detalle)
+					_pedidos_proveedor_detalle = new PEDIDOS_PROVEEDOR_DETALLECollection((CBAV2)this);
+				return _pedidos_proveedor_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PEDIDOS_PROVEEDOR_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PEDIDOS_PROVEEDOR_INFO_COMPLCollection"/> object.</value>
+		public PEDIDOS_PROVEEDOR_INFO_COMPLCollection PEDIDOS_PROVEEDOR_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _pedidos_proveedor_info_compl)
+					_pedidos_proveedor_info_compl = new PEDIDOS_PROVEEDOR_INFO_COMPLCollection((CBAV2)this);
+				return _pedidos_proveedor_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERFILES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERFILESCollection"/> object.</value>
+		public PERFILESCollection PERFILESCollection
+		{
+			get
+			{
+				if(null == _perfiles)
+					_perfiles = new PERFILESCollection((CBAV2)this);
+				return _perfiles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERFILES_ROLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERFILES_ROLESCollection"/> object.</value>
+		public PERFILES_ROLESCollection PERFILES_ROLESCollection
+		{
+			get
+			{
+				if(null == _perfiles_roles)
+					_perfiles_roles = new PERFILES_ROLESCollection((CBAV2)this);
+				return _perfiles_roles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERFILES_ROLES_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERFILES_ROLES_INFO_COMPLCollection"/> object.</value>
+		public PERFILES_ROLES_INFO_COMPLCollection PERFILES_ROLES_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _perfiles_roles_info_compl)
+					_perfiles_roles_info_compl = new PERFILES_ROLES_INFO_COMPLCollection((CBAV2)this);
+				return _perfiles_roles_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERMISOS_ACELERADOR</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERMISOS_ACELERADORCollection"/> object.</value>
+		public PERMISOS_ACELERADORCollection PERMISOS_ACELERADORCollection
+		{
+			get
+			{
+				if(null == _permisos_acelerador)
+					_permisos_acelerador = new PERMISOS_ACELERADORCollection((CBAV2)this);
+				return _permisos_acelerador;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERMISOS_REPORTES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERMISOS_REPORTESCollection"/> object.</value>
+		public PERMISOS_REPORTESCollection PERMISOS_REPORTESCollection
+		{
+			get
+			{
+				if(null == _permisos_reportes)
+					_permisos_reportes = new PERMISOS_REPORTESCollection((CBAV2)this);
+				return _permisos_reportes;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERMISOS_REPORTES_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERMISOS_REPORTES_INFO_COMPLCollection"/> object.</value>
+		public PERMISOS_REPORTES_INFO_COMPLCollection PERMISOS_REPORTES_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _permisos_reportes_info_compl)
+					_permisos_reportes_info_compl = new PERMISOS_REPORTES_INFO_COMPLCollection((CBAV2)this);
+				return _permisos_reportes_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERMISOS_VISUALIZACION_FLUJOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERMISOS_VISUALIZACION_FLUJOSCollection"/> object.</value>
+		public PERMISOS_VISUALIZACION_FLUJOSCollection PERMISOS_VISUALIZACION_FLUJOSCollection
+		{
+			get
+			{
+				if(null == _permisos_visualizacion_flujos)
+					_permisos_visualizacion_flujos = new PERMISOS_VISUALIZACION_FLUJOSCollection((CBAV2)this);
+				return _permisos_visualizacion_flujos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERS_JURID_REPRESENT_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERS_JURID_REPRESENT_INFO_COMPCollection"/> object.</value>
+		public PERS_JURID_REPRESENT_INFO_COMPCollection PERS_JURID_REPRESENT_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _pers_jurid_represent_info_comp)
+					_pers_jurid_represent_info_comp = new PERS_JURID_REPRESENT_INFO_COMPCollection((CBAV2)this);
+				return _pers_jurid_represent_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONASCollection"/> object.</value>
+		public PERSONASCollection PERSONASCollection
+		{
+			get
+			{
+				if(null == _personas)
+					_personas = new PERSONASCollection((CBAV2)this);
+				return _personas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_BLOQUEOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_BLOQUEOSCollection"/> object.</value>
+		public PERSONAS_BLOQUEOSCollection PERSONAS_BLOQUEOSCollection
+		{
+			get
+			{
+				if(null == _personas_bloqueos)
+					_personas_bloqueos = new PERSONAS_BLOQUEOSCollection((CBAV2)this);
+				return _personas_bloqueos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_BLOQUEOS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_BLOQUEOS_INFO_COMPCollection"/> object.</value>
+		public PERSONAS_BLOQUEOS_INFO_COMPCollection PERSONAS_BLOQUEOS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _personas_bloqueos_info_comp)
+					_personas_bloqueos_info_comp = new PERSONAS_BLOQUEOS_INFO_COMPCollection((CBAV2)this);
+				return _personas_bloqueos_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_CALIFICACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_CALIFICACIONESCollection"/> object.</value>
+		public PERSONAS_CALIFICACIONESCollection PERSONAS_CALIFICACIONESCollection
+		{
+			get
+			{
+				if(null == _personas_calificaciones)
+					_personas_calificaciones = new PERSONAS_CALIFICACIONESCollection((CBAV2)this);
+				return _personas_calificaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_CREDITOS_REQUISITOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_CREDITOS_REQUISITOSCollection"/> object.</value>
+		public PERSONAS_CREDITOS_REQUISITOSCollection PERSONAS_CREDITOS_REQUISITOSCollection
+		{
+			get
+			{
+				if(null == _personas_creditos_requisitos)
+					_personas_creditos_requisitos = new PERSONAS_CREDITOS_REQUISITOSCollection((CBAV2)this);
+				return _personas_creditos_requisitos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_INFO_COMPLETACollection"/> object.</value>
+		public PERSONAS_INFO_COMPLETACollection PERSONAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _personas_info_completa)
+					_personas_info_completa = new PERSONAS_INFO_COMPLETACollection((CBAV2)this);
+				return _personas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_JURID_REPRESENTANTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_JURID_REPRESENTANTECollection"/> object.</value>
+		public PERSONAS_JURID_REPRESENTANTECollection PERSONAS_JURID_REPRESENTANTECollection
+		{
+			get
+			{
+				if(null == _personas_jurid_representante)
+					_personas_jurid_representante = new PERSONAS_JURID_REPRESENTANTECollection((CBAV2)this);
+				return _personas_jurid_representante;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_LINEA_CREDITO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_LINEA_CREDITOCollection"/> object.</value>
+		public PERSONAS_LINEA_CREDITOCollection PERSONAS_LINEA_CREDITOCollection
+		{
+			get
+			{
+				if(null == _personas_linea_credito)
+					_personas_linea_credito = new PERSONAS_LINEA_CREDITOCollection((CBAV2)this);
+				return _personas_linea_credito;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_LINEA_CREDITO_ACTIVA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_LINEA_CREDITO_ACTIVACollection"/> object.</value>
+		public PERSONAS_LINEA_CREDITO_ACTIVACollection PERSONAS_LINEA_CREDITO_ACTIVACollection
+		{
+			get
+			{
+				if(null == _personas_linea_credito_activa)
+					_personas_linea_credito_activa = new PERSONAS_LINEA_CREDITO_ACTIVACollection((CBAV2)this);
+				return _personas_linea_credito_activa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_NIVELES_CREDITO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_NIVELES_CREDITOCollection"/> object.</value>
+		public PERSONAS_NIVELES_CREDITOCollection PERSONAS_NIVELES_CREDITOCollection
+		{
+			get
+			{
+				if(null == _personas_niveles_credito)
+					_personas_niveles_credito = new PERSONAS_NIVELES_CREDITOCollection((CBAV2)this);
+				return _personas_niveles_credito;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_NIVELES_CREDITO_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_NIVELES_CREDITO_DETCollection"/> object.</value>
+		public PERSONAS_NIVELES_CREDITO_DETCollection PERSONAS_NIVELES_CREDITO_DETCollection
+		{
+			get
+			{
+				if(null == _personas_niveles_credito_det)
+					_personas_niveles_credito_det = new PERSONAS_NIVELES_CREDITO_DETCollection((CBAV2)this);
+				return _personas_niveles_credito_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_NOMBRE_CONCATENADO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_NOMBRE_CONCATENADOCollection"/> object.</value>
+		public PERSONAS_NOMBRE_CONCATENADOCollection PERSONAS_NOMBRE_CONCATENADOCollection
+		{
+			get
+			{
+				if(null == _personas_nombre_concatenado)
+					_personas_nombre_concatenado = new PERSONAS_NOMBRE_CONCATENADOCollection((CBAV2)this);
+				return _personas_nombre_concatenado;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PERSONAS_RELACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PERSONAS_RELACIONESCollection"/> object.</value>
+		public PERSONAS_RELACIONESCollection PERSONAS_RELACIONESCollection
+		{
+			get
+			{
+				if(null == _personas_relaciones)
+					_personas_relaciones = new PERSONAS_RELACIONESCollection((CBAV2)this);
+				return _personas_relaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLAN_TAREAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLAN_TAREASCollection"/> object.</value>
+		public PLAN_TAREASCollection PLAN_TAREASCollection
+		{
+			get
+			{
+				if(null == _plan_tareas)
+					_plan_tareas = new PLAN_TAREASCollection((CBAV2)this);
+				return _plan_tareas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLAN_TAREAS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLAN_TAREAS_INFO_COMPLCollection"/> object.</value>
+		public PLAN_TAREAS_INFO_COMPLCollection PLAN_TAREAS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _plan_tareas_info_compl)
+					_plan_tareas_info_compl = new PLAN_TAREAS_INFO_COMPLCollection((CBAV2)this);
+				return _plan_tareas_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANES_FACT_ETAPAS_DET_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANES_FACT_ETAPAS_DET_INFO_CCollection"/> object.</value>
+		public PLANES_FACT_ETAPAS_DET_INFO_CCollection PLANES_FACT_ETAPAS_DET_INFO_CCollection
+		{
+			get
+			{
+				if(null == _planes_fact_etapas_det_info_c)
+					_planes_fact_etapas_det_info_c = new PLANES_FACT_ETAPAS_DET_INFO_CCollection((CBAV2)this);
+				return _planes_fact_etapas_det_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANES_FACTURACION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANES_FACTURACIONCollection"/> object.</value>
+		public PLANES_FACTURACIONCollection PLANES_FACTURACIONCollection
+		{
+			get
+			{
+				if(null == _planes_facturacion)
+					_planes_facturacion = new PLANES_FACTURACIONCollection((CBAV2)this);
+				return _planes_facturacion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANES_FACTURACION_ETAPAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANES_FACTURACION_ETAPASCollection"/> object.</value>
+		public PLANES_FACTURACION_ETAPASCollection PLANES_FACTURACION_ETAPASCollection
+		{
+			get
+			{
+				if(null == _planes_facturacion_etapas)
+					_planes_facturacion_etapas = new PLANES_FACTURACION_ETAPASCollection((CBAV2)this);
+				return _planes_facturacion_etapas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANES_FACTURACION_ETAPAS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANES_FACTURACION_ETAPAS_DETCollection"/> object.</value>
+		public PLANES_FACTURACION_ETAPAS_DETCollection PLANES_FACTURACION_ETAPAS_DETCollection
+		{
+			get
+			{
+				if(null == _planes_facturacion_etapas_det)
+					_planes_facturacion_etapas_det = new PLANES_FACTURACION_ETAPAS_DETCollection((CBAV2)this);
+				return _planes_facturacion_etapas_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANES_FACTURACION_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANES_FACTURACION_INFO_COMPCollection"/> object.</value>
+		public PLANES_FACTURACION_INFO_COMPCollection PLANES_FACTURACION_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _planes_facturacion_info_comp)
+					_planes_facturacion_info_comp = new PLANES_FACTURACION_INFO_COMPCollection((CBAV2)this);
+				return _planes_facturacion_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_ASOC_FUNC_DET_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_ASOC_FUNC_DET_INFO_CCollection"/> object.</value>
+		public PLANILLA_ASOC_FUNC_DET_INFO_CCollection PLANILLA_ASOC_FUNC_DET_INFO_CCollection
+		{
+			get
+			{
+				if(null == _planilla_asoc_func_det_info_c)
+					_planilla_asoc_func_det_info_c = new PLANILLA_ASOC_FUNC_DET_INFO_CCollection((CBAV2)this);
+				return _planilla_asoc_func_det_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_ASOC_FUNC_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_ASOC_FUNC_INFO_COMPCollection"/> object.</value>
+		public PLANILLA_ASOC_FUNC_INFO_COMPCollection PLANILLA_ASOC_FUNC_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _planilla_asoc_func_info_comp)
+					_planilla_asoc_func_info_comp = new PLANILLA_ASOC_FUNC_INFO_COMPCollection((CBAV2)this);
+				return _planilla_asoc_func_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_ASOC_FUNCIONARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_ASOC_FUNCIONARIOSCollection"/> object.</value>
+		public PLANILLA_ASOC_FUNCIONARIOSCollection PLANILLA_ASOC_FUNCIONARIOSCollection
+		{
+			get
+			{
+				if(null == _planilla_asoc_funcionarios)
+					_planilla_asoc_funcionarios = new PLANILLA_ASOC_FUNCIONARIOSCollection((CBAV2)this);
+				return _planilla_asoc_funcionarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_ASOC_FUNCIONARIOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_ASOC_FUNCIONARIOS_DETCollection"/> object.</value>
+		public PLANILLA_ASOC_FUNCIONARIOS_DETCollection PLANILLA_ASOC_FUNCIONARIOS_DETCollection
+		{
+			get
+			{
+				if(null == _planilla_asoc_funcionarios_det)
+					_planilla_asoc_funcionarios_det = new PLANILLA_ASOC_FUNCIONARIOS_DETCollection((CBAV2)this);
+				return _planilla_asoc_funcionarios_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_COBR_DET_INF_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_COBR_DET_INF_COMPLCollection"/> object.</value>
+		public PLANILLA_COBR_DET_INF_COMPLCollection PLANILLA_COBR_DET_INF_COMPLCollection
+		{
+			get
+			{
+				if(null == _planilla_cobr_det_inf_compl)
+					_planilla_cobr_det_inf_compl = new PLANILLA_COBR_DET_INF_COMPLCollection((CBAV2)this);
+				return _planilla_cobr_det_inf_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_COBRANZA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_COBRANZACollection"/> object.</value>
+		public PLANILLA_COBRANZACollection PLANILLA_COBRANZACollection
+		{
+			get
+			{
+				if(null == _planilla_cobranza)
+					_planilla_cobranza = new PLANILLA_COBRANZACollection((CBAV2)this);
+				return _planilla_cobranza;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_COBRANZA_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_COBRANZA_DETALLESCollection"/> object.</value>
+		public PLANILLA_COBRANZA_DETALLESCollection PLANILLA_COBRANZA_DETALLESCollection
+		{
+			get
+			{
+				if(null == _planilla_cobranza_detalles)
+					_planilla_cobranza_detalles = new PLANILLA_COBRANZA_DETALLESCollection((CBAV2)this);
+				return _planilla_cobranza_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_COBRANZA_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_COBRANZA_INFO_COMPLCollection"/> object.</value>
+		public PLANILLA_COBRANZA_INFO_COMPLCollection PLANILLA_COBRANZA_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _planilla_cobranza_info_compl)
+					_planilla_cobranza_info_compl = new PLANILLA_COBRANZA_INFO_COMPLCollection((CBAV2)this);
+				return _planilla_cobranza_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_COBRANZA_VALORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_COBRANZA_VALORESCollection"/> object.</value>
+		public PLANILLA_COBRANZA_VALORESCollection PLANILLA_COBRANZA_VALORESCollection
+		{
+			get
+			{
+				if(null == _planilla_cobranza_valores)
+					_planilla_cobranza_valores = new PLANILLA_COBRANZA_VALORESCollection((CBAV2)this);
+				return _planilla_cobranza_valores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_LIQ_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_LIQ_DET_INFO_COMPLCollection"/> object.</value>
+		public PLANILLA_LIQ_DET_INFO_COMPLCollection PLANILLA_LIQ_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _planilla_liq_det_info_compl)
+					_planilla_liq_det_info_compl = new PLANILLA_LIQ_DET_INFO_COMPLCollection((CBAV2)this);
+				return _planilla_liq_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_LIQ_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_LIQ_INFO_COMPLCollection"/> object.</value>
+		public PLANILLA_LIQ_INFO_COMPLCollection PLANILLA_LIQ_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _planilla_liq_info_compl)
+					_planilla_liq_info_compl = new PLANILLA_LIQ_INFO_COMPLCollection((CBAV2)this);
+				return _planilla_liq_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_LIQUIDACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_LIQUIDACIONESCollection"/> object.</value>
+		public PLANILLA_LIQUIDACIONESCollection PLANILLA_LIQUIDACIONESCollection
+		{
+			get
+			{
+				if(null == _planilla_liquidaciones)
+					_planilla_liquidaciones = new PLANILLA_LIQUIDACIONESCollection((CBAV2)this);
+				return _planilla_liquidaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_LIQUIDACIONES_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_LIQUIDACIONES_DETCollection"/> object.</value>
+		public PLANILLA_LIQUIDACIONES_DETCollection PLANILLA_LIQUIDACIONES_DETCollection
+		{
+			get
+			{
+				if(null == _planilla_liquidaciones_det)
+					_planilla_liquidaciones_det = new PLANILLA_LIQUIDACIONES_DETCollection((CBAV2)this);
+				return _planilla_liquidaciones_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_P_COBRAN_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_P_COBRAN_INFO_COMPLCollection"/> object.</value>
+		public PLANILLA_P_COBRAN_INFO_COMPLCollection PLANILLA_P_COBRAN_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _planilla_p_cobran_info_compl)
+					_planilla_p_cobran_info_compl = new PLANILLA_P_COBRAN_INFO_COMPLCollection((CBAV2)this);
+				return _planilla_p_cobran_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_PAGO_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_PAGO_DET_INFO_COMPLCollection"/> object.</value>
+		public PLANILLA_PAGO_DET_INFO_COMPLCollection PLANILLA_PAGO_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _planilla_pago_det_info_compl)
+					_planilla_pago_det_info_compl = new PLANILLA_PAGO_DET_INFO_COMPLCollection((CBAV2)this);
+				return _planilla_pago_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_PAGOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_PAGOSCollection"/> object.</value>
+		public PLANILLA_PAGOSCollection PLANILLA_PAGOSCollection
+		{
+			get
+			{
+				if(null == _planilla_pagos)
+					_planilla_pagos = new PLANILLA_PAGOSCollection((CBAV2)this);
+				return _planilla_pagos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_PAGOS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_PAGOS_DETALLESCollection"/> object.</value>
+		public PLANILLA_PAGOS_DETALLESCollection PLANILLA_PAGOS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _planilla_pagos_detalles)
+					_planilla_pagos_detalles = new PLANILLA_PAGOS_DETALLESCollection((CBAV2)this);
+				return _planilla_pagos_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_PAGOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_PAGOS_INFO_COMPLETACollection"/> object.</value>
+		public PLANILLA_PAGOS_INFO_COMPLETACollection PLANILLA_PAGOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _planilla_pagos_info_completa)
+					_planilla_pagos_info_completa = new PLANILLA_PAGOS_INFO_COMPLETACollection((CBAV2)this);
+				return _planilla_pagos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLA_PARA_COBRANZA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLA_PARA_COBRANZACollection"/> object.</value>
+		public PLANILLA_PARA_COBRANZACollection PLANILLA_PARA_COBRANZACollection
+		{
+			get
+			{
+				if(null == _planilla_para_cobranza)
+					_planilla_para_cobranza = new PLANILLA_PARA_COBRANZACollection((CBAV2)this);
+				return _planilla_para_cobranza;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLAS_LIQ_BONIFICACIONES</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLAS_LIQ_BONIFICACIONESCollection"/> object.</value>
+		public PLANILLAS_LIQ_BONIFICACIONESCollection PLANILLAS_LIQ_BONIFICACIONESCollection
+		{
+			get
+			{
+				if(null == _planillas_liq_bonificaciones)
+					_planillas_liq_bonificaciones = new PLANILLAS_LIQ_BONIFICACIONESCollection((CBAV2)this);
+				return _planillas_liq_bonificaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANILLAS_LIQ_DESCUENTOS</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANILLAS_LIQ_DESCUENTOSCollection"/> object.</value>
+		public PLANILLAS_LIQ_DESCUENTOSCollection PLANILLAS_LIQ_DESCUENTOSCollection
+		{
+			get
+			{
+				if(null == _planillas_liq_descuentos)
+					_planillas_liq_descuentos = new PLANILLAS_LIQ_DESCUENTOSCollection((CBAV2)this);
+				return _planillas_liq_descuentos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANTILLAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANTILLASCollection"/> object.</value>
+		public PLANTILLASCollection PLANTILLASCollection
+		{
+			get
+			{
+				if(null == _plantillas)
+					_plantillas = new PLANTILLASCollection((CBAV2)this);
+				return _plantillas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANTILLAS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANTILLAS_DETALLESCollection"/> object.</value>
+		public PLANTILLAS_DETALLESCollection PLANTILLAS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _plantillas_detalles)
+					_plantillas_detalles = new PLANTILLAS_DETALLESCollection((CBAV2)this);
+				return _plantillas_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PLANTILLAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PLANTILLAS_INFO_COMPLETACollection"/> object.</value>
+		public PLANTILLAS_INFO_COMPLETACollection PLANTILLAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _plantillas_info_completa)
+					_plantillas_info_completa = new PLANTILLAS_INFO_COMPLETACollection((CBAV2)this);
+				return _plantillas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRE_EMB_CONTENEDOR_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRE_EMB_CONTENEDOR_INFO_COMPCollection"/> object.</value>
+		public PRE_EMB_CONTENEDOR_INFO_COMPCollection PRE_EMB_CONTENEDOR_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _pre_emb_contenedor_info_comp)
+					_pre_emb_contenedor_info_comp = new PRE_EMB_CONTENEDOR_INFO_COMPCollection((CBAV2)this);
+				return _pre_emb_contenedor_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRE_EMBARQUE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRE_EMBARQUECollection"/> object.</value>
+		public PRE_EMBARQUECollection PRE_EMBARQUECollection
+		{
+			get
+			{
+				if(null == _pre_embarque)
+					_pre_embarque = new PRE_EMBARQUECollection((CBAV2)this);
+				return _pre_embarque;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRE_EMBARQUE_CONTENEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRE_EMBARQUE_CONTENEDORCollection"/> object.</value>
+		public PRE_EMBARQUE_CONTENEDORCollection PRE_EMBARQUE_CONTENEDORCollection
+		{
+			get
+			{
+				if(null == _pre_embarque_contenedor)
+					_pre_embarque_contenedor = new PRE_EMBARQUE_CONTENEDORCollection((CBAV2)this);
+				return _pre_embarque_contenedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRE_EMBARQUE_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRE_EMBARQUE_DETALLECollection"/> object.</value>
+		public PRE_EMBARQUE_DETALLECollection PRE_EMBARQUE_DETALLECollection
+		{
+			get
+			{
+				if(null == _pre_embarque_detalle)
+					_pre_embarque_detalle = new PRE_EMBARQUE_DETALLECollection((CBAV2)this);
+				return _pre_embarque_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRE_EMBARQUE_DETALLE_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRE_EMBARQUE_DETALLE_INFO_COMPCollection"/> object.</value>
+		public PRE_EMBARQUE_DETALLE_INFO_COMPCollection PRE_EMBARQUE_DETALLE_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _pre_embarque_detalle_info_comp)
+					_pre_embarque_detalle_info_comp = new PRE_EMBARQUE_DETALLE_INFO_COMPCollection((CBAV2)this);
+				return _pre_embarque_detalle_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRE_EMBARQUE_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRE_EMBARQUE_INFO_COMPLETACollection"/> object.</value>
+		public PRE_EMBARQUE_INFO_COMPLETACollection PRE_EMBARQUE_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _pre_embarque_info_completa)
+					_pre_embarque_info_completa = new PRE_EMBARQUE_INFO_COMPLETACollection((CBAV2)this);
+				return _pre_embarque_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRESENTACIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRESENTACIONESCollection"/> object.</value>
+		public PRESENTACIONESCollection PRESENTACIONESCollection
+		{
+			get
+			{
+				if(null == _presentaciones)
+					_presentaciones = new PRESENTACIONESCollection((CBAV2)this);
+				return _presentaciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRESUPUESTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRESUPUESTOSCollection"/> object.</value>
+		public PRESUPUESTOSCollection PRESUPUESTOSCollection
+		{
+			get
+			{
+				if(null == _presupuestos)
+					_presupuestos = new PRESUPUESTOSCollection((CBAV2)this);
+				return _presupuestos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRESUPUESTOS_DET_CAS_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRESUPUESTOS_DET_CAS_INF_COMPCollection"/> object.</value>
+		public PRESUPUESTOS_DET_CAS_INF_COMPCollection PRESUPUESTOS_DET_CAS_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _presupuestos_det_cas_inf_comp)
+					_presupuestos_det_cas_inf_comp = new PRESUPUESTOS_DET_CAS_INF_COMPCollection((CBAV2)this);
+				return _presupuestos_det_cas_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRESUPUESTOS_DET_CASOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRESUPUESTOS_DET_CASOSCollection"/> object.</value>
+		public PRESUPUESTOS_DET_CASOSCollection PRESUPUESTOS_DET_CASOSCollection
+		{
+			get
+			{
+				if(null == _presupuestos_det_casos)
+					_presupuestos_det_casos = new PRESUPUESTOS_DET_CASOSCollection((CBAV2)this);
+				return _presupuestos_det_casos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRESUPUESTOS_DET_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRESUPUESTOS_DET_INFO_COMPLETACollection"/> object.</value>
+		public PRESUPUESTOS_DET_INFO_COMPLETACollection PRESUPUESTOS_DET_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _presupuestos_det_info_completa)
+					_presupuestos_det_info_completa = new PRESUPUESTOS_DET_INFO_COMPLETACollection((CBAV2)this);
+				return _presupuestos_det_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRESUPUESTOS_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRESUPUESTOS_DETALLECollection"/> object.</value>
+		public PRESUPUESTOS_DETALLECollection PRESUPUESTOS_DETALLECollection
+		{
+			get
+			{
+				if(null == _presupuestos_detalle)
+					_presupuestos_detalle = new PRESUPUESTOS_DETALLECollection((CBAV2)this);
+				return _presupuestos_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRESUPUESTOS_ETAPAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRESUPUESTOS_ETAPASCollection"/> object.</value>
+		public PRESUPUESTOS_ETAPASCollection PRESUPUESTOS_ETAPASCollection
+		{
+			get
+			{
+				if(null == _presupuestos_etapas)
+					_presupuestos_etapas = new PRESUPUESTOS_ETAPASCollection((CBAV2)this);
+				return _presupuestos_etapas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRESUPUESTOS_ETAPAS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRESUPUESTOS_ETAPAS_INFO_COMPLCollection"/> object.</value>
+		public PRESUPUESTOS_ETAPAS_INFO_COMPLCollection PRESUPUESTOS_ETAPAS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _presupuestos_etapas_info_compl)
+					_presupuestos_etapas_info_compl = new PRESUPUESTOS_ETAPAS_INFO_COMPLCollection((CBAV2)this);
+				return _presupuestos_etapas_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRESUPUESTOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRESUPUESTOS_INFO_COMPLETACollection"/> object.</value>
+		public PRESUPUESTOS_INFO_COMPLETACollection PRESUPUESTOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _presupuestos_info_completa)
+					_presupuestos_info_completa = new PRESUPUESTOS_INFO_COMPLETACollection((CBAV2)this);
+				return _presupuestos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PROD_BALAN_DET_MATERIALES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PROD_BALAN_DET_MATERIALESCollection"/> object.</value>
+		public PROD_BALAN_DET_MATERIALESCollection PROD_BALAN_DET_MATERIALESCollection
+		{
+			get
+			{
+				if(null == _prod_balan_det_materiales)
+					_prod_balan_det_materiales = new PROD_BALAN_DET_MATERIALESCollection((CBAV2)this);
+				return _prod_balan_det_materiales;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PROD_BALAN_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PROD_BALAN_DETALLESCollection"/> object.</value>
+		public PROD_BALAN_DETALLESCollection PROD_BALAN_DETALLESCollection
+		{
+			get
+			{
+				if(null == _prod_balan_detalles)
+					_prod_balan_detalles = new PROD_BALAN_DETALLESCollection((CBAV2)this);
+				return _prod_balan_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PROD_BALAN_SOBRANTES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PROD_BALAN_SOBRANTESCollection"/> object.</value>
+		public PROD_BALAN_SOBRANTESCollection PROD_BALAN_SOBRANTESCollection
+		{
+			get
+			{
+				if(null == _prod_balan_sobrantes)
+					_prod_balan_sobrantes = new PROD_BALAN_SOBRANTESCollection((CBAV2)this);
+				return _prod_balan_sobrantes;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRODUCCION_BALANCEADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRODUCCION_BALANCEADOSCollection"/> object.</value>
+		public PRODUCCION_BALANCEADOSCollection PRODUCCION_BALANCEADOSCollection
+		{
+			get
+			{
+				if(null == _produccion_balanceados)
+					_produccion_balanceados = new PRODUCCION_BALANCEADOSCollection((CBAV2)this);
+				return _produccion_balanceados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PRODUCCION_BALANCEADOS_INF_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PRODUCCION_BALANCEADOS_INF_COMPLCollection"/> object.</value>
+		public PRODUCCION_BALANCEADOS_INF_COMPLCollection PRODUCCION_BALANCEADOS_INF_COMPLCollection
+		{
+			get
+			{
+				if(null == _produccion_balanceados_inf_compl)
+					_produccion_balanceados_inf_compl = new PRODUCCION_BALANCEADOS_INF_COMPLCollection((CBAV2)this);
+				return _produccion_balanceados_inf_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PROFESIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PROFESIONESCollection"/> object.</value>
+		public PROFESIONESCollection PROFESIONESCollection
+		{
+			get
+			{
+				if(null == _profesiones)
+					_profesiones = new PROFESIONESCollection((CBAV2)this);
+				return _profesiones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PROMOCIONES_PARAMETROS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PROMOCIONES_PARAMETROSCollection"/> object.</value>
+		public PROMOCIONES_PARAMETROSCollection PROMOCIONES_PARAMETROSCollection
+		{
+			get
+			{
+				if(null == _promociones_parametros)
+					_promociones_parametros = new PROMOCIONES_PARAMETROSCollection((CBAV2)this);
+				return _promociones_parametros;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PROMOTORES_CLIENTES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PROMOTORES_CLIENTESCollection"/> object.</value>
+		public PROMOTORES_CLIENTESCollection PROMOTORES_CLIENTESCollection
+		{
+			get
+			{
+				if(null == _promotores_clientes)
+					_promotores_clientes = new PROMOTORES_CLIENTESCollection((CBAV2)this);
+				return _promotores_clientes;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PROMOTORES_CLIENTES_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PROMOTORES_CLIENTES_INFO_COMPLCollection"/> object.</value>
+		public PROMOTORES_CLIENTES_INFO_COMPLCollection PROMOTORES_CLIENTES_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _promotores_clientes_info_compl)
+					_promotores_clientes_info_compl = new PROMOTORES_CLIENTES_INFO_COMPLCollection((CBAV2)this);
+				return _promotores_clientes_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PROVEEDORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PROVEEDORESCollection"/> object.</value>
+		public PROVEEDORESCollection PROVEEDORESCollection
+		{
+			get
+			{
+				if(null == _proveedores)
+					_proveedores = new PROVEEDORESCollection((CBAV2)this);
+				return _proveedores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PROVEEDORES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PROVEEDORES_INFO_COMPLETACollection"/> object.</value>
+		public PROVEEDORES_INFO_COMPLETACollection PROVEEDORES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _proveedores_info_completa)
+					_proveedores_info_completa = new PROVEEDORES_INFO_COMPLETACollection((CBAV2)this);
+				return _proveedores_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PUERTAS_MOVIMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PUERTAS_MOVIMIENTOSCollection"/> object.</value>
+		public PUERTAS_MOVIMIENTOSCollection PUERTAS_MOVIMIENTOSCollection
+		{
+			get
+			{
+				if(null == _puertas_movimientos)
+					_puertas_movimientos = new PUERTAS_MOVIMIENTOSCollection((CBAV2)this);
+				return _puertas_movimientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PUERTAS_MOVIMIENTOS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="PUERTAS_MOVIMIENTOS_INFO_COMPLCollection"/> object.</value>
+		public PUERTAS_MOVIMIENTOS_INFO_COMPLCollection PUERTAS_MOVIMIENTOS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _puertas_movimientos_info_compl)
+					_puertas_movimientos_info_compl = new PUERTAS_MOVIMIENTOS_INFO_COMPLCollection((CBAV2)this);
+				return _puertas_movimientos_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>PUERTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="PUERTOSCollection"/> object.</value>
+		public PUERTOSCollection PUERTOSCollection
+		{
+			get
+			{
+				if(null == _puertos)
+					_puertos = new PUERTOSCollection((CBAV2)this);
+				return _puertos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RECALEN_MAS_CUOT_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="RECALEN_MAS_CUOT_INFO_COMPLETACollection"/> object.</value>
+		public RECALEN_MAS_CUOT_INFO_COMPLETACollection RECALEN_MAS_CUOT_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _recalen_mas_cuot_info_completa)
+					_recalen_mas_cuot_info_completa = new RECALEN_MAS_CUOT_INFO_COMPLETACollection((CBAV2)this);
+				return _recalen_mas_cuot_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RECALEN_MAS_DET_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="RECALEN_MAS_DET_INFO_COMPLETACollection"/> object.</value>
+		public RECALEN_MAS_DET_INFO_COMPLETACollection RECALEN_MAS_DET_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _recalen_mas_det_info_completa)
+					_recalen_mas_det_info_completa = new RECALEN_MAS_DET_INFO_COMPLETACollection((CBAV2)this);
+				return _recalen_mas_det_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RECALENDARIZACION_MAS_CUOTAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="RECALENDARIZACION_MAS_CUOTASCollection"/> object.</value>
+		public RECALENDARIZACION_MAS_CUOTASCollection RECALENDARIZACION_MAS_CUOTASCollection
+		{
+			get
+			{
+				if(null == _recalendarizacion_mas_cuotas)
+					_recalendarizacion_mas_cuotas = new RECALENDARIZACION_MAS_CUOTASCollection((CBAV2)this);
+				return _recalendarizacion_mas_cuotas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RECALENDARIZACION_MAS_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="RECALENDARIZACION_MAS_DETALLESCollection"/> object.</value>
+		public RECALENDARIZACION_MAS_DETALLESCollection RECALENDARIZACION_MAS_DETALLESCollection
+		{
+			get
+			{
+				if(null == _recalendarizacion_mas_detalles)
+					_recalendarizacion_mas_detalles = new RECALENDARIZACION_MAS_DETALLESCollection((CBAV2)this);
+				return _recalendarizacion_mas_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RECALENDARIZACION_MASIVA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="RECALENDARIZACION_MASIVACollection"/> object.</value>
+		public RECALENDARIZACION_MASIVACollection RECALENDARIZACION_MASIVACollection
+		{
+			get
+			{
+				if(null == _recalendarizacion_masiva)
+					_recalendarizacion_masiva = new RECALENDARIZACION_MASIVACollection((CBAV2)this);
+				return _recalendarizacion_masiva;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RECORDATORIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="RECORDATORIOSCollection"/> object.</value>
+		public RECORDATORIOSCollection RECORDATORIOSCollection
+		{
+			get
+			{
+				if(null == _recordatorios)
+					_recordatorios = new RECORDATORIOSCollection((CBAV2)this);
+				return _recordatorios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REDES_SOCIALES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REDES_SOCIALESCollection"/> object.</value>
+		public REDES_SOCIALESCollection REDES_SOCIALESCollection
+		{
+			get
+			{
+				if(null == _redes_sociales)
+					_redes_sociales = new REDES_SOCIALESCollection((CBAV2)this);
+				return _redes_sociales;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REDES_SOCIALES_AUTH</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REDES_SOCIALES_AUTHCollection"/> object.</value>
+		public REDES_SOCIALES_AUTHCollection REDES_SOCIALES_AUTHCollection
+		{
+			get
+			{
+				if(null == _redes_sociales_auth)
+					_redes_sociales_auth = new REDES_SOCIALES_AUTHCollection((CBAV2)this);
+				return _redes_sociales_auth;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REFI_DEUDAS_DOC_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="REFI_DEUDAS_DOC_INF_COMPCollection"/> object.</value>
+		public REFI_DEUDAS_DOC_INF_COMPCollection REFI_DEUDAS_DOC_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _refi_deudas_doc_inf_comp)
+					_refi_deudas_doc_inf_comp = new REFI_DEUDAS_DOC_INF_COMPCollection((CBAV2)this);
+				return _refi_deudas_doc_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REFI_DEUDAS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="REFI_DEUDAS_INFO_COMPCollection"/> object.</value>
+		public REFI_DEUDAS_INFO_COMPCollection REFI_DEUDAS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _refi_deudas_info_comp)
+					_refi_deudas_info_comp = new REFI_DEUDAS_INFO_COMPCollection((CBAV2)this);
+				return _refi_deudas_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REFINANCIACION_DEUDAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REFINANCIACION_DEUDASCollection"/> object.</value>
+		public REFINANCIACION_DEUDASCollection REFINANCIACION_DEUDASCollection
+		{
+			get
+			{
+				if(null == _refinanciacion_deudas)
+					_refinanciacion_deudas = new REFINANCIACION_DEUDASCollection((CBAV2)this);
+				return _refinanciacion_deudas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REFINANCIACION_DEUDAS_DOC</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REFINANCIACION_DEUDAS_DOCCollection"/> object.</value>
+		public REFINANCIACION_DEUDAS_DOCCollection REFINANCIACION_DEUDAS_DOCCollection
+		{
+			get
+			{
+				if(null == _refinanciacion_deudas_doc)
+					_refinanciacion_deudas_doc = new REFINANCIACION_DEUDAS_DOCCollection((CBAV2)this);
+				return _refinanciacion_deudas_doc;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REGIMEN_COMISIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REGIMEN_COMISIONESCollection"/> object.</value>
+		public REGIMEN_COMISIONESCollection REGIMEN_COMISIONESCollection
+		{
+			get
+			{
+				if(null == _regimen_comisiones)
+					_regimen_comisiones = new REGIMEN_COMISIONESCollection((CBAV2)this);
+				return _regimen_comisiones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REGIMEN_COMISIONES_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="REGIMEN_COMISIONES_INFO_COMPCollection"/> object.</value>
+		public REGIMEN_COMISIONES_INFO_COMPCollection REGIMEN_COMISIONES_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _regimen_comisiones_info_comp)
+					_regimen_comisiones_info_comp = new REGIMEN_COMISIONES_INFO_COMPCollection((CBAV2)this);
+				return _regimen_comisiones_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REGIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REGIONESCollection"/> object.</value>
+		public REGIONESCollection REGIONESCollection
+		{
+			get
+			{
+				if(null == _regiones)
+					_regiones = new REGIONESCollection((CBAV2)this);
+				return _regiones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REGLAS_LOGIN</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REGLAS_LOGINCollection"/> object.</value>
+		public REGLAS_LOGINCollection REGLAS_LOGINCollection
+		{
+			get
+			{
+				if(null == _reglas_login)
+					_reglas_login = new REGLAS_LOGINCollection((CBAV2)this);
+				return _reglas_login;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REGLAS_LOGIN_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="REGLAS_LOGIN_INFO_COMPLETACollection"/> object.</value>
+		public REGLAS_LOGIN_INFO_COMPLETACollection REGLAS_LOGIN_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _reglas_login_info_completa)
+					_reglas_login_info_completa = new REGLAS_LOGIN_INFO_COMPLETACollection((CBAV2)this);
+				return _reglas_login_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REMISIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REMISIONESCollection"/> object.</value>
+		public REMISIONESCollection REMISIONESCollection
+		{
+			get
+			{
+				if(null == _remisiones)
+					_remisiones = new REMISIONESCollection((CBAV2)this);
+				return _remisiones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REMISIONES_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REMISIONES_DETALLESCollection"/> object.</value>
+		public REMISIONES_DETALLESCollection REMISIONES_DETALLESCollection
+		{
+			get
+			{
+				if(null == _remisiones_detalles)
+					_remisiones_detalles = new REMISIONES_DETALLESCollection((CBAV2)this);
+				return _remisiones_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REMISIONES_FC_RELACION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REMISIONES_FC_RELACIONCollection"/> object.</value>
+		public REMISIONES_FC_RELACIONCollection REMISIONES_FC_RELACIONCollection
+		{
+			get
+			{
+				if(null == _remisiones_fc_relacion)
+					_remisiones_fc_relacion = new REMISIONES_FC_RELACIONCollection((CBAV2)this);
+				return _remisiones_fc_relacion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RENDICION_COBRADOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="RENDICION_COBRADORCollection"/> object.</value>
+		public RENDICION_COBRADORCollection RENDICION_COBRADORCollection
+		{
+			get
+			{
+				if(null == _rendicion_cobrador)
+					_rendicion_cobrador = new RENDICION_COBRADORCollection((CBAV2)this);
+				return _rendicion_cobrador;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RENDICION_COBRADOR_DET_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="RENDICION_COBRADOR_DET_INFO_CCollection"/> object.</value>
+		public RENDICION_COBRADOR_DET_INFO_CCollection RENDICION_COBRADOR_DET_INFO_CCollection
+		{
+			get
+			{
+				if(null == _rendicion_cobrador_det_info_c)
+					_rendicion_cobrador_det_info_c = new RENDICION_COBRADOR_DET_INFO_CCollection((CBAV2)this);
+				return _rendicion_cobrador_det_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RENDICION_COBRADOR_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="RENDICION_COBRADOR_DETALLECollection"/> object.</value>
+		public RENDICION_COBRADOR_DETALLECollection RENDICION_COBRADOR_DETALLECollection
+		{
+			get
+			{
+				if(null == _rendicion_cobrador_detalle)
+					_rendicion_cobrador_detalle = new RENDICION_COBRADOR_DETALLECollection((CBAV2)this);
+				return _rendicion_cobrador_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RENDICION_COBRADOR_RECIBOS</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="RENDICION_COBRADOR_RECIBOSCollection"/> object.</value>
+		public RENDICION_COBRADOR_RECIBOSCollection RENDICION_COBRADOR_RECIBOSCollection
+		{
+			get
+			{
+				if(null == _rendicion_cobrador_recibos)
+					_rendicion_cobrador_recibos = new RENDICION_COBRADOR_RECIBOSCollection((CBAV2)this);
+				return _rendicion_cobrador_recibos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REPARTO_DETALLES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="REPARTO_DETALLES_INFO_COMPLETACollection"/> object.</value>
+		public REPARTO_DETALLES_INFO_COMPLETACollection REPARTO_DETALLES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _reparto_detalles_info_completa)
+					_reparto_detalles_info_completa = new REPARTO_DETALLES_INFO_COMPLETACollection((CBAV2)this);
+				return _reparto_detalles_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REPARTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REPARTOSCollection"/> object.</value>
+		public REPARTOSCollection REPARTOSCollection
+		{
+			get
+			{
+				if(null == _repartos)
+					_repartos = new REPARTOSCollection((CBAV2)this);
+				return _repartos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REPARTOS_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REPARTOS_DETALLECollection"/> object.</value>
+		public REPARTOS_DETALLECollection REPARTOS_DETALLECollection
+		{
+			get
+			{
+				if(null == _repartos_detalle)
+					_repartos_detalle = new REPARTOS_DETALLECollection((CBAV2)this);
+				return _repartos_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REPARTOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="REPARTOS_INFO_COMPLETACollection"/> object.</value>
+		public REPARTOS_INFO_COMPLETACollection REPARTOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _repartos_info_completa)
+					_repartos_info_completa = new REPARTOS_INFO_COMPLETACollection((CBAV2)this);
+				return _repartos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REPORTES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REPORTESCollection"/> object.</value>
+		public REPORTESCollection REPORTESCollection
+		{
+			get
+			{
+				if(null == _reportes)
+					_reportes = new REPORTESCollection((CBAV2)this);
+				return _reportes;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REPORTES_CONTADORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REPORTES_CONTADORESCollection"/> object.</value>
+		public REPORTES_CONTADORESCollection REPORTES_CONTADORESCollection
+		{
+			get
+			{
+				if(null == _reportes_contadores)
+					_reportes_contadores = new REPORTES_CONTADORESCollection((CBAV2)this);
+				return _reportes_contadores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REPORTES_PARAMETROS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REPORTES_PARAMETROSCollection"/> object.</value>
+		public REPORTES_PARAMETROSCollection REPORTES_PARAMETROSCollection
+		{
+			get
+			{
+				if(null == _reportes_parametros)
+					_reportes_parametros = new REPORTES_PARAMETROSCollection((CBAV2)this);
+				return _reportes_parametros;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REQUISITOS_FLUJO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REQUISITOS_FLUJOCollection"/> object.</value>
+		public REQUISITOS_FLUJOCollection REQUISITOS_FLUJOCollection
+		{
+			get
+			{
+				if(null == _requisitos_flujo)
+					_requisitos_flujo = new REQUISITOS_FLUJOCollection((CBAV2)this);
+				return _requisitos_flujo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>REQUISITOS_FLUJO_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="REQUISITOS_FLUJO_DETALLECollection"/> object.</value>
+		public REQUISITOS_FLUJO_DETALLECollection REQUISITOS_FLUJO_DETALLECollection
+		{
+			get
+			{
+				if(null == _requisitos_flujo_detalle)
+					_requisitos_flujo_detalle = new REQUISITOS_FLUJO_DETALLECollection((CBAV2)this);
+				return _requisitos_flujo_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RETENCION_ARTIC_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="RETENCION_ARTIC_INFO_COMPLCollection"/> object.</value>
+		public RETENCION_ARTIC_INFO_COMPLCollection RETENCION_ARTIC_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _retencion_artic_info_compl)
+					_retencion_artic_info_compl = new RETENCION_ARTIC_INFO_COMPLCollection((CBAV2)this);
+				return _retencion_artic_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RETENCION_ARTICULOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="RETENCION_ARTICULOSCollection"/> object.</value>
+		public RETENCION_ARTICULOSCollection RETENCION_ARTICULOSCollection
+		{
+			get
+			{
+				if(null == _retencion_articulos)
+					_retencion_articulos = new RETENCION_ARTICULOSCollection((CBAV2)this);
+				return _retencion_articulos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ROLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ROLESCollection"/> object.</value>
+		public ROLESCollection ROLESCollection
+		{
+			get
+			{
+				if(null == _roles)
+					_roles = new ROLESCollection((CBAV2)this);
+				return _roles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RUBROS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="RUBROSCollection"/> object.</value>
+		public RUBROSCollection RUBROSCollection
+		{
+			get
+			{
+				if(null == _rubros)
+					_rubros = new RUBROSCollection((CBAV2)this);
+				return _rubros;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>RUBROS_IVA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="RUBROS_IVACollection"/> object.</value>
+		public RUBROS_IVACollection RUBROS_IVACollection
+		{
+			get
+			{
+				if(null == _rubros_iva)
+					_rubros_iva = new RUBROS_IVACollection((CBAV2)this);
+				return _rubros_iva;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>SEGUIMIENTOS_AUTOMATICOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="SEGUIMIENTOS_AUTOMATICOSCollection"/> object.</value>
+		public SEGUIMIENTOS_AUTOMATICOSCollection SEGUIMIENTOS_AUTOMATICOSCollection
+		{
+			get
+			{
+				if(null == _seguimientos_automaticos)
+					_seguimientos_automaticos = new SEGUIMIENTOS_AUTOMATICOSCollection((CBAV2)this);
+				return _seguimientos_automaticos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>SEGUIMIENTOS_DESTINATARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="SEGUIMIENTOS_DESTINATARIOSCollection"/> object.</value>
+		public SEGUIMIENTOS_DESTINATARIOSCollection SEGUIMIENTOS_DESTINATARIOSCollection
+		{
+			get
+			{
+				if(null == _seguimientos_destinatarios)
+					_seguimientos_destinatarios = new SEGUIMIENTOS_DESTINATARIOSCollection((CBAV2)this);
+				return _seguimientos_destinatarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_AJUSTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_AJUSTECollection"/> object.</value>
+		public STOCK_AJUSTECollection STOCK_AJUSTECollection
+		{
+			get
+			{
+				if(null == _stock_ajuste)
+					_stock_ajuste = new STOCK_AJUSTECollection((CBAV2)this);
+				return _stock_ajuste;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_AJUSTE_DET_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_AJUSTE_DET_INFO_COMPLETACollection"/> object.</value>
+		public STOCK_AJUSTE_DET_INFO_COMPLETACollection STOCK_AJUSTE_DET_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _stock_ajuste_det_info_completa)
+					_stock_ajuste_det_info_completa = new STOCK_AJUSTE_DET_INFO_COMPLETACollection((CBAV2)this);
+				return _stock_ajuste_det_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_AJUSTE_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_AJUSTE_DETALLECollection"/> object.</value>
+		public STOCK_AJUSTE_DETALLECollection STOCK_AJUSTE_DETALLECollection
+		{
+			get
+			{
+				if(null == _stock_ajuste_detalle)
+					_stock_ajuste_detalle = new STOCK_AJUSTE_DETALLECollection((CBAV2)this);
+				return _stock_ajuste_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_AJUSTE_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_AJUSTE_INFO_COMPLETACollection"/> object.</value>
+		public STOCK_AJUSTE_INFO_COMPLETACollection STOCK_AJUSTE_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _stock_ajuste_info_completa)
+					_stock_ajuste_info_completa = new STOCK_AJUSTE_INFO_COMPLETACollection((CBAV2)this);
+				return _stock_ajuste_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_EGREPRODMAT</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_EGREPRODMATCollection"/> object.</value>
+		public STOCK_ART_RESERVA_EGREPRODMATCollection STOCK_ART_RESERVA_EGREPRODMATCollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_egreprodmat)
+					_stock_art_reserva_egreprodmat = new STOCK_ART_RESERVA_EGREPRODMATCollection((CBAV2)this);
+				return _stock_art_reserva_egreprodmat;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_EGRESO_PROD</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_EGRESO_PRODCollection"/> object.</value>
+		public STOCK_ART_RESERVA_EGRESO_PRODCollection STOCK_ART_RESERVA_EGRESO_PRODCollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_egreso_prod)
+					_stock_art_reserva_egreso_prod = new STOCK_ART_RESERVA_EGRESO_PRODCollection((CBAV2)this);
+				return _stock_art_reserva_egreso_prod;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_FACTURA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_FACTURACollection"/> object.</value>
+		public STOCK_ART_RESERVA_FACTURACollection STOCK_ART_RESERVA_FACTURACollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_factura)
+					_stock_art_reserva_factura = new STOCK_ART_RESERVA_FACTURACollection((CBAV2)this);
+				return _stock_art_reserva_factura;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_PEDIDO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_PEDIDOCollection"/> object.</value>
+		public STOCK_ART_RESERVA_PEDIDOCollection STOCK_ART_RESERVA_PEDIDOCollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_pedido)
+					_stock_art_reserva_pedido = new STOCK_ART_RESERVA_PEDIDOCollection((CBAV2)this);
+				return _stock_art_reserva_pedido;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_POR_EGREPROD</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_POR_EGREPRODCollection"/> object.</value>
+		public STOCK_ART_RESERVA_POR_EGREPRODCollection STOCK_ART_RESERVA_POR_EGREPRODCollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_por_egreprod)
+					_stock_art_reserva_por_egreprod = new STOCK_ART_RESERVA_POR_EGREPRODCollection((CBAV2)this);
+				return _stock_art_reserva_por_egreprod;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_POR_EGRPROMA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_POR_EGRPROMACollection"/> object.</value>
+		public STOCK_ART_RESERVA_POR_EGRPROMACollection STOCK_ART_RESERVA_POR_EGRPROMACollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_por_egrproma)
+					_stock_art_reserva_por_egrproma = new STOCK_ART_RESERVA_POR_EGRPROMACollection((CBAV2)this);
+				return _stock_art_reserva_por_egrproma;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_POR_FACTURA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_POR_FACTURACollection"/> object.</value>
+		public STOCK_ART_RESERVA_POR_FACTURACollection STOCK_ART_RESERVA_POR_FACTURACollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_por_factura)
+					_stock_art_reserva_por_factura = new STOCK_ART_RESERVA_POR_FACTURACollection((CBAV2)this);
+				return _stock_art_reserva_por_factura;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_POR_PEDIDO</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_POR_PEDIDOCollection"/> object.</value>
+		public STOCK_ART_RESERVA_POR_PEDIDOCollection STOCK_ART_RESERVA_POR_PEDIDOCollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_por_pedido)
+					_stock_art_reserva_por_pedido = new STOCK_ART_RESERVA_POR_PEDIDOCollection((CBAV2)this);
+				return _stock_art_reserva_por_pedido;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_POR_PROBALMA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_POR_PROBALMACollection"/> object.</value>
+		public STOCK_ART_RESERVA_POR_PROBALMACollection STOCK_ART_RESERVA_POR_PROBALMACollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_por_probalma)
+					_stock_art_reserva_por_probalma = new STOCK_ART_RESERVA_POR_PROBALMACollection((CBAV2)this);
+				return _stock_art_reserva_por_probalma;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_POR_PRODBALA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_POR_PRODBALACollection"/> object.</value>
+		public STOCK_ART_RESERVA_POR_PRODBALACollection STOCK_ART_RESERVA_POR_PRODBALACollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_por_prodbala)
+					_stock_art_reserva_por_prodbala = new STOCK_ART_RESERVA_POR_PRODBALACollection((CBAV2)this);
+				return _stock_art_reserva_por_prodbala;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_POR_TRANSFER</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_POR_TRANSFERCollection"/> object.</value>
+		public STOCK_ART_RESERVA_POR_TRANSFERCollection STOCK_ART_RESERVA_POR_TRANSFERCollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_por_transfer)
+					_stock_art_reserva_por_transfer = new STOCK_ART_RESERVA_POR_TRANSFERCollection((CBAV2)this);
+				return _stock_art_reserva_por_transfer;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_PROD_BALAN</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_PROD_BALANCollection"/> object.</value>
+		public STOCK_ART_RESERVA_PROD_BALANCollection STOCK_ART_RESERVA_PROD_BALANCollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_prod_balan)
+					_stock_art_reserva_prod_balan = new STOCK_ART_RESERVA_PROD_BALANCollection((CBAV2)this);
+				return _stock_art_reserva_prod_balan;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_PRODBALANMAT</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_PRODBALANMATCollection"/> object.</value>
+		public STOCK_ART_RESERVA_PRODBALANMATCollection STOCK_ART_RESERVA_PRODBALANMATCollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_prodbalanmat)
+					_stock_art_reserva_prodbalanmat = new STOCK_ART_RESERVA_PRODBALANMATCollection((CBAV2)this);
+				return _stock_art_reserva_prodbalanmat;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ART_RESERVA_TRANSFER</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ART_RESERVA_TRANSFERCollection"/> object.</value>
+		public STOCK_ART_RESERVA_TRANSFERCollection STOCK_ART_RESERVA_TRANSFERCollection
+		{
+			get
+			{
+				if(null == _stock_art_reserva_transfer)
+					_stock_art_reserva_transfer = new STOCK_ART_RESERVA_TRANSFERCollection((CBAV2)this);
+				return _stock_art_reserva_transfer;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_ARTICULOS_RESERVA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_ARTICULOS_RESERVACollection"/> object.</value>
+		public STOCK_ARTICULOS_RESERVACollection STOCK_ARTICULOS_RESERVACollection
+		{
+			get
+			{
+				if(null == _stock_articulos_reserva)
+					_stock_articulos_reserva = new STOCK_ARTICULOS_RESERVACollection((CBAV2)this);
+				return _stock_articulos_reserva;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_BOX</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_BOXCollection"/> object.</value>
+		public STOCK_BOXCollection STOCK_BOXCollection
+		{
+			get
+			{
+				if(null == _stock_box)
+					_stock_box = new STOCK_BOXCollection((CBAV2)this);
+				return _stock_box;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_CRITICO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_CRITICOCollection"/> object.</value>
+		public STOCK_CRITICOCollection STOCK_CRITICOCollection
+		{
+			get
+			{
+				if(null == _stock_critico)
+					_stock_critico = new STOCK_CRITICOCollection((CBAV2)this);
+				return _stock_critico;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_CRITICO_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_CRITICO_INFO_COMPLCollection"/> object.</value>
+		public STOCK_CRITICO_INFO_COMPLCollection STOCK_CRITICO_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_critico_info_compl)
+					_stock_critico_info_compl = new STOCK_CRITICO_INFO_COMPLCollection((CBAV2)this);
+				return _stock_critico_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_CRITICO_POL_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_CRITICO_POL_INFO_COMPLCollection"/> object.</value>
+		public STOCK_CRITICO_POL_INFO_COMPLCollection STOCK_CRITICO_POL_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_critico_pol_info_compl)
+					_stock_critico_pol_info_compl = new STOCK_CRITICO_POL_INFO_COMPLCollection((CBAV2)this);
+				return _stock_critico_pol_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_CRITICO_POLITICAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_CRITICO_POLITICASCollection"/> object.</value>
+		public STOCK_CRITICO_POLITICASCollection STOCK_CRITICO_POLITICASCollection
+		{
+			get
+			{
+				if(null == _stock_critico_politicas)
+					_stock_critico_politicas = new STOCK_CRITICO_POLITICASCollection((CBAV2)this);
+				return _stock_critico_politicas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_DEPOSITOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_DEPOSITOSCollection"/> object.</value>
+		public STOCK_DEPOSITOSCollection STOCK_DEPOSITOSCollection
+		{
+			get
+			{
+				if(null == _stock_depositos)
+					_stock_depositos = new STOCK_DEPOSITOSCollection((CBAV2)this);
+				return _stock_depositos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_DEPOSITOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_DEPOSITOS_INFO_COMPLETACollection"/> object.</value>
+		public STOCK_DEPOSITOS_INFO_COMPLETACollection STOCK_DEPOSITOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _stock_depositos_info_completa)
+					_stock_depositos_info_completa = new STOCK_DEPOSITOS_INFO_COMPLETACollection((CBAV2)this);
+				return _stock_depositos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_INVENT_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_INVENT_DET_INFO_COMPLCollection"/> object.</value>
+		public STOCK_INVENT_DET_INFO_COMPLCollection STOCK_INVENT_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_invent_det_info_compl)
+					_stock_invent_det_info_compl = new STOCK_INVENT_DET_INFO_COMPLCollection((CBAV2)this);
+				return _stock_invent_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_INVENTARIO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_INVENTARIOCollection"/> object.</value>
+		public STOCK_INVENTARIOCollection STOCK_INVENTARIOCollection
+		{
+			get
+			{
+				if(null == _stock_inventario)
+					_stock_inventario = new STOCK_INVENTARIOCollection((CBAV2)this);
+				return _stock_inventario;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_INVENTARIO_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_INVENTARIO_DETALLECollection"/> object.</value>
+		public STOCK_INVENTARIO_DETALLECollection STOCK_INVENTARIO_DETALLECollection
+		{
+			get
+			{
+				if(null == _stock_inventario_detalle)
+					_stock_inventario_detalle = new STOCK_INVENTARIO_DETALLECollection((CBAV2)this);
+				return _stock_inventario_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_INVENTARIO_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_INVENTARIO_INFO_COMPLCollection"/> object.</value>
+		public STOCK_INVENTARIO_INFO_COMPLCollection STOCK_INVENTARIO_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_inventario_info_compl)
+					_stock_inventario_info_compl = new STOCK_INVENTARIO_INFO_COMPLCollection((CBAV2)this);
+				return _stock_inventario_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_MOVIMIENTO_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_MOVIMIENTO_INFO_COMPLCollection"/> object.</value>
+		public STOCK_MOVIMIENTO_INFO_COMPLCollection STOCK_MOVIMIENTO_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_movimiento_info_compl)
+					_stock_movimiento_info_compl = new STOCK_MOVIMIENTO_INFO_COMPLCollection((CBAV2)this);
+				return _stock_movimiento_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_MOVIMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_MOVIMIENTOSCollection"/> object.</value>
+		public STOCK_MOVIMIENTOSCollection STOCK_MOVIMIENTOSCollection
+		{
+			get
+			{
+				if(null == _stock_movimientos)
+					_stock_movimientos = new STOCK_MOVIMIENTOSCollection((CBAV2)this);
+				return _stock_movimientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_SUC_DEP_ART_CANTIDAD</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_SUC_DEP_ART_CANTIDADCollection"/> object.</value>
+		public STOCK_SUC_DEP_ART_CANTIDADCollection STOCK_SUC_DEP_ART_CANTIDADCollection
+		{
+			get
+			{
+				if(null == _stock_suc_dep_art_cantidad)
+					_stock_suc_dep_art_cantidad = new STOCK_SUC_DEP_ART_CANTIDADCollection((CBAV2)this);
+				return _stock_suc_dep_art_cantidad;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_SUC_DEPO_ART_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_SUC_DEPO_ART_INF_COMPCollection"/> object.</value>
+		public STOCK_SUC_DEPO_ART_INF_COMPCollection STOCK_SUC_DEPO_ART_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _stock_suc_depo_art_inf_comp)
+					_stock_suc_depo_art_inf_comp = new STOCK_SUC_DEPO_ART_INF_COMPCollection((CBAV2)this);
+				return _stock_suc_depo_art_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_SUC_DEPOSITO_ART_FECHA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_SUC_DEPOSITO_ART_FECHACollection"/> object.</value>
+		public STOCK_SUC_DEPOSITO_ART_FECHACollection STOCK_SUC_DEPOSITO_ART_FECHACollection
+		{
+			get
+			{
+				if(null == _stock_suc_deposito_art_fecha)
+					_stock_suc_deposito_art_fecha = new STOCK_SUC_DEPOSITO_ART_FECHACollection((CBAV2)this);
+				return _stock_suc_deposito_art_fecha;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_SUC_DEPOSITO_ARTICULO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_SUC_DEPOSITO_ARTICULOCollection"/> object.</value>
+		public STOCK_SUC_DEPOSITO_ARTICULOCollection STOCK_SUC_DEPOSITO_ARTICULOCollection
+		{
+			get
+			{
+				if(null == _stock_suc_deposito_articulo)
+					_stock_suc_deposito_articulo = new STOCK_SUC_DEPOSITO_ARTICULOCollection((CBAV2)this);
+				return _stock_suc_deposito_articulo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSF_BALANC_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSF_BALANC_DET_INFO_COMPLCollection"/> object.</value>
+		public STOCK_TRANSF_BALANC_DET_INFO_COMPLCollection STOCK_TRANSF_BALANC_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_transf_balanc_det_info_compl)
+					_stock_transf_balanc_det_info_compl = new STOCK_TRANSF_BALANC_DET_INFO_COMPLCollection((CBAV2)this);
+				return _stock_transf_balanc_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSF_BALANC_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSF_BALANC_INFO_COMPLCollection"/> object.</value>
+		public STOCK_TRANSF_BALANC_INFO_COMPLCollection STOCK_TRANSF_BALANC_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_transf_balanc_info_compl)
+					_stock_transf_balanc_info_compl = new STOCK_TRANSF_BALANC_INFO_COMPLCollection((CBAV2)this);
+				return _stock_transf_balanc_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSF_BALANC_PRECINTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSF_BALANC_PRECINTOSCollection"/> object.</value>
+		public STOCK_TRANSF_BALANC_PRECINTOSCollection STOCK_TRANSF_BALANC_PRECINTOSCollection
+		{
+			get
+			{
+				if(null == _stock_transf_balanc_precintos)
+					_stock_transf_balanc_precintos = new STOCK_TRANSF_BALANC_PRECINTOSCollection((CBAV2)this);
+				return _stock_transf_balanc_precintos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSF_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSF_DET_INFO_COMPLCollection"/> object.</value>
+		public STOCK_TRANSF_DET_INFO_COMPLCollection STOCK_TRANSF_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_transf_det_info_compl)
+					_stock_transf_det_info_compl = new STOCK_TRANSF_DET_INFO_COMPLCollection((CBAV2)this);
+				return _stock_transf_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSF_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSF_INFO_COMPLCollection"/> object.</value>
+		public STOCK_TRANSF_INFO_COMPLCollection STOCK_TRANSF_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_transf_info_compl)
+					_stock_transf_info_compl = new STOCK_TRANSF_INFO_COMPLCollection((CBAV2)this);
+				return _stock_transf_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSF_INSUMO_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSF_INSUMO_DET_INFO_COMPLCollection"/> object.</value>
+		public STOCK_TRANSF_INSUMO_DET_INFO_COMPLCollection STOCK_TRANSF_INSUMO_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_transf_insumo_det_info_compl)
+					_stock_transf_insumo_det_info_compl = new STOCK_TRANSF_INSUMO_DET_INFO_COMPLCollection((CBAV2)this);
+				return _stock_transf_insumo_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSF_INSUMO_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSF_INSUMO_INFO_COMPLCollection"/> object.</value>
+		public STOCK_TRANSF_INSUMO_INFO_COMPLCollection STOCK_TRANSF_INSUMO_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _stock_transf_insumo_info_compl)
+					_stock_transf_insumo_info_compl = new STOCK_TRANSF_INSUMO_INFO_COMPLCollection((CBAV2)this);
+				return _stock_transf_insumo_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSFERENCIA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSFERENCIACollection"/> object.</value>
+		public STOCK_TRANSFERENCIACollection STOCK_TRANSFERENCIACollection
+		{
+			get
+			{
+				if(null == _stock_transferencia)
+					_stock_transferencia = new STOCK_TRANSFERENCIACollection((CBAV2)this);
+				return _stock_transferencia;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSFERENCIA_BALANC_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSFERENCIA_BALANC_DETCollection"/> object.</value>
+		public STOCK_TRANSFERENCIA_BALANC_DETCollection STOCK_TRANSFERENCIA_BALANC_DETCollection
+		{
+			get
+			{
+				if(null == _stock_transferencia_balanc_det)
+					_stock_transferencia_balanc_det = new STOCK_TRANSFERENCIA_BALANC_DETCollection((CBAV2)this);
+				return _stock_transferencia_balanc_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSFERENCIA_BALANCEADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSFERENCIA_BALANCEADOSCollection"/> object.</value>
+		public STOCK_TRANSFERENCIA_BALANCEADOSCollection STOCK_TRANSFERENCIA_BALANCEADOSCollection
+		{
+			get
+			{
+				if(null == _stock_transferencia_balanceados)
+					_stock_transferencia_balanceados = new STOCK_TRANSFERENCIA_BALANCEADOSCollection((CBAV2)this);
+				return _stock_transferencia_balanceados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSFERENCIA_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSFERENCIA_DETALLECollection"/> object.</value>
+		public STOCK_TRANSFERENCIA_DETALLECollection STOCK_TRANSFERENCIA_DETALLECollection
+		{
+			get
+			{
+				if(null == _stock_transferencia_detalle)
+					_stock_transferencia_detalle = new STOCK_TRANSFERENCIA_DETALLECollection((CBAV2)this);
+				return _stock_transferencia_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSFERENCIA_INSUMOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSFERENCIA_INSUMOSCollection"/> object.</value>
+		public STOCK_TRANSFERENCIA_INSUMOSCollection STOCK_TRANSFERENCIA_INSUMOSCollection
+		{
+			get
+			{
+				if(null == _stock_transferencia_insumos)
+					_stock_transferencia_insumos = new STOCK_TRANSFERENCIA_INSUMOSCollection((CBAV2)this);
+				return _stock_transferencia_insumos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_TRANSFERENCIA_INSUMOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_TRANSFERENCIA_INSUMOS_DETCollection"/> object.</value>
+		public STOCK_TRANSFERENCIA_INSUMOS_DETCollection STOCK_TRANSFERENCIA_INSUMOS_DETCollection
+		{
+			get
+			{
+				if(null == _stock_transferencia_insumos_det)
+					_stock_transferencia_insumos_det = new STOCK_TRANSFERENCIA_INSUMOS_DETCollection((CBAV2)this);
+				return _stock_transferencia_insumos_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_UBICACION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_UBICACIONCollection"/> object.</value>
+		public STOCK_UBICACIONCollection STOCK_UBICACIONCollection
+		{
+			get
+			{
+				if(null == _stock_ubicacion)
+					_stock_ubicacion = new STOCK_UBICACIONCollection((CBAV2)this);
+				return _stock_ubicacion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>STOCK_UBICACION_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="STOCK_UBICACION_INFO_COMPLETACollection"/> object.</value>
+		public STOCK_UBICACION_INFO_COMPLETACollection STOCK_UBICACION_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _stock_ubicacion_info_completa)
+					_stock_ubicacion_info_completa = new STOCK_UBICACION_INFO_COMPLETACollection((CBAV2)this);
+				return _stock_ubicacion_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>SUCURSALES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="SUCURSALESCollection"/> object.</value>
+		public SUCURSALESCollection SUCURSALESCollection
+		{
+			get
+			{
+				if(null == _sucursales)
+					_sucursales = new SUCURSALESCollection((CBAV2)this);
+				return _sucursales;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>SUCURSALES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="SUCURSALES_INFO_COMPLETACollection"/> object.</value>
+		public SUCURSALES_INFO_COMPLETACollection SUCURSALES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _sucursales_info_completa)
+					_sucursales_info_completa = new SUCURSALES_INFO_COMPLETACollection((CBAV2)this);
+				return _sucursales_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>SUCURSALES_SECTORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="SUCURSALES_SECTORESCollection"/> object.</value>
+		public SUCURSALES_SECTORESCollection SUCURSALES_SECTORESCollection
+		{
+			get
+			{
+				if(null == _sucursales_sectores)
+					_sucursales_sectores = new SUCURSALES_SECTORESCollection((CBAV2)this);
+				return _sucursales_sectores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>SUGERENCIAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="SUGERENCIASCollection"/> object.</value>
+		public SUGERENCIASCollection SUGERENCIASCollection
+		{
+			get
+			{
+				if(null == _sugerencias)
+					_sugerencias = new SUGERENCIASCollection((CBAV2)this);
+				return _sugerencias;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TABLAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TABLASCollection"/> object.</value>
+		public TABLASCollection TABLASCollection
+		{
+			get
+			{
+				if(null == _tablas)
+					_tablas = new TABLASCollection((CBAV2)this);
+				return _tablas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TAREAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TAREASCollection"/> object.</value>
+		public TAREASCollection TAREASCollection
+		{
+			get
+			{
+				if(null == _tareas)
+					_tareas = new TAREASCollection((CBAV2)this);
+				return _tareas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TAREAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TAREAS_INFO_COMPLETACollection"/> object.</value>
+		public TAREAS_INFO_COMPLETACollection TAREAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _tareas_info_completa)
+					_tareas_info_completa = new TAREAS_INFO_COMPLETACollection((CBAV2)this);
+				return _tareas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TAREAS_PERSONAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TAREAS_PERSONASCollection"/> object.</value>
+		public TAREAS_PERSONASCollection TAREAS_PERSONASCollection
+		{
+			get
+			{
+				if(null == _tareas_personas)
+					_tareas_personas = new TAREAS_PERSONASCollection((CBAV2)this);
+				return _tareas_personas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TAREAS_PROGRAMADAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TAREAS_PROGRAMADASCollection"/> object.</value>
+		public TAREAS_PROGRAMADASCollection TAREAS_PROGRAMADASCollection
+		{
+			get
+			{
+				if(null == _tareas_programadas)
+					_tareas_programadas = new TAREAS_PROGRAMADASCollection((CBAV2)this);
+				return _tareas_programadas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TAREAS_PROGRAMADAS_RESULTADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TAREAS_PROGRAMADAS_RESULTADOSCollection"/> object.</value>
+		public TAREAS_PROGRAMADAS_RESULTADOSCollection TAREAS_PROGRAMADAS_RESULTADOSCollection
+		{
+			get
+			{
+				if(null == _tareas_programadas_resultados)
+					_tareas_programadas_resultados = new TAREAS_PROGRAMADAS_RESULTADOSCollection((CBAV2)this);
+				return _tareas_programadas_resultados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TARIFARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TARIFARIOSCollection"/> object.</value>
+		public TARIFARIOSCollection TARIFARIOSCollection
+		{
+			get
+			{
+				if(null == _tarifarios)
+					_tarifarios = new TARIFARIOSCollection((CBAV2)this);
+				return _tarifarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TARIFARIOS_COLUMNAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TARIFARIOS_COLUMNASCollection"/> object.</value>
+		public TARIFARIOS_COLUMNASCollection TARIFARIOS_COLUMNASCollection
+		{
+			get
+			{
+				if(null == _tarifarios_columnas)
+					_tarifarios_columnas = new TARIFARIOS_COLUMNASCollection((CBAV2)this);
+				return _tarifarios_columnas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TARIFARIOS_COLUMNAS_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TARIFARIOS_COLUMNAS_INF_COMPCollection"/> object.</value>
+		public TARIFARIOS_COLUMNAS_INF_COMPCollection TARIFARIOS_COLUMNAS_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _tarifarios_columnas_inf_comp)
+					_tarifarios_columnas_inf_comp = new TARIFARIOS_COLUMNAS_INF_COMPCollection((CBAV2)this);
+				return _tarifarios_columnas_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TARIFARIOS_DATOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TARIFARIOS_DATOSCollection"/> object.</value>
+		public TARIFARIOS_DATOSCollection TARIFARIOS_DATOSCollection
+		{
+			get
+			{
+				if(null == _tarifarios_datos)
+					_tarifarios_datos = new TARIFARIOS_DATOSCollection((CBAV2)this);
+				return _tarifarios_datos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TARIFARIOS_DATOS_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TARIFARIOS_DATOS_INF_COMPCollection"/> object.</value>
+		public TARIFARIOS_DATOS_INF_COMPCollection TARIFARIOS_DATOS_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _tarifarios_datos_inf_comp)
+					_tarifarios_datos_inf_comp = new TARIFARIOS_DATOS_INF_COMPCollection((CBAV2)this);
+				return _tarifarios_datos_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TARIFARIOS_GRUPOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TARIFARIOS_GRUPOSCollection"/> object.</value>
+		public TARIFARIOS_GRUPOSCollection TARIFARIOS_GRUPOSCollection
+		{
+			get
+			{
+				if(null == _tarifarios_grupos)
+					_tarifarios_grupos = new TARIFARIOS_GRUPOSCollection((CBAV2)this);
+				return _tarifarios_grupos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TARIFARIOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TARIFARIOS_INFO_COMPLETACollection"/> object.</value>
+		public TARIFARIOS_INFO_COMPLETACollection TARIFARIOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _tarifarios_info_completa)
+					_tarifarios_info_completa = new TARIFARIOS_INFO_COMPLETACollection((CBAV2)this);
+				return _tarifarios_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TEMPORADAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TEMPORADASCollection"/> object.</value>
+		public TEMPORADASCollection TEMPORADASCollection
+		{
+			get
+			{
+				if(null == _temporadas)
+					_temporadas = new TEMPORADASCollection((CBAV2)this);
+				return _temporadas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TEXTO_PREDEF_GRUPO_DET_INF_COM</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TEXTO_PREDEF_GRUPO_DET_INF_COMCollection"/> object.</value>
+		public TEXTO_PREDEF_GRUPO_DET_INF_COMCollection TEXTO_PREDEF_GRUPO_DET_INF_COMCollection
+		{
+			get
+			{
+				if(null == _texto_predef_grupo_det_inf_com)
+					_texto_predef_grupo_det_inf_com = new TEXTO_PREDEF_GRUPO_DET_INF_COMCollection((CBAV2)this);
+				return _texto_predef_grupo_det_inf_com;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TEXTO_PREDEF_GRUPOS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TEXTO_PREDEF_GRUPOS_DETCollection"/> object.</value>
+		public TEXTO_PREDEF_GRUPOS_DETCollection TEXTO_PREDEF_GRUPOS_DETCollection
+		{
+			get
+			{
+				if(null == _texto_predef_grupos_det)
+					_texto_predef_grupos_det = new TEXTO_PREDEF_GRUPOS_DETCollection((CBAV2)this);
+				return _texto_predef_grupos_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TEXTOS_PREDEFINIDOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TEXTOS_PREDEFINIDOSCollection"/> object.</value>
+		public TEXTOS_PREDEFINIDOSCollection TEXTOS_PREDEFINIDOSCollection
+		{
+			get
+			{
+				if(null == _textos_predefinidos)
+					_textos_predefinidos = new TEXTOS_PREDEFINIDOSCollection((CBAV2)this);
+				return _textos_predefinidos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TEXTOS_PREDEFINIDOS_GRUPOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TEXTOS_PREDEFINIDOS_GRUPOSCollection"/> object.</value>
+		public TEXTOS_PREDEFINIDOS_GRUPOSCollection TEXTOS_PREDEFINIDOS_GRUPOSCollection
+		{
+			get
+			{
+				if(null == _textos_predefinidos_grupos)
+					_textos_predefinidos_grupos = new TEXTOS_PREDEFINIDOS_GRUPOSCollection((CBAV2)this);
+				return _textos_predefinidos_grupos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TEXTOS_PREDEFINIDOS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TEXTOS_PREDEFINIDOS_INFO_COMPLCollection"/> object.</value>
+		public TEXTOS_PREDEFINIDOS_INFO_COMPLCollection TEXTOS_PREDEFINIDOS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _textos_predefinidos_info_compl)
+					_textos_predefinidos_info_compl = new TEXTOS_PREDEFINIDOS_INFO_COMPLCollection((CBAV2)this);
+				return _textos_predefinidos_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPO_CLIENTE_RECALENDARIZACION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPO_CLIENTE_RECALENDARIZACIONCollection"/> object.</value>
+		public TIPO_CLIENTE_RECALENDARIZACIONCollection TIPO_CLIENTE_RECALENDARIZACIONCollection
+		{
+			get
+			{
+				if(null == _tipo_cliente_recalendarizacion)
+					_tipo_cliente_recalendarizacion = new TIPO_CLIENTE_RECALENDARIZACIONCollection((CBAV2)this);
+				return _tipo_cliente_recalendarizacion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_ACTIVOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_ACTIVOSCollection"/> object.</value>
+		public TIPOS_ACTIVOSCollection TIPOS_ACTIVOSCollection
+		{
+			get
+			{
+				if(null == _tipos_activos)
+					_tipos_activos = new TIPOS_ACTIVOSCollection((CBAV2)this);
+				return _tipos_activos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_ADJUNTO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_ADJUNTOCollection"/> object.</value>
+		public TIPOS_ADJUNTOCollection TIPOS_ADJUNTOCollection
+		{
+			get
+			{
+				if(null == _tipos_adjunto)
+					_tipos_adjunto = new TIPOS_ADJUNTOCollection((CBAV2)this);
+				return _tipos_adjunto;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_ALARMA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_ALARMACollection"/> object.</value>
+		public TIPOS_ALARMACollection TIPOS_ALARMACollection
+		{
+			get
+			{
+				if(null == _tipos_alarma)
+					_tipos_alarma = new TIPOS_ALARMACollection((CBAV2)this);
+				return _tipos_alarma;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_ARTICULO_FINANC_RANGO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_ARTICULO_FINANC_RANGOCollection"/> object.</value>
+		public TIPOS_ARTICULO_FINANC_RANGOCollection TIPOS_ARTICULO_FINANC_RANGOCollection
+		{
+			get
+			{
+				if(null == _tipos_articulo_financ_rango)
+					_tipos_articulo_financ_rango = new TIPOS_ARTICULO_FINANC_RANGOCollection((CBAV2)this);
+				return _tipos_articulo_financ_rango;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_ARTICULO_FINANCIERO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_ARTICULO_FINANCIEROCollection"/> object.</value>
+		public TIPOS_ARTICULO_FINANCIEROCollection TIPOS_ARTICULO_FINANCIEROCollection
+		{
+			get
+			{
+				if(null == _tipos_articulo_financiero)
+					_tipos_articulo_financiero = new TIPOS_ARTICULO_FINANCIEROCollection((CBAV2)this);
+				return _tipos_articulo_financiero;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_AUTONUMERACION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_AUTONUMERACIONCollection"/> object.</value>
+		public TIPOS_AUTONUMERACIONCollection TIPOS_AUTONUMERACIONCollection
+		{
+			get
+			{
+				if(null == _tipos_autonumeracion)
+					_tipos_autonumeracion = new TIPOS_AUTONUMERACIONCollection((CBAV2)this);
+				return _tipos_autonumeracion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_CATALOGOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_CATALOGOSCollection"/> object.</value>
+		public TIPOS_CATALOGOSCollection TIPOS_CATALOGOSCollection
+		{
+			get
+			{
+				if(null == _tipos_catalogos)
+					_tipos_catalogos = new TIPOS_CATALOGOSCollection((CBAV2)this);
+				return _tipos_catalogos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_CLIENTES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_CLIENTESCollection"/> object.</value>
+		public TIPOS_CLIENTESCollection TIPOS_CLIENTESCollection
+		{
+			get
+			{
+				if(null == _tipos_clientes)
+					_tipos_clientes = new TIPOS_CLIENTESCollection((CBAV2)this);
+				return _tipos_clientes;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_CONTENEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_CONTENEDORCollection"/> object.</value>
+		public TIPOS_CONTENEDORCollection TIPOS_CONTENEDORCollection
+		{
+			get
+			{
+				if(null == _tipos_contenedor)
+					_tipos_contenedor = new TIPOS_CONTENEDORCollection((CBAV2)this);
+				return _tipos_contenedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_CREDITO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_CREDITOCollection"/> object.</value>
+		public TIPOS_CREDITOCollection TIPOS_CREDITOCollection
+		{
+			get
+			{
+				if(null == _tipos_credito)
+					_tipos_credito = new TIPOS_CREDITOCollection((CBAV2)this);
+				return _tipos_credito;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_CTACTE_BANCARIAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_CTACTE_BANCARIASCollection"/> object.</value>
+		public TIPOS_CTACTE_BANCARIASCollection TIPOS_CTACTE_BANCARIASCollection
+		{
+			get
+			{
+				if(null == _tipos_ctacte_bancarias)
+					_tipos_ctacte_bancarias = new TIPOS_CTACTE_BANCARIASCollection((CBAV2)this);
+				return _tipos_ctacte_bancarias;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_DETALLES_PERSONALIZADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_DETALLES_PERSONALIZADOSCollection"/> object.</value>
+		public TIPOS_DETALLES_PERSONALIZADOSCollection TIPOS_DETALLES_PERSONALIZADOSCollection
+		{
+			get
+			{
+				if(null == _tipos_detalles_personalizados)
+					_tipos_detalles_personalizados = new TIPOS_DETALLES_PERSONALIZADOSCollection((CBAV2)this);
+				return _tipos_detalles_personalizados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_DOCUMENTO_IDENTIDAD</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_DOCUMENTO_IDENTIDADCollection"/> object.</value>
+		public TIPOS_DOCUMENTO_IDENTIDADCollection TIPOS_DOCUMENTO_IDENTIDADCollection
+		{
+			get
+			{
+				if(null == _tipos_documento_identidad)
+					_tipos_documento_identidad = new TIPOS_DOCUMENTO_IDENTIDADCollection((CBAV2)this);
+				return _tipos_documento_identidad;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_EMBARQUE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_EMBARQUECollection"/> object.</value>
+		public TIPOS_EMBARQUECollection TIPOS_EMBARQUECollection
+		{
+			get
+			{
+				if(null == _tipos_embarque)
+					_tipos_embarque = new TIPOS_EMBARQUECollection((CBAV2)this);
+				return _tipos_embarque;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_ENTRADA_LEGAJO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_ENTRADA_LEGAJOCollection"/> object.</value>
+		public TIPOS_ENTRADA_LEGAJOCollection TIPOS_ENTRADA_LEGAJOCollection
+		{
+			get
+			{
+				if(null == _tipos_entrada_legajo)
+					_tipos_entrada_legajo = new TIPOS_ENTRADA_LEGAJOCollection((CBAV2)this);
+				return _tipos_entrada_legajo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_ESCALA_PREMIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_ESCALA_PREMIOSCollection"/> object.</value>
+		public TIPOS_ESCALA_PREMIOSCollection TIPOS_ESCALA_PREMIOSCollection
+		{
+			get
+			{
+				if(null == _tipos_escala_premios)
+					_tipos_escala_premios = new TIPOS_ESCALA_PREMIOSCollection((CBAV2)this);
+				return _tipos_escala_premios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_EVENTO_CALENDARIO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_EVENTO_CALENDARIOCollection"/> object.</value>
+		public TIPOS_EVENTO_CALENDARIOCollection TIPOS_EVENTO_CALENDARIOCollection
+		{
+			get
+			{
+				if(null == _tipos_evento_calendario)
+					_tipos_evento_calendario = new TIPOS_EVENTO_CALENDARIOCollection((CBAV2)this);
+				return _tipos_evento_calendario;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_FACTURA_PROVEEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_FACTURA_PROVEEDORCollection"/> object.</value>
+		public TIPOS_FACTURA_PROVEEDORCollection TIPOS_FACTURA_PROVEEDORCollection
+		{
+			get
+			{
+				if(null == _tipos_factura_proveedor)
+					_tipos_factura_proveedor = new TIPOS_FACTURA_PROVEEDORCollection((CBAV2)this);
+				return _tipos_factura_proveedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_IMPUESTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_IMPUESTOSCollection"/> object.</value>
+		public TIPOS_IMPUESTOSCollection TIPOS_IMPUESTOSCollection
+		{
+			get
+			{
+				if(null == _tipos_impuestos)
+					_tipos_impuestos = new TIPOS_IMPUESTOSCollection((CBAV2)this);
+				return _tipos_impuestos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_ITEM_ENCUESTA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_ITEM_ENCUESTACollection"/> object.</value>
+		public TIPOS_ITEM_ENCUESTACollection TIPOS_ITEM_ENCUESTACollection
+		{
+			get
+			{
+				if(null == _tipos_item_encuesta)
+					_tipos_item_encuesta = new TIPOS_ITEM_ENCUESTACollection((CBAV2)this);
+				return _tipos_item_encuesta;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_NOTAS_CREDITO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_NOTAS_CREDITOCollection"/> object.</value>
+		public TIPOS_NOTAS_CREDITOCollection TIPOS_NOTAS_CREDITOCollection
+		{
+			get
+			{
+				if(null == _tipos_notas_credito)
+					_tipos_notas_credito = new TIPOS_NOTAS_CREDITOCollection((CBAV2)this);
+				return _tipos_notas_credito;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_PANEL_CONTROL</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_PANEL_CONTROLCollection"/> object.</value>
+		public TIPOS_PANEL_CONTROLCollection TIPOS_PANEL_CONTROLCollection
+		{
+			get
+			{
+				if(null == _tipos_panel_control)
+					_tipos_panel_control = new TIPOS_PANEL_CONTROLCollection((CBAV2)this);
+				return _tipos_panel_control;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_PLANTILLAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_PLANTILLASCollection"/> object.</value>
+		public TIPOS_PLANTILLASCollection TIPOS_PLANTILLASCollection
+		{
+			get
+			{
+				if(null == _tipos_plantillas)
+					_tipos_plantillas = new TIPOS_PLANTILLASCollection((CBAV2)this);
+				return _tipos_plantillas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_RELACIONES_PERSONAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_RELACIONES_PERSONASCollection"/> object.</value>
+		public TIPOS_RELACIONES_PERSONASCollection TIPOS_RELACIONES_PERSONASCollection
+		{
+			get
+			{
+				if(null == _tipos_relaciones_personas)
+					_tipos_relaciones_personas = new TIPOS_RELACIONES_PERSONASCollection((CBAV2)this);
+				return _tipos_relaciones_personas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_REPORTE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_REPORTECollection"/> object.</value>
+		public TIPOS_REPORTECollection TIPOS_REPORTECollection
+		{
+			get
+			{
+				if(null == _tipos_reporte)
+					_tipos_reporte = new TIPOS_REPORTECollection((CBAV2)this);
+				return _tipos_reporte;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_REQUISITO_FLUJO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_REQUISITO_FLUJOCollection"/> object.</value>
+		public TIPOS_REQUISITO_FLUJOCollection TIPOS_REQUISITO_FLUJOCollection
+		{
+			get
+			{
+				if(null == _tipos_requisito_flujo)
+					_tipos_requisito_flujo = new TIPOS_REQUISITO_FLUJOCollection((CBAV2)this);
+				return _tipos_requisito_flujo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_RETENCIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_RETENCIONESCollection"/> object.</value>
+		public TIPOS_RETENCIONESCollection TIPOS_RETENCIONESCollection
+		{
+			get
+			{
+				if(null == _tipos_retenciones)
+					_tipos_retenciones = new TIPOS_RETENCIONESCollection((CBAV2)this);
+				return _tipos_retenciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_TAREA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_TAREACollection"/> object.</value>
+		public TIPOS_TAREACollection TIPOS_TAREACollection
+		{
+			get
+			{
+				if(null == _tipos_tarea)
+					_tipos_tarea = new TIPOS_TAREACollection((CBAV2)this);
+				return _tipos_tarea;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_TEXTOS_PREDEFINIDOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_TEXTOS_PREDEFINIDOSCollection"/> object.</value>
+		public TIPOS_TEXTOS_PREDEFINIDOSCollection TIPOS_TEXTOS_PREDEFINIDOSCollection
+		{
+			get
+			{
+				if(null == _tipos_textos_predefinidos)
+					_tipos_textos_predefinidos = new TIPOS_TEXTOS_PREDEFINIDOSCollection((CBAV2)this);
+				return _tipos_textos_predefinidos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TIPOS_VEHICULO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TIPOS_VEHICULOCollection"/> object.</value>
+		public TIPOS_VEHICULOCollection TIPOS_VEHICULOCollection
+		{
+			get
+			{
+				if(null == _tipos_vehiculo)
+					_tipos_vehiculo = new TIPOS_VEHICULOCollection((CBAV2)this);
+				return _tipos_vehiculo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TMP_ARCHIVOS_IMPORTAR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TMP_ARCHIVOS_IMPORTARCollection"/> object.</value>
+		public TMP_ARCHIVOS_IMPORTARCollection TMP_ARCHIVOS_IMPORTARCollection
+		{
+			get
+			{
+				if(null == _tmp_archivos_importar)
+					_tmp_archivos_importar = new TMP_ARCHIVOS_IMPORTARCollection((CBAV2)this);
+				return _tmp_archivos_importar;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TMP_ARTICULO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TMP_ARTICULOCollection"/> object.</value>
+		public TMP_ARTICULOCollection TMP_ARTICULOCollection
+		{
+			get
+			{
+				if(null == _tmp_articulo)
+					_tmp_articulo = new TMP_ARTICULOCollection((CBAV2)this);
+				return _tmp_articulo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TMP_FACTURA_PROVEEDOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TMP_FACTURA_PROVEEDORCollection"/> object.</value>
+		public TMP_FACTURA_PROVEEDORCollection TMP_FACTURA_PROVEEDORCollection
+		{
+			get
+			{
+				if(null == _tmp_factura_proveedor)
+					_tmp_factura_proveedor = new TMP_FACTURA_PROVEEDORCollection((CBAV2)this);
+				return _tmp_factura_proveedor;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TMP_FACTURA_PROVEEDOR_PRUEBA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TMP_FACTURA_PROVEEDOR_PRUEBACollection"/> object.</value>
+		public TMP_FACTURA_PROVEEDOR_PRUEBACollection TMP_FACTURA_PROVEEDOR_PRUEBACollection
+		{
+			get
+			{
+				if(null == _tmp_factura_proveedor_prueba)
+					_tmp_factura_proveedor_prueba = new TMP_FACTURA_PROVEEDOR_PRUEBACollection((CBAV2)this);
+				return _tmp_factura_proveedor_prueba;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TMP_PROVEEDORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TMP_PROVEEDORESCollection"/> object.</value>
+		public TMP_PROVEEDORESCollection TMP_PROVEEDORESCollection
+		{
+			get
+			{
+				if(null == _tmp_proveedores)
+					_tmp_proveedores = new TMP_PROVEEDORESCollection((CBAV2)this);
+				return _tmp_proveedores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMIT_CAMP_ETAP_VAL_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMIT_CAMP_ETAP_VAL_INF_COMPCollection"/> object.</value>
+		public TRAMIT_CAMP_ETAP_VAL_INF_COMPCollection TRAMIT_CAMP_ETAP_VAL_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _tramit_camp_etap_val_inf_comp)
+					_tramit_camp_etap_val_inf_comp = new TRAMIT_CAMP_ETAP_VAL_INF_COMPCollection((CBAV2)this);
+				return _tramit_camp_etap_val_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMIT_FUNCION_ASIG_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMIT_FUNCION_ASIG_INF_COMPCollection"/> object.</value>
+		public TRAMIT_FUNCION_ASIG_INF_COMPCollection TRAMIT_FUNCION_ASIG_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _tramit_funcion_asig_inf_comp)
+					_tramit_funcion_asig_inf_comp = new TRAMIT_FUNCION_ASIG_INF_COMPCollection((CBAV2)this);
+				return _tramit_funcion_asig_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMIT_MEDIDAS_CAUT_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMIT_MEDIDAS_CAUT_INF_COMPCollection"/> object.</value>
+		public TRAMIT_MEDIDAS_CAUT_INF_COMPCollection TRAMIT_MEDIDAS_CAUT_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _tramit_medidas_caut_inf_comp)
+					_tramit_medidas_caut_inf_comp = new TRAMIT_MEDIDAS_CAUT_INF_COMPCollection((CBAV2)this);
+				return _tramit_medidas_caut_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMIT_TIP_CAMP_ETAP_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMIT_TIP_CAMP_ETAP_INF_COMPCollection"/> object.</value>
+		public TRAMIT_TIP_CAMP_ETAP_INF_COMPCollection TRAMIT_TIP_CAMP_ETAP_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _tramit_tip_camp_etap_inf_comp)
+					_tramit_tip_camp_etap_inf_comp = new TRAMIT_TIP_CAMP_ETAP_INF_COMPCollection((CBAV2)this);
+				return _tramit_tip_camp_etap_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMIT_TIP_EST_TRANS_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMIT_TIP_EST_TRANS_INF_COMPCollection"/> object.</value>
+		public TRAMIT_TIP_EST_TRANS_INF_COMPCollection TRAMIT_TIP_EST_TRANS_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _tramit_tip_est_trans_inf_comp)
+					_tramit_tip_est_trans_inf_comp = new TRAMIT_TIP_EST_TRANS_INF_COMPCollection((CBAV2)this);
+				return _tramit_tip_est_trans_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMIT_TIP_ET_DEST_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMIT_TIP_ET_DEST_INF_COMPCollection"/> object.</value>
+		public TRAMIT_TIP_ET_DEST_INF_COMPCollection TRAMIT_TIP_ET_DEST_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _tramit_tip_et_dest_inf_comp)
+					_tramit_tip_et_dest_inf_comp = new TRAMIT_TIP_ET_DEST_INF_COMPCollection((CBAV2)this);
+				return _tramit_tip_et_dest_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITESCollection"/> object.</value>
+		public TRAMITESCollection TRAMITESCollection
+		{
+			get
+			{
+				if(null == _tramites)
+					_tramites = new TRAMITESCollection((CBAV2)this);
+				return _tramites;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_ACTIVIDADES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_ACTIVIDADESCollection"/> object.</value>
+		public TRAMITES_ACTIVIDADESCollection TRAMITES_ACTIVIDADESCollection
+		{
+			get
+			{
+				if(null == _tramites_actividades)
+					_tramites_actividades = new TRAMITES_ACTIVIDADESCollection((CBAV2)this);
+				return _tramites_actividades;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_ACTIVIDADES_DETALLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_ACTIVIDADES_DETALLESCollection"/> object.</value>
+		public TRAMITES_ACTIVIDADES_DETALLESCollection TRAMITES_ACTIVIDADES_DETALLESCollection
+		{
+			get
+			{
+				if(null == _tramites_actividades_detalles)
+					_tramites_actividades_detalles = new TRAMITES_ACTIVIDADES_DETALLESCollection((CBAV2)this);
+				return _tramites_actividades_detalles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_CAMPOS_ETAPAS_VALORES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_CAMPOS_ETAPAS_VALORESCollection"/> object.</value>
+		public TRAMITES_CAMPOS_ETAPAS_VALORESCollection TRAMITES_CAMPOS_ETAPAS_VALORESCollection
+		{
+			get
+			{
+				if(null == _tramites_campos_etapas_valores)
+					_tramites_campos_etapas_valores = new TRAMITES_CAMPOS_ETAPAS_VALORESCollection((CBAV2)this);
+				return _tramites_campos_etapas_valores;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_CAS_ASOC_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_CAS_ASOC_INF_COMPCollection"/> object.</value>
+		public TRAMITES_CAS_ASOC_INF_COMPCollection TRAMITES_CAS_ASOC_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _tramites_cas_asoc_inf_comp)
+					_tramites_cas_asoc_inf_comp = new TRAMITES_CAS_ASOC_INF_COMPCollection((CBAV2)this);
+				return _tramites_cas_asoc_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_CASOS_ASOCIADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_CASOS_ASOCIADOSCollection"/> object.</value>
+		public TRAMITES_CASOS_ASOCIADOSCollection TRAMITES_CASOS_ASOCIADOSCollection
+		{
+			get
+			{
+				if(null == _tramites_casos_asociados)
+					_tramites_casos_asociados = new TRAMITES_CASOS_ASOCIADOSCollection((CBAV2)this);
+				return _tramites_casos_asociados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_FUNCIONARIOS_ASIGNAD</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_FUNCIONARIOS_ASIGNADCollection"/> object.</value>
+		public TRAMITES_FUNCIONARIOS_ASIGNADCollection TRAMITES_FUNCIONARIOS_ASIGNADCollection
+		{
+			get
+			{
+				if(null == _tramites_funcionarios_asignad)
+					_tramites_funcionarios_asignad = new TRAMITES_FUNCIONARIOS_ASIGNADCollection((CBAV2)this);
+				return _tramites_funcionarios_asignad;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_INFO_COMPLETACollection"/> object.</value>
+		public TRAMITES_INFO_COMPLETACollection TRAMITES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _tramites_info_completa)
+					_tramites_info_completa = new TRAMITES_INFO_COMPLETACollection((CBAV2)this);
+				return _tramites_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_MEDIDAS_CAUTELARES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_MEDIDAS_CAUTELARESCollection"/> object.</value>
+		public TRAMITES_MEDIDAS_CAUTELARESCollection TRAMITES_MEDIDAS_CAUTELARESCollection
+		{
+			get
+			{
+				if(null == _tramites_medidas_cautelares)
+					_tramites_medidas_cautelares = new TRAMITES_MEDIDAS_CAUTELARESCollection((CBAV2)this);
+				return _tramites_medidas_cautelares;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_PROF_RECUSADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_PROF_RECUSADOSCollection"/> object.</value>
+		public TRAMITES_PROF_RECUSADOSCollection TRAMITES_PROF_RECUSADOSCollection
+		{
+			get
+			{
+				if(null == _tramites_prof_recusados)
+					_tramites_prof_recusados = new TRAMITES_PROF_RECUSADOSCollection((CBAV2)this);
+				return _tramites_prof_recusados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_TIPOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_TIPOSCollection"/> object.</value>
+		public TRAMITES_TIPOSCollection TRAMITES_TIPOSCollection
+		{
+			get
+			{
+				if(null == _tramites_tipos)
+					_tramites_tipos = new TRAMITES_TIPOSCollection((CBAV2)this);
+				return _tramites_tipos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_TIPOS_CAMPOS_ETAPAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_TIPOS_CAMPOS_ETAPASCollection"/> object.</value>
+		public TRAMITES_TIPOS_CAMPOS_ETAPASCollection TRAMITES_TIPOS_CAMPOS_ETAPASCollection
+		{
+			get
+			{
+				if(null == _tramites_tipos_campos_etapas)
+					_tramites_tipos_campos_etapas = new TRAMITES_TIPOS_CAMPOS_ETAPASCollection((CBAV2)this);
+				return _tramites_tipos_campos_etapas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_TIPOS_EST_TRANSICION</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_TIPOS_EST_TRANSICIONCollection"/> object.</value>
+		public TRAMITES_TIPOS_EST_TRANSICIONCollection TRAMITES_TIPOS_EST_TRANSICIONCollection
+		{
+			get
+			{
+				if(null == _tramites_tipos_est_transicion)
+					_tramites_tipos_est_transicion = new TRAMITES_TIPOS_EST_TRANSICIONCollection((CBAV2)this);
+				return _tramites_tipos_est_transicion;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_TIPOS_ESTAD_INF_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_TIPOS_ESTAD_INF_COMPLCollection"/> object.</value>
+		public TRAMITES_TIPOS_ESTAD_INF_COMPLCollection TRAMITES_TIPOS_ESTAD_INF_COMPLCollection
+		{
+			get
+			{
+				if(null == _tramites_tipos_estad_inf_compl)
+					_tramites_tipos_estad_inf_compl = new TRAMITES_TIPOS_ESTAD_INF_COMPLCollection((CBAV2)this);
+				return _tramites_tipos_estad_inf_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_TIPOS_ESTADOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_TIPOS_ESTADOSCollection"/> object.</value>
+		public TRAMITES_TIPOS_ESTADOSCollection TRAMITES_TIPOS_ESTADOSCollection
+		{
+			get
+			{
+				if(null == _tramites_tipos_estados)
+					_tramites_tipos_estados = new TRAMITES_TIPOS_ESTADOSCollection((CBAV2)this);
+				return _tramites_tipos_estados;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_TIPOS_ETAP_INF_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_TIPOS_ETAP_INF_COMPLCollection"/> object.</value>
+		public TRAMITES_TIPOS_ETAP_INF_COMPLCollection TRAMITES_TIPOS_ETAP_INF_COMPLCollection
+		{
+			get
+			{
+				if(null == _tramites_tipos_etap_inf_compl)
+					_tramites_tipos_etap_inf_compl = new TRAMITES_TIPOS_ETAP_INF_COMPLCollection((CBAV2)this);
+				return _tramites_tipos_etap_inf_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_TIPOS_ETAPAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_TIPOS_ETAPASCollection"/> object.</value>
+		public TRAMITES_TIPOS_ETAPASCollection TRAMITES_TIPOS_ETAPASCollection
+		{
+			get
+			{
+				if(null == _tramites_tipos_etapas)
+					_tramites_tipos_etapas = new TRAMITES_TIPOS_ETAPASCollection((CBAV2)this);
+				return _tramites_tipos_etapas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAMITES_TIPOS_ETAPAS_DESTINO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAMITES_TIPOS_ETAPAS_DESTINOCollection"/> object.</value>
+		public TRAMITES_TIPOS_ETAPAS_DESTINOCollection TRAMITES_TIPOS_ETAPAS_DESTINOCollection
+		{
+			get
+			{
+				if(null == _tramites_tipos_etapas_destino)
+					_tramites_tipos_etapas_destino = new TRAMITES_TIPOS_ETAPAS_DESTINOCollection((CBAV2)this);
+				return _tramites_tipos_etapas_destino;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRAN_CTACTE_PERS_DET_INF_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRAN_CTACTE_PERS_DET_INF_COMPLCollection"/> object.</value>
+		public TRAN_CTACTE_PERS_DET_INF_COMPLCollection TRAN_CTACTE_PERS_DET_INF_COMPLCollection
+		{
+			get
+			{
+				if(null == _tran_ctacte_pers_det_inf_compl)
+					_tran_ctacte_pers_det_inf_compl = new TRAN_CTACTE_PERS_DET_INF_COMPLCollection((CBAV2)this);
+				return _tran_ctacte_pers_det_inf_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSACCIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSACCIONESCollection"/> object.</value>
+		public TRANSACCIONESCollection TRANSACCIONESCollection
+		{
+			get
+			{
+				if(null == _transacciones)
+					_transacciones = new TRANSACCIONESCollection((CBAV2)this);
+				return _transacciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSACCIONES_CIERRES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSACCIONES_CIERRESCollection"/> object.</value>
+		public TRANSACCIONES_CIERRESCollection TRANSACCIONES_CIERRESCollection
+		{
+			get
+			{
+				if(null == _transacciones_cierres)
+					_transacciones_cierres = new TRANSACCIONES_CIERRESCollection((CBAV2)this);
+				return _transacciones_cierres;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSACCIONES_CIERRES_CASOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSACCIONES_CIERRES_CASOSCollection"/> object.</value>
+		public TRANSACCIONES_CIERRES_CASOSCollection TRANSACCIONES_CIERRES_CASOSCollection
+		{
+			get
+			{
+				if(null == _transacciones_cierres_casos)
+					_transacciones_cierres_casos = new TRANSACCIONES_CIERRES_CASOSCollection((CBAV2)this);
+				return _transacciones_cierres_casos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSF_CAJ_SUC_DET_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSF_CAJ_SUC_DET_INF_CCollection"/> object.</value>
+		public TRANSF_CAJ_SUC_DET_INF_CCollection TRANSF_CAJ_SUC_DET_INF_CCollection
+		{
+			get
+			{
+				if(null == _transf_caj_suc_det_inf_c)
+					_transf_caj_suc_det_inf_c = new TRANSF_CAJ_SUC_DET_INF_CCollection((CBAV2)this);
+				return _transf_caj_suc_det_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSF_CTACTE_PERS_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSF_CTACTE_PERS_INFO_COMPLCollection"/> object.</value>
+		public TRANSF_CTACTE_PERS_INFO_COMPLCollection TRANSF_CTACTE_PERS_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _transf_ctacte_pers_info_compl)
+					_transf_ctacte_pers_info_compl = new TRANSF_CTACTE_PERS_INFO_COMPLCollection((CBAV2)this);
+				return _transf_ctacte_pers_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSF_CTACTE_PERSONA_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSF_CTACTE_PERSONA_DETCollection"/> object.</value>
+		public TRANSF_CTACTE_PERSONA_DETCollection TRANSF_CTACTE_PERSONA_DETCollection
+		{
+			get
+			{
+				if(null == _transf_ctacte_persona_det)
+					_transf_ctacte_persona_det = new TRANSF_CTACTE_PERSONA_DETCollection((CBAV2)this);
+				return _transf_ctacte_persona_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSF_TESO_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSF_TESO_DET_INFO_COMPLCollection"/> object.</value>
+		public TRANSF_TESO_DET_INFO_COMPLCollection TRANSF_TESO_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _transf_teso_det_info_compl)
+					_transf_teso_det_info_compl = new TRANSF_TESO_DET_INFO_COMPLCollection((CBAV2)this);
+				return _transf_teso_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSFERENCIA_CAJAS_SUC_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSFERENCIA_CAJAS_SUC_DETCollection"/> object.</value>
+		public TRANSFERENCIA_CAJAS_SUC_DETCollection TRANSFERENCIA_CAJAS_SUC_DETCollection
+		{
+			get
+			{
+				if(null == _transferencia_cajas_suc_det)
+					_transferencia_cajas_suc_det = new TRANSFERENCIA_CAJAS_SUC_DETCollection((CBAV2)this);
+				return _transferencia_cajas_suc_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSFERENCIA_CAJAS_SUC_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSFERENCIA_CAJAS_SUC_INF_CCollection"/> object.</value>
+		public TRANSFERENCIA_CAJAS_SUC_INF_CCollection TRANSFERENCIA_CAJAS_SUC_INF_CCollection
+		{
+			get
+			{
+				if(null == _transferencia_cajas_suc_inf_c)
+					_transferencia_cajas_suc_inf_c = new TRANSFERENCIA_CAJAS_SUC_INF_CCollection((CBAV2)this);
+				return _transferencia_cajas_suc_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSFERENCIA_CAJAS_SUCURSAL</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSFERENCIA_CAJAS_SUCURSALCollection"/> object.</value>
+		public TRANSFERENCIA_CAJAS_SUCURSALCollection TRANSFERENCIA_CAJAS_SUCURSALCollection
+		{
+			get
+			{
+				if(null == _transferencia_cajas_sucursal)
+					_transferencia_cajas_sucursal = new TRANSFERENCIA_CAJAS_SUCURSALCollection((CBAV2)this);
+				return _transferencia_cajas_sucursal;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSFERENCIA_CTACTE_PERSONA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSFERENCIA_CTACTE_PERSONACollection"/> object.</value>
+		public TRANSFERENCIA_CTACTE_PERSONACollection TRANSFERENCIA_CTACTE_PERSONACollection
+		{
+			get
+			{
+				if(null == _transferencia_ctacte_persona)
+					_transferencia_ctacte_persona = new TRANSFERENCIA_CTACTE_PERSONACollection((CBAV2)this);
+				return _transferencia_ctacte_persona;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSFERENCIAS_BANCARIAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSFERENCIAS_BANCARIASCollection"/> object.</value>
+		public TRANSFERENCIAS_BANCARIASCollection TRANSFERENCIAS_BANCARIASCollection
+		{
+			get
+			{
+				if(null == _transferencias_bancarias)
+					_transferencias_bancarias = new TRANSFERENCIAS_BANCARIASCollection((CBAV2)this);
+				return _transferencias_bancarias;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSFERENCIAS_BANCARIAS_INF_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSFERENCIAS_BANCARIAS_INF_CCollection"/> object.</value>
+		public TRANSFERENCIAS_BANCARIAS_INF_CCollection TRANSFERENCIAS_BANCARIAS_INF_CCollection
+		{
+			get
+			{
+				if(null == _transferencias_bancarias_inf_c)
+					_transferencias_bancarias_inf_c = new TRANSFERENCIAS_BANCARIAS_INF_CCollection((CBAV2)this);
+				return _transferencias_bancarias_inf_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSFERENCIAS_TESO_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSFERENCIAS_TESO_INFO_COMPLCollection"/> object.</value>
+		public TRANSFERENCIAS_TESO_INFO_COMPLCollection TRANSFERENCIAS_TESO_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _transferencias_teso_info_compl)
+					_transferencias_teso_info_compl = new TRANSFERENCIAS_TESO_INFO_COMPLCollection((CBAV2)this);
+				return _transferencias_teso_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSFERENCIAS_TESORERIA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSFERENCIAS_TESORERIACollection"/> object.</value>
+		public TRANSFERENCIAS_TESORERIACollection TRANSFERENCIAS_TESORERIACollection
+		{
+			get
+			{
+				if(null == _transferencias_tesoreria)
+					_transferencias_tesoreria = new TRANSFERENCIAS_TESORERIACollection((CBAV2)this);
+				return _transferencias_tesoreria;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSFERENCIAS_TESORERIAS_DET</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSFERENCIAS_TESORERIAS_DETCollection"/> object.</value>
+		public TRANSFERENCIAS_TESORERIAS_DETCollection TRANSFERENCIAS_TESORERIAS_DETCollection
+		{
+			get
+			{
+				if(null == _transferencias_tesorerias_det)
+					_transferencias_tesorerias_det = new TRANSFERENCIAS_TESORERIAS_DETCollection((CBAV2)this);
+				return _transferencias_tesorerias_det;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSICIONES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSICIONESCollection"/> object.</value>
+		public TRANSICIONESCollection TRANSICIONESCollection
+		{
+			get
+			{
+				if(null == _transiciones)
+					_transiciones = new TRANSICIONESCollection((CBAV2)this);
+				return _transiciones;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSICIONES_ACELERADOR</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSICIONES_ACELERADORCollection"/> object.</value>
+		public TRANSICIONES_ACELERADORCollection TRANSICIONES_ACELERADORCollection
+		{
+			get
+			{
+				if(null == _transiciones_acelerador)
+					_transiciones_acelerador = new TRANSICIONES_ACELERADORCollection((CBAV2)this);
+				return _transiciones_acelerador;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRANSICIONES_TIPO</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRANSICIONES_TIPOCollection"/> object.</value>
+		public TRANSICIONES_TIPOCollection TRANSICIONES_TIPOCollection
+		{
+			get
+			{
+				if(null == _transiciones_tipo)
+					_transiciones_tipo = new TRANSICIONES_TIPOCollection((CBAV2)this);
+				return _transiciones_tipo;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>TRATAMIENTOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="TRATAMIENTOSCollection"/> object.</value>
+		public TRATAMIENTOSCollection TRATAMIENTOSCollection
+		{
+			get
+			{
+				if(null == _tratamientos)
+					_tratamientos = new TRATAMIENTOSCollection((CBAV2)this);
+				return _tratamientos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>UNIDADES_MEDIDA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="UNIDADES_MEDIDACollection"/> object.</value>
+		public UNIDADES_MEDIDACollection UNIDADES_MEDIDACollection
+		{
+			get
+			{
+				if(null == _unidades_medida)
+					_unidades_medida = new UNIDADES_MEDIDACollection((CBAV2)this);
+				return _unidades_medida;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USO_DE_INSUMOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USO_DE_INSUMOSCollection"/> object.</value>
+		public USO_DE_INSUMOSCollection USO_DE_INSUMOSCollection
+		{
+			get
+			{
+				if(null == _uso_de_insumos)
+					_uso_de_insumos = new USO_DE_INSUMOSCollection((CBAV2)this);
+				return _uso_de_insumos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USO_DE_INSUMOS_DET_CC_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="USO_DE_INSUMOS_DET_CC_INFO_CCollection"/> object.</value>
+		public USO_DE_INSUMOS_DET_CC_INFO_CCollection USO_DE_INSUMOS_DET_CC_INFO_CCollection
+		{
+			get
+			{
+				if(null == _uso_de_insumos_det_cc_info_c)
+					_uso_de_insumos_det_cc_info_c = new USO_DE_INSUMOS_DET_CC_INFO_CCollection((CBAV2)this);
+				return _uso_de_insumos_det_cc_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USO_DE_INSUMOS_DET_CENT_C</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USO_DE_INSUMOS_DET_CENT_CCollection"/> object.</value>
+		public USO_DE_INSUMOS_DET_CENT_CCollection USO_DE_INSUMOS_DET_CENT_CCollection
+		{
+			get
+			{
+				if(null == _uso_de_insumos_det_cent_c)
+					_uso_de_insumos_det_cent_c = new USO_DE_INSUMOS_DET_CENT_CCollection((CBAV2)this);
+				return _uso_de_insumos_det_cent_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USO_DE_INSUMOS_DET_CTB</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USO_DE_INSUMOS_DET_CTBCollection"/> object.</value>
+		public USO_DE_INSUMOS_DET_CTBCollection USO_DE_INSUMOS_DET_CTBCollection
+		{
+			get
+			{
+				if(null == _uso_de_insumos_det_ctb)
+					_uso_de_insumos_det_ctb = new USO_DE_INSUMOS_DET_CTBCollection((CBAV2)this);
+				return _uso_de_insumos_det_ctb;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USO_DE_INSUMOS_DET_CTB_INFO_C</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="USO_DE_INSUMOS_DET_CTB_INFO_CCollection"/> object.</value>
+		public USO_DE_INSUMOS_DET_CTB_INFO_CCollection USO_DE_INSUMOS_DET_CTB_INFO_CCollection
+		{
+			get
+			{
+				if(null == _uso_de_insumos_det_ctb_info_c)
+					_uso_de_insumos_det_ctb_info_c = new USO_DE_INSUMOS_DET_CTB_INFO_CCollection((CBAV2)this);
+				return _uso_de_insumos_det_ctb_info_c;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USO_DE_INSUMOS_DET_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="USO_DE_INSUMOS_DET_INFO_COMPLCollection"/> object.</value>
+		public USO_DE_INSUMOS_DET_INFO_COMPLCollection USO_DE_INSUMOS_DET_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _uso_de_insumos_det_info_compl)
+					_uso_de_insumos_det_info_compl = new USO_DE_INSUMOS_DET_INFO_COMPLCollection((CBAV2)this);
+				return _uso_de_insumos_det_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USO_DE_INSUMOS_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USO_DE_INSUMOS_DETALLECollection"/> object.</value>
+		public USO_DE_INSUMOS_DETALLECollection USO_DE_INSUMOS_DETALLECollection
+		{
+			get
+			{
+				if(null == _uso_de_insumos_detalle)
+					_uso_de_insumos_detalle = new USO_DE_INSUMOS_DETALLECollection((CBAV2)this);
+				return _uso_de_insumos_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USO_DE_INSUMOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="USO_DE_INSUMOS_INFO_COMPLETACollection"/> object.</value>
+		public USO_DE_INSUMOS_INFO_COMPLETACollection USO_DE_INSUMOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _uso_de_insumos_info_completa)
+					_uso_de_insumos_info_completa = new USO_DE_INSUMOS_INFO_COMPLETACollection((CBAV2)this);
+				return _uso_de_insumos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIO_DEPOSITO_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIO_DEPOSITO_INFO_COMPLETACollection"/> object.</value>
+		public USUARIO_DEPOSITO_INFO_COMPLETACollection USUARIO_DEPOSITO_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _usuario_deposito_info_completa)
+					_usuario_deposito_info_completa = new USUARIO_DEPOSITO_INFO_COMPLETACollection((CBAV2)this);
+				return _usuario_deposito_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIOSCollection"/> object.</value>
+		public USUARIOSCollection USUARIOSCollection
+		{
+			get
+			{
+				if(null == _usuarios)
+					_usuarios = new USUARIOSCollection((CBAV2)this);
+				return _usuarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIOS_DEPOSITOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIOS_DEPOSITOSCollection"/> object.</value>
+		public USUARIOS_DEPOSITOSCollection USUARIOS_DEPOSITOSCollection
+		{
+			get
+			{
+				if(null == _usuarios_depositos)
+					_usuarios_depositos = new USUARIOS_DEPOSITOSCollection((CBAV2)this);
+				return _usuarios_depositos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIOS_DETALLE</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIOS_DETALLECollection"/> object.</value>
+		public USUARIOS_DETALLECollection USUARIOS_DETALLECollection
+		{
+			get
+			{
+				if(null == _usuarios_detalle)
+					_usuarios_detalle = new USUARIOS_DETALLECollection((CBAV2)this);
+				return _usuarios_detalle;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIOS_PASSWORD</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIOS_PASSWORDCollection"/> object.</value>
+		public USUARIOS_PASSWORDCollection USUARIOS_PASSWORDCollection
+		{
+			get
+			{
+				if(null == _usuarios_password)
+					_usuarios_password = new USUARIOS_PASSWORDCollection((CBAV2)this);
+				return _usuarios_password;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIOS_PERFILES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIOS_PERFILESCollection"/> object.</value>
+		public USUARIOS_PERFILESCollection USUARIOS_PERFILESCollection
+		{
+			get
+			{
+				if(null == _usuarios_perfiles)
+					_usuarios_perfiles = new USUARIOS_PERFILESCollection((CBAV2)this);
+				return _usuarios_perfiles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIOS_PERFILES_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIOS_PERFILES_INFO_COMPCollection"/> object.</value>
+		public USUARIOS_PERFILES_INFO_COMPCollection USUARIOS_PERFILES_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _usuarios_perfiles_info_comp)
+					_usuarios_perfiles_info_comp = new USUARIOS_PERFILES_INFO_COMPCollection((CBAV2)this);
+				return _usuarios_perfiles_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIOS_ROLES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIOS_ROLESCollection"/> object.</value>
+		public USUARIOS_ROLESCollection USUARIOS_ROLESCollection
+		{
+			get
+			{
+				if(null == _usuarios_roles)
+					_usuarios_roles = new USUARIOS_ROLESCollection((CBAV2)this);
+				return _usuarios_roles;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIOS_ROLES_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIOS_ROLES_INFO_COMPLETACollection"/> object.</value>
+		public USUARIOS_ROLES_INFO_COMPLETACollection USUARIOS_ROLES_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _usuarios_roles_info_completa)
+					_usuarios_roles_info_completa = new USUARIOS_ROLES_INFO_COMPLETACollection((CBAV2)this);
+				return _usuarios_roles_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIOS_SUCURSALES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIOS_SUCURSALESCollection"/> object.</value>
+		public USUARIOS_SUCURSALESCollection USUARIOS_SUCURSALESCollection
+		{
+			get
+			{
+				if(null == _usuarios_sucursales)
+					_usuarios_sucursales = new USUARIOS_SUCURSALESCollection((CBAV2)this);
+				return _usuarios_sucursales;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>USUARIOS_SUCURSALES_INF_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="USUARIOS_SUCURSALES_INF_COMPCollection"/> object.</value>
+		public USUARIOS_SUCURSALES_INF_COMPCollection USUARIOS_SUCURSALES_INF_COMPCollection
+		{
+			get
+			{
+				if(null == _usuarios_sucursales_inf_comp)
+					_usuarios_sucursales_inf_comp = new USUARIOS_SUCURSALES_INF_COMPCollection((CBAV2)this);
+				return _usuarios_sucursales_inf_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>VARIABLES_SIS_ENT_INFO_COMPL</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="VARIABLES_SIS_ENT_INFO_COMPLCollection"/> object.</value>
+		public VARIABLES_SIS_ENT_INFO_COMPLCollection VARIABLES_SIS_ENT_INFO_COMPLCollection
+		{
+			get
+			{
+				if(null == _variables_sis_ent_info_compl)
+					_variables_sis_ent_info_compl = new VARIABLES_SIS_ENT_INFO_COMPLCollection((CBAV2)this);
+				return _variables_sis_ent_info_compl;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>VARIABLES_SISTEMA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="VARIABLES_SISTEMACollection"/> object.</value>
+		public VARIABLES_SISTEMACollection VARIABLES_SISTEMACollection
+		{
+			get
+			{
+				if(null == _variables_sistema)
+					_variables_sistema = new VARIABLES_SISTEMACollection((CBAV2)this);
+				return _variables_sistema;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>VARIABLES_SISTEMA_ENTIDAD</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="VARIABLES_SISTEMA_ENTIDADCollection"/> object.</value>
+		public VARIABLES_SISTEMA_ENTIDADCollection VARIABLES_SISTEMA_ENTIDADCollection
+		{
+			get
+			{
+				if(null == _variables_sistema_entidad)
+					_variables_sistema_entidad = new VARIABLES_SISTEMA_ENTIDADCollection((CBAV2)this);
+				return _variables_sistema_entidad;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>VEHICULOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="VEHICULOSCollection"/> object.</value>
+		public VEHICULOSCollection VEHICULOSCollection
+		{
+			get
+			{
+				if(null == _vehiculos)
+					_vehiculos = new VEHICULOSCollection((CBAV2)this);
+				return _vehiculos;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>VEHICULOS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="VEHICULOS_INFO_COMPLETACollection"/> object.</value>
+		public VEHICULOS_INFO_COMPLETACollection VEHICULOS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _vehiculos_info_completa)
+					_vehiculos_info_completa = new VEHICULOS_INFO_COMPLETACollection((CBAV2)this);
+				return _vehiculos_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>VENDEDOR_CLIENTE_FAM_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="VENDEDOR_CLIENTE_FAM_INFO_COMPCollection"/> object.</value>
+		public VENDEDOR_CLIENTE_FAM_INFO_COMPCollection VENDEDOR_CLIENTE_FAM_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _vendedor_cliente_fam_info_comp)
+					_vendedor_cliente_fam_info_comp = new VENDEDOR_CLIENTE_FAM_INFO_COMPCollection((CBAV2)this);
+				return _vendedor_cliente_fam_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>VENDEDOR_CLIENTE_FAMILIA</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="VENDEDOR_CLIENTE_FAMILIACollection"/> object.</value>
+		public VENDEDOR_CLIENTE_FAMILIACollection VENDEDOR_CLIENTE_FAMILIACollection
+		{
+			get
+			{
+				if(null == _vendedor_cliente_familia)
+					_vendedor_cliente_familia = new VENDEDOR_CLIENTE_FAMILIACollection((CBAV2)this);
+				return _vendedor_cliente_familia;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>WEBSERVICES</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="WEBSERVICESCollection"/> object.</value>
+		public WEBSERVICESCollection WEBSERVICESCollection
+		{
+			get
+			{
+				if(null == _webservices)
+					_webservices = new WEBSERVICESCollection((CBAV2)this);
+				return _webservices;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>WEBSERVICES_PARAMETROS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="WEBSERVICES_PARAMETROSCollection"/> object.</value>
+		public WEBSERVICES_PARAMETROSCollection WEBSERVICES_PARAMETROSCollection
+		{
+			get
+			{
+				if(null == _webservices_parametros)
+					_webservices_parametros = new WEBSERVICES_PARAMETROSCollection((CBAV2)this);
+				return _webservices_parametros;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ZONAS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ZONASCollection"/> object.</value>
+		public ZONASCollection ZONASCollection
+		{
+			get
+			{
+				if(null == _zonas)
+					_zonas = new ZONASCollection((CBAV2)this);
+				return _zonas;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ZONAS_FUNCIONARIOS</c> table.
+		/// </summary>
+		/// <value>A reference to the <see cref="ZONAS_FUNCIONARIOSCollection"/> object.</value>
+		public ZONAS_FUNCIONARIOSCollection ZONAS_FUNCIONARIOSCollection
+		{
+			get
+			{
+				if(null == _zonas_funcionarios)
+					_zonas_funcionarios = new ZONAS_FUNCIONARIOSCollection((CBAV2)this);
+				return _zonas_funcionarios;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ZONAS_FUNCIONARIOS_INFO_COMP</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ZONAS_FUNCIONARIOS_INFO_COMPCollection"/> object.</value>
+		public ZONAS_FUNCIONARIOS_INFO_COMPCollection ZONAS_FUNCIONARIOS_INFO_COMPCollection
+		{
+			get
+			{
+				if(null == _zonas_funcionarios_info_comp)
+					_zonas_funcionarios_info_comp = new ZONAS_FUNCIONARIOS_INFO_COMPCollection((CBAV2)this);
+				return _zonas_funcionarios_info_comp;
+			}
+		}
+
+		/// <summary>
+		/// Gets an object that represents the <c>ZONAS_INFO_COMPLETA</c> view.
+		/// </summary>
+		/// <value>A reference to the <see cref="ZONAS_INFO_COMPLETACollection"/> object.</value>
+		public ZONAS_INFO_COMPLETACollection ZONAS_INFO_COMPLETACollection
+		{
+			get
+			{
+				if(null == _zonas_info_completa)
+					_zonas_info_completa = new ZONAS_INFO_COMPLETACollection((CBAV2)this);
+				return _zonas_info_completa;
+			}
+		}
+
+		/// <summary>
+		/// Begins a new database transaction.
+		/// </summary>
+		/// <seealso cref="CommitTransaction"/>
+		/// <seealso cref="RollbackTransaction"/>
+		/// <returns>An object representing the new transaction.</returns>
+		public IDbTransaction BeginTransaction()
+		{
+			CheckTransactionState(false);
+			_transaction = _connection.BeginTransaction();
+			return _transaction;
+		}
+
+		/// <summary>
+		/// Begins a new database transaction with the specified 
+		/// transaction isolation level.
+		/// <seealso cref="CommitTransaction"/>
+		/// <seealso cref="RollbackTransaction"/>
+		/// </summary>
+		/// <param name="isolationLevel">The transaction isolation level.</param>
+		/// <returns>An object representing the new transaction.</returns>
+		public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
+		{
+			CheckTransactionState(false);
+			_transaction = _connection.BeginTransaction(isolationLevel);
+			return _transaction;
+		}
+
+		/// <summary>
+		/// Commits the current database transaction.
+		/// <seealso cref="BeginTransaction"/>
+		/// <seealso cref="RollbackTransaction"/>
+		/// </summary>
+		public void CommitTransaction()
+		{
+			CheckTransactionState(true);
+			_transaction.Commit();
+			_transaction = null;
+		}
+
+		/// <summary>
+		/// Rolls back the current transaction from a pending state.
+		/// <seealso cref="BeginTransaction"/>
+		/// <seealso cref="CommitTransaction"/>
+		/// </summary>
+		public void RollbackTransaction()
+		{
+			CheckTransactionState(true);
+			_transaction.Rollback();
+			_transaction = null;
+		}
+
+		// Checks the state of the current transaction
+		private void CheckTransactionState(bool mustBeOpen)
+		{
+			if(mustBeOpen)
+			{
+				if(null == _transaction)
+					throw new InvalidOperationException("Transaction is not open.");
+			}
+			else
+			{
+				if(null != _transaction)
+					throw new InvalidOperationException("Transaction is already open.");
+			}
+		}
+
+		/// <summary>
+		/// Creates and returns a new <see cref="System.Data.IDbCommand"/> object.
+		/// </summary>
+		/// <param name="sqlText">The text of the query.</param>
+		/// <returns>An <see cref="System.Data.IDbCommand"/> object.</returns>
+		internal IDbCommand CreateCommand(string sqlText)
+		{
+			return CreateCommand(sqlText, false);
+		}
+
+		/// <summary>
+		/// Creates and returns a new <see cref="System.Data.IDbCommand"/> object.
+		/// </summary>
+		/// <param name="sqlText">The text of the query.</param>
+		/// <param name="procedure">Specifies whether the sqlText parameter is 
+		/// the name of a stored procedure.</param>
+		/// <returns>An <see cref="System.Data.IDbCommand"/> object.</returns>
+		internal IDbCommand CreateCommand(string sqlText, bool procedure)
+		{
+			IDbCommand cmd = _connection.CreateCommand();
+			cmd.CommandText = sqlText;
+			cmd.Transaction = _transaction;
+			if(procedure)
+				cmd.CommandType = CommandType.StoredProcedure;
+			return cmd;
+		}
+
+		/// <summary>
+		/// Rolls back any pending transactions and closes the DB connection.
+		/// An application can call the <c>Close</c> method more than
+		/// one time without generating an exception.
+		/// </summary>
+		public virtual void Close()
+		{
+			if(null != _connection)
+				_connection.Close();
+		}
+
+		/// <summary>
+		/// Rolls back any pending transactions and closes the DB connection.
+		/// </summary>
+		public virtual void Dispose()
+		{
+			Close();
+			if(null != _connection)
+				_connection.Dispose();
+		}
+	} // End of CBAV2_Base class
+} // End of namespace

@@ -1,0 +1,12 @@
+<Configuracion>
+  <Parametros>
+    <protocolo>tcp</protocolo>
+    <host>10.10.3.93</host>
+    <puerto>1521</puerto>
+    <server>DEDICATED</server>
+    <servicename>mdjdev</servicename>
+    <tnsnames>MDJDEV</tnsnames>
+    <usuario>trc</usuario>
+    <contrasenha>copernicus.JH385</contrasenha>
+  </Parametros>
+</Configuracion>

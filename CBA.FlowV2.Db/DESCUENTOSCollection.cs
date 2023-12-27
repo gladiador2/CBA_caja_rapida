@@ -1,0 +1,31 @@
+// <fileinfo name="DESCUENTOSCollection.cs">
+//		<copyright>
+//			All rights reserved.
+//		</copyright>
+//		<remarks>
+//			You can update this source code manually. If the file
+//			already exists it will not be rewritten by the generator.
+//		</remarks>
+//		<generator rewritefile="False" infourl="http://www.SharpPower.com">RapTier</generator>
+// </fileinfo>
+
+using System;
+
+namespace CBA.FlowV2.Db
+{
+	/// <summary>
+	/// Represents the <c>DESCUENTOS</c> table.
+	/// </summary>
+	public class DESCUENTOSCollection : DESCUENTOSCollection_Base
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DESCUENTOSCollection"/> class.
+		/// </summary>
+		/// <param name="db">The database object.</param>
+		internal DESCUENTOSCollection(CBAV2 db)
+				: base(db)
+		{
+			// EMPTY
+		}
+	} // End of DESCUENTOSCollection class
+} // End of namespace

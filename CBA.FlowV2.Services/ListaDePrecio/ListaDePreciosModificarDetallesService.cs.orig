@@ -1,0 +1,610 @@
+﻿using System;
+using System.Data;
+using CBA.FlowV2.Db;
+using CBA.FlowV2.Services.Articulos;
+using CBA.FlowV2.Services.Base;
+using CBA.FlowV2.Services.Herramientas;
+using CBA.FlowV2.Services.Sesion;
+using System.Collections;
+using CBA.FlowV2.Services.Stock;
+using System.Text;
+
+
+namespace CBA.FlowV2.Services.ListaDePrecio
+{
+    public class ListaDePreciosModificarDetallesService
+    {
+        #region GetListaDePreciosModificarDetallesDataTable
+        /// <summary>
+        /// Gets the lista de precios modificar detalles data table.
+        /// </summary>
+        /// <param name="clausulas">The clausulas.</param>
+        /// <param name="orden">The orden.</param>
+        /// <returns></returns>
+        public DataTable GetListaDePreciosModificarDetallesDataTable(string clausulas, string orden)
+        {
+            using (SessionService sesion = new SessionService())
+            {
+                return sesion.Db.LISTA_PRECIOS_MODIFICAR_DETCollection.GetAsDataTable(clausulas, orden);
+            }
+        }
+        #endregion GetListaDePreciosModificarDetallesDataTable
+
+        #region GetListaDePreciosModificarDetallesInfoCompleta
+        /// <summary>
+        /// Gets the lista de precios modificar detalles info completa.
+        /// </summary>
+        /// <param name="clausulas">The clausulas.</param>
+        /// <param name="orden">The orden.</param>
+        /// <returns></returns>
+        public DataTable GetListaDePreciosModificarDetallesInfoCompleta(string clausulas, string orden)
+        {
+            using (SessionService sesion = new SessionService())
+            {
+                return sesion.Db.LISTA_PRECIOS_MODIF_DET_INF_CCollection.GetAsDataTable(clausulas, orden);
+            }
+        }
+        #endregion GetListaDePreciosModificarDetallesInfoCompleta
+
+        #region AgregarPorListaPrecios
+        /// <summary>
+        /// Agregars the por lista precios.
+        /// </summary>
+        /// <param name="lista_precio_modificar_id">The lista_precio_modificar_id.</param>
+        /// <param name="lista_precios_id">The lista_precios_id.</param>
+        public void AgregarPorListaPrecios(decimal lista_precio_modificar_id, decimal lista_precios_id, decimal porcentajeModificacion)
+        {
+            ListasDePrecioDetalleService listaPrecioDet = new ListasDePrecioDetalleService();
+            Hashtable campos;
+            string hashPorcentaje = "porcentaje";
+            decimal margenRentabilidad = VariablesSistemaEntidadService.GetValorDecimal(Definiciones.VariablesDeSistema.MargenRentabilidad);
+            string clausulas = ListasDePrecioDetalleService.ListaPrecioId_NombreCol + " = " + lista_precios_id;
+
+            DataTable dtDetalles = this.GetListaDePreciosModificarDetallesDataTable(ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol + " = " + lista_precio_modificar_id, string.Empty);
+            if (dtDetalles.Rows.Count > 0)
+                clausulas += " and " + ListasDePrecioDetalleService.ArticuloId_NombreCol + " not in (" + dtDetalles.Rows[0][ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+            for (int i = 1; i < dtDetalles.Rows.Count; i++)
+                clausulas += ", " + dtDetalles.Rows[i][ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+            if (dtDetalles.Rows.Count > 0)
+                clausulas += ") ";
+
+            DataTable dtListaPrecioDet = (new ListasDePrecioDetalleService()).GetListasDePrecioDetalleInfoCompleta(clausulas, string.Empty);
+            
+            for (int i = 0; i < dtListaPrecioDet.Rows.Count; i++)
+            {
+
+                campos = new Hashtable();
+                campos.Add(ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol, lista_precio_modificar_id);
+                campos.Add(ListaDePreciosModificarDetallesService.ArticuloId_NombreCol, dtListaPrecioDet.Rows[i][ListasDePrecioDetalleService.ArticuloId_NombreCol]);
+                campos.Add(ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol, dtListaPrecioDet.Rows[i][ListasDePrecioDetalleService.Precio_NombreCol]);
+
+                campos.Add(hashPorcentaje, porcentajeModificacion);
+                campos.Add(ListaDePreciosModificarDetallesService.CantidadMinima_NombreCol, (decimal)1);
+                campos.Add(ListaDePreciosModificarDetallesService.DescuentoMaximo_NombreCol, (decimal)0);
+                campos.Add(ListaDePreciosModificarDetallesService.QuitarArticuloDeLista_NombreCol, Definiciones.SiNo.No);
+                
+                this.Guardar(campos, true);
+ 
+            }
+        }
+        #endregion AgregarPorListaPrecios
+
+        #region GetListaDePreciosModificarDetalleDataTable2
+        public  DataTable GetListaDePreciosModificarDetalleDataTable2(string clausulas, string orden){
+
+           using (SessionService sesion = new SessionService())
+           {
+               DataTable dt = null;
+               StringBuilder sql = new StringBuilder();
+               sql.Append("select d.id, \n");
+               sql.Append("d.lista_precios_modificar_id, \n");
+               sql.Append("d.articulo_id, \n");
+               sql.Append("d.precio_nuevo, \n");
+               sql.Append("a.porcentaje_precio_padre, \n");
+               sql.Append("a.articulo_padre_id \n");
+               sql.Append("from lista_precios_modificar_det d, articulos a \n");
+               sql.Append("where d.articulo_id = a.id \n");
+               if(!clausulas.Equals(string.Empty))
+                   sql.Append("and " + clausulas + "\n");
+               if (!orden.Equals(string.Empty))
+                   sql.Append(" order by " + orden);
+               else
+                   sql.Append(" order by " + ArticulosService.ArticuloPadreId_NombreCol + ", "+ ListaDePreciosModificarDetallesService.Id_NombreCol);
+
+               dt = sesion.Db.EjecutarQuery(sql.ToString());
+               return dt;
+           }
+       }
+       #endregion GetListaDePreciosModificarDetalleDataTable2
+
+       #region AgregarPorFamilia
+       /// <summary>
+        /// Agregars the por familia.
+        /// </summary>
+        /// <param name="lista_precio_modificar_id">The lista_precio_modificar_id.</param>
+        /// <param name="familia_id">The familia_id.</param>
+        public void AgregarPorFamilia(decimal lista_precio_modificar_id, decimal familia_id, DateTime fechaIni, DateTime? fechaFin)
+        {
+            using(SessionService sesion = new SessionService())
+            {
+                try
+                {
+                    sesion.BeginTransaction();
+
+                    decimal margenRentabilidad = VariablesSistemaEntidadService.GetValorDecimal(Definiciones.VariablesDeSistema.MargenRentabilidad);
+                    DataTable dtCabecera = new ListaDePreciosModificarService().GetListaPreciosModificarDataTable(ListaDePreciosModificarService.Id_NombreCol + " = " + lista_precio_modificar_id, string.Empty);
+                    DataTable dtDetalles = this.GetListaDePreciosModificarDetallesDataTable(ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol + " = " + lista_precio_modificar_id, string.Empty);
+                    
+                    string clausulas = ArticulosService.FamiliaId_NombreCol + " = " + familia_id;
+                    if (dtDetalles.Rows.Count > 0)
+                        clausulas += " and " + ArticulosService.Id_NombreCol + " not in (" + dtDetalles.Rows[0][ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+                    for (int i = 1; i < dtDetalles.Rows.Count; i++)
+                        clausulas += ", " + dtDetalles.Rows[i][ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+                    if (dtDetalles.Rows.Count > 0)
+                        clausulas += ") ";
+
+                    DataTable dtArticulos = ArticulosService.GetArticulosDataTable(clausulas, string.Empty, true, sesion.SucursalActiva.ID, sesion);
+                    DataTable dtDepositos = StockDepositosService.GetStockDepositosDataTable(sesion.SucursalActiva.ID, false, true);
+                    
+                    for (int i = 0; i < dtArticulos.Rows.Count; i++)
+                    {
+                        var costoPPP = CostosService.GetCosto((decimal)dtArticulos.Rows[i][ArticulosService.Id_NombreCol], (decimal)dtDepositos.Rows[0][StockDepositosService.Id_NombreCol], (DateTime)dtCabecera.Rows[0][ListaDePreciosModificarService.Fecha_NombreCol], sesion);
+                        
+                        var campos = new Hashtable();
+                        campos.Add(ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol, lista_precio_modificar_id);
+                        campos.Add(ListaDePreciosModificarDetallesService.ArticuloId_NombreCol, dtArticulos.Rows[i][ArticulosService.Id_NombreCol]);
+                        campos.Add(ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol, costoPPP.costo * margenRentabilidad);
+                        campos.Add(ListaDePreciosModificarDetallesService.CantidadMinima_NombreCol, (decimal)1);
+                        campos.Add(ListaDePreciosModificarDetallesService.DescuentoMaximo_NombreCol, (decimal)0);
+                        campos.Add(ListaDePreciosModificarDetallesService.QuitarArticuloDeLista_NombreCol, Definiciones.SiNo.No);
+                        campos.Add(ListaDePreciosModificarDetallesService.FechaInicio_NombreCol, fechaIni);
+                        if (!fechaFin.Equals(System.DBNull.Value) && !fechaFin.Equals(null))
+                            campos.Add(ListaDePreciosModificarDetallesService.FechaFin_NombreCol, fechaFin);
+
+                        this.Guardar(campos, true);
+                    }
+
+                    sesion.CommitTransaction();
+                }
+                catch
+                {
+                    sesion.RollbackTransaction();
+                    throw;
+                }
+            }
+        }
+        #endregion AgregarPorFamilia
+
+        #region AgregarPorGrupo
+        public void AgregarPorGrupo(decimal lista_precio_modificar_id, decimal grupo_id, DateTime fechaIni, DateTime? fechaFin)
+        {
+            using (SessionService sesion = new SessionService())
+            {
+                try
+                {
+                    sesion.BeginTransaction();
+
+                    decimal margenRentabilidad = VariablesSistemaEntidadService.GetValorDecimal(Definiciones.VariablesDeSistema.MargenRentabilidad);
+                    DataTable dtCabecera = new ListaDePreciosModificarService().GetListaPreciosModificarDataTable(ListaDePreciosModificarService.Id_NombreCol + " = " + lista_precio_modificar_id, string.Empty);
+                    DataTable dtDetalles = this.GetListaDePreciosModificarDetallesDataTable(ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol + " = " + lista_precio_modificar_id, string.Empty);
+                    var caso = new Casos.CasosService((decimal)dtCabecera.Rows[0][ListaDePreciosModificarService.CasoId_NombreCol], sesion);
+                    
+                    string clausulas = ArticulosService.GrupoId_NombreCol + " = " + grupo_id;
+
+                    if (dtDetalles.Rows.Count > 0)
+                        clausulas += " and " + ArticulosService.Id_NombreCol + " not in (" + dtDetalles.Rows[0][ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+                    for (int i = 1; i < dtDetalles.Rows.Count; i++)
+                        clausulas += ", " + dtDetalles.Rows[i][ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+                    if (dtDetalles.Rows.Count > 0)
+                        clausulas += ") ";
+
+                    DataTable dtArticulos = ArticulosService.GetArticulosDataTable(clausulas, string.Empty, true, caso.SucursalId, sesion);
+                    DataTable dtDepositos = StockDepositosService.GetStockDepositosDataTable(sesion.SucursalActiva.ID, false, true);
+
+                    for (int i = 0; i < dtArticulos.Rows.Count; i++)
+                    {
+                        var costoPPP = CostosService.GetCosto((decimal)dtArticulos.Rows[i][ArticulosService.Id_NombreCol], (decimal)dtDepositos.Rows[0][StockDepositosService.Id_NombreCol], (DateTime)dtCabecera.Rows[0][ListaDePreciosModificarService.Fecha_NombreCol], sesion);
+
+                        var campos = new Hashtable();
+                        campos.Add(ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol, lista_precio_modificar_id);
+                        campos.Add(ListaDePreciosModificarDetallesService.ArticuloId_NombreCol, dtArticulos.Rows[i][ArticulosService.Id_NombreCol]);
+                        campos.Add(ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol, costoPPP.costo * margenRentabilidad);
+                        campos.Add(ListaDePreciosModificarDetallesService.CantidadMinima_NombreCol, (decimal)1);
+                        campos.Add(ListaDePreciosModificarDetallesService.DescuentoMaximo_NombreCol, (decimal)0);
+                        campos.Add(ListaDePreciosModificarDetallesService.QuitarArticuloDeLista_NombreCol, Definiciones.SiNo.No);
+                        campos.Add(ListaDePreciosModificarDetallesService.FechaInicio_NombreCol, fechaIni);
+                        if (fechaFin.Equals(System.DBNull.Value) || fechaFin.ToString().Equals(null))
+                            campos.Add(ListaDePreciosModificarDetallesService.FechaFin_NombreCol, fechaFin);
+                        this.Guardar(campos, true);
+                    }
+                    sesion.CommitTransaction();
+                }
+                catch
+                {
+                    sesion.RollbackTransaction();
+                    throw;
+                }
+            }
+        }
+        #endregion AgregarPorGrupo
+
+        #region AgregarPorsubgrupo
+        public void AgregarPorsubgrupo(decimal lista_precio_modificar_id, decimal subgrupo_id, DateTime fechaIni, DateTime? fechaFin)
+        {
+            using (SessionService sesion = new SessionService())
+            {
+                try
+                {
+                    sesion.BeginTransaction();
+
+                    decimal margenRentabilidad = VariablesSistemaEntidadService.GetValorDecimal(Definiciones.VariablesDeSistema.MargenRentabilidad);
+                    DataTable dtCabecera = new ListaDePreciosModificarService().GetListaPreciosModificarDataTable(ListaDePreciosModificarService.Id_NombreCol + " = " + lista_precio_modificar_id, string.Empty);
+                    var caso = new Casos.CasosService((decimal)dtCabecera.Rows[0][ListaDePreciosModificarService.CasoId_NombreCol], sesion);
+
+                    DataTable dtDetalles = this.GetListaDePreciosModificarDetallesDataTable(ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol + " = " + lista_precio_modificar_id, string.Empty);
+                    string clausulas = ArticulosService.SubgrupoId_NombreCol + " = " + subgrupo_id;
+
+                    if (dtDetalles.Rows.Count > 0)
+                        clausulas += " and " + ArticulosService.Id_NombreCol + " not in (" + dtDetalles.Rows[0][ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+                    for (int i = 1; i < dtDetalles.Rows.Count; i++)
+                        clausulas += ", " + dtDetalles.Rows[i][ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+                    if (dtDetalles.Rows.Count > 0)
+                        clausulas += ") ";
+
+                    DataTable dtArticulos = ArticulosService.GetArticulosDataTable(clausulas, string.Empty, true, caso.SucursalId, sesion);
+                    DataTable dtDepositos = StockDepositosService.GetStockDepositosDataTable(sesion.SucursalActiva.ID, false, true);
+
+                    for (int i = 0; i < dtArticulos.Rows.Count; i++)
+                    {
+                        var costoPPP = CostosService.GetCosto((decimal)dtArticulos.Rows[i][ArticulosService.Id_NombreCol], (decimal)dtDepositos.Rows[0][StockDepositosService.Id_NombreCol], (DateTime)dtCabecera.Rows[0][ListaDePreciosModificarService.Fecha_NombreCol], sesion);
+                        
+                        var campos = new Hashtable();
+                        campos.Add(ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol, lista_precio_modificar_id);
+                        campos.Add(ListaDePreciosModificarDetallesService.ArticuloId_NombreCol, dtArticulos.Rows[i][ArticulosService.Id_NombreCol]);
+                        campos.Add(ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol, costoPPP.costo * margenRentabilidad);
+                        campos.Add(ListaDePreciosModificarDetallesService.CantidadMinima_NombreCol, (decimal)1);
+                        campos.Add(ListaDePreciosModificarDetallesService.DescuentoMaximo_NombreCol, (decimal)0);
+                        campos.Add(ListaDePreciosModificarDetallesService.QuitarArticuloDeLista_NombreCol, Definiciones.SiNo.No);
+                        if (fechaFin.Equals(System.DBNull.Value) || fechaFin.ToString().Equals(null))
+                            campos.Add(ListaDePreciosModificarDetallesService.FechaFin_NombreCol, fechaFin);
+                        this.Guardar(campos, true);
+                    }
+                    sesion.CommitTransaction();
+                }
+                catch
+                {
+                    sesion.RollbackTransaction();
+                    throw;
+                }
+            }
+        }
+        #endregion AgregarPorsubgrupo
+        
+        #region Guardar
+        public void Guardar(System.Collections.Hashtable campos, bool insertarNuevo)
+        { 
+            using (SessionService sesion = new SessionService())
+            {
+                try
+                {
+                    sesion.BeginTransaction();
+                    Guardar(campos, insertarNuevo, sesion);
+                    sesion.CommitTransaction();
+                }
+                catch (Exception)
+                {
+                    sesion.Db.RollbackTransaction();
+                    throw;
+                }
+            }
+        }
+
+        public void Guardar(System.Collections.Hashtable campos, bool insertarNuevo, SessionService sesion)
+        {
+            try
+            {
+                DataTable dtCabecera = new ListaDePreciosModificarService().GetListaPreciosModificarDataTable(ListaDePreciosModificarService.Id_NombreCol + " = " + campos[ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol], string.Empty);
+                LISTA_PRECIOS_MODIFICAR_DETRow row = new LISTA_PRECIOS_MODIFICAR_DETRow();
+                string valorAnterior = string.Empty;
+
+                if (insertarNuevo)
+                {
+                    //Controla que no se ingrese mas de una vez el mismo articulo
+                    string clausulas = ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol + " = " + campos[ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol] + " and " +
+                                       ListaDePreciosModificarDetallesService.ArticuloId_NombreCol + " = " + campos[ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+                    if (this.GetListaDePreciosModificarDetallesDataTable(clausulas, string.Empty).Rows.Count > 0)
+                        throw new Exception("El artículo ya forma parte de los detalles del caso.");
+
+                    row.ID = sesion.Db.GetSiguienteSecuencia("lista_precios_modif_det_sqc");
+                    row.LISTA_PRECIOS_MODIFICAR_ID = (decimal)campos[ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol];
+                    valorAnterior = Definiciones.Log.RegistroNuevo;
+                }
+                else
+                {
+                    row = sesion.Db.LISTA_PRECIOS_MODIFICAR_DETCollection.GetByPrimaryKey((decimal)campos[ListaDePreciosModificarDetallesService.Id_NombreCol]);
+                    valorAnterior = row.ToString();
+                }
+
+                DataTable dtDepositos = StockDepositosService.GetStockDepositosDataTable(sesion.SucursalActiva.ID, false, true);
+                var costoPPP = CostosService.GetCosto((decimal)campos[ListaDePreciosModificarDetallesService.ArticuloId_NombreCol], (decimal)dtDepositos.Rows[0][StockDepositosService.Id_NombreCol], (DateTime)dtCabecera.Rows[0][ListaDePreciosModificarService.Fecha_NombreCol], sesion);
+
+                if (row.ARTICULO_ID != (decimal)campos[ListaDePreciosModificarDetallesService.ArticuloId_NombreCol])
+                {
+                    row.ARTICULO_ID = (decimal)campos[ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+                    if (!ArticulosService.EstaActivo(row.ARTICULO_ID))
+                        throw new Exception("El artítulo se encuentra inactivo.");
+
+                    row.COSTO = costoPPP.costo;
+                    row.COSTO_MONEDA_ID = costoPPP.moneda_id;
+                    row.COSTO_COTIZACION = costoPPP.cotizacion;
+
+                    if (row.COSTO == Definiciones.Error.Valor.EnteroPositivo)
+                        throw new Exception("No se encontró el costo del artítulo");
+                }
+
+                row.CANTIDAD_MINIMA = (decimal)campos[ListaDePreciosModificarDetallesService.CantidadMinima_NombreCol];
+
+                row.DESCUENTO_MAXIMO = (decimal)campos[ListaDePreciosModificarDetallesService.DescuentoMaximo_NombreCol];
+                if (row.DESCUENTO_MAXIMO < 0 || row.DESCUENTO_MAXIMO > 100)
+                    throw new Exception("El descuento debe ser entre 0 y 100.");
+
+                DataTable dtModificacion = (new ListaDePreciosModificarService()).GetListaPreciosModificarDataTable(ListaDePreciosModificarService.Id_NombreCol + "=" + row.LISTA_PRECIOS_MODIFICAR_ID, string.Empty);
+                decimal listaMoneda = decimal.Parse(dtModificacion.Rows[0][ListaDePreciosModificarService.MonedaId_NombreCol].ToString());
+                decimal listaCotizacion = decimal.Parse(dtModificacion.Rows[0][ListaDePreciosModificarService.Cotizacion_NombreCol].ToString());
+
+                #region Calculos
+                decimal margenRentabilidadMinimo = VariablesSistemaEntidadService.GetValorDecimal(Definiciones.VariablesDeSistema.MargenRentabilidad);
+                decimal porcentajeModificacion = 0;
+                decimal precioCalculado = 0;
+                string hashPorcentaje = "porcentaje";
+
+                if (campos.Contains(ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol))
+                {
+                    precioCalculado = PreciosService_new.RedondarPrecio((decimal)campos[ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol]);
+                    row.PRECIO_NUEVO = precioCalculado;
+                }
+                if (campos.Contains(ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol) && campos.Contains(hashPorcentaje))
+                {
+                    porcentajeModificacion = (decimal)campos[hashPorcentaje];
+
+                    //recalcular el precio teniendo en cuenta el porcentaje y el costo
+                    if (porcentajeModificacion != 0)
+                        precioCalculado = (decimal)campos[ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol] * (1 + porcentajeModificacion / 100);
+                    else
+                        precioCalculado = (decimal)campos[ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol];
+
+                    precioCalculado = PreciosService_new.RedondarPrecio(precioCalculado);
+
+                    //pasar el precio del artículo a la moneda de la lista seleccionada
+                    row.PRECIO_NUEVO = precioCalculado;
+                }
+
+                if (row.COSTO != 0)
+                {
+                    if (listaMoneda == costoPPP.moneda_id)
+                        row.MARGEN_RENTABILIDAD = row.PRECIO_NUEVO / row.COSTO;
+                    else
+                        row.MARGEN_RENTABILIDAD = row.PRECIO_NUEVO / ((row.COSTO / costoPPP.cotizacion) * listaCotizacion);
+                }
+                else
+                {
+                    row.MARGEN_RENTABILIDAD = 0;
+                }
+                #endregion Calculos
+
+                row.QUITAR_ARTICULO_DE_LISTA = Definiciones.SiNo.No; //(string)campos[ListaDePreciosModificarDetallesService.QuitarArticuloDeLista_NombreCol];
+
+                row.FECHA_INICIO = ((DateTime)campos[ListaDePreciosModificarDetallesService.FechaInicio_NombreCol]).Date;
+
+                if (campos.Contains(ListaDePreciosModificarDetallesService.FechaFin_NombreCol))
+                    row.FECHA_FIN = ((DateTime)campos[ListaDePreciosModificarDetallesService.FechaFin_NombreCol]).Date;
+                else
+                    row.IsFECHA_FINNull = true;
+
+                if (insertarNuevo) sesion.Db.LISTA_PRECIOS_MODIFICAR_DETCollection.Insert(row);
+                else sesion.Db.LISTA_PRECIOS_MODIFICAR_DETCollection.Update(row);
+
+                LogCambiosService.LogDeRegistro(Nombre_Tabla, row.ID, valorAnterior, row.ToString(), sesion);
+
+            }
+            catch
+            {
+                sesion.RollbackTransaction();
+                throw;
+            }
+        }
+        #endregion Guardar
+
+<<<<<<< local
+
+        #region actualizarPreciosDetalleHijos
+        public void GuardarHijosDelArticulo(System.Collections.Hashtable campos, bool insertarNuevo, SessionService sesion)
+        {
+
+            bool existenHijos = true;
+            string articulosId_list = string.Empty;//campos[ListaDePreciosModificarDetallesService.ArticuloId_NombreCol].ToString();
+            string filtroPadre = campos[ListaDePreciosModificarDetallesService.ArticuloId_NombreCol].ToString();
+            decimal precioPadre = (decimal)campos[ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol];// obtener precio del  padre 
+            decimal precio = Definiciones.Error.Valor.EnteroPositivo;
+            while (existenHijos)
+            {
+
+                string auxList = ArticulosService.GetArticulosHijosPorArticulosId(filtroPadre);
+                filtroPadre = auxList;
+
+                if (auxList.Equals(string.Empty))
+                    existenHijos = false;
+                else
+                {
+                    articulosId_list = auxList; //articulosId_list.Equals(string.Empty) ? auxList : ", " + auxList;
+
+                    string clausula = string.Empty;
+                    DataTable dtArticulos = null;
+                    if (insertarNuevo)
+                    {
+                        clausula = ArticulosService.Id_NombreCol + " in (" + articulosId_list + ")\n";
+                        dtArticulos = ArticulosService.GetArticulosDataTable(clausula, ArticulosService.Id_NombreCol + ", " + ArticulosService.ArticuloPadreId_NombreCol, true, null);
+                    }
+                    else
+                    {
+                        clausula = ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol + " = " + campos[ListaDePreciosModificarDetallesService.ListaPreciosModificarId_NombreCol] + " and " + ListaDePreciosModificarDetallesService.ArticuloId_NombreCol + " in (" + articulosId_list + ")\n";
+                        ListaDePreciosModificarDetallesService lista = new ListaDePreciosModificarDetallesService();
+                        dtArticulos = lista.GetListaDePreciosModificarDetalleDataTable2(clausula, ListaDePreciosModificarDetallesService.Id_NombreCol);
+                    }
+                    for (int a = 0; a < dtArticulos.Rows.Count; a++)
+                    {
+                        if (Interprete.EsNullODBNull(dtArticulos.Rows[a][ArticulosService.PorcentajePrecioPadre_NombreCol]))
+                            throw new Exception("El artículo " + dtArticulos.Rows[a][ArticulosService.DescripcionInterna_NombreCol] + " no tiene definido el porcentaje de precio del artículo padre.");
+
+                        decimal factorPorcentajeArticulo = (decimal)(100 - (decimal)dtArticulos.Rows[a][ArticulosService.PorcentajePrecioPadre_NombreCol]) / 100;
+                        precio = precioPadre;
+                        precio += precioPadre - (precioPadre * factorPorcentajeArticulo);
+                        if (precioPadre < 0)
+                            throw new Exception("El precio no puede ser menor a 0(cero).");
+                        if (!insertarNuevo)
+                        {
+                            campos[ListaDePreciosModificarDetallesService.Id_NombreCol] = dtArticulos.Rows[a][ListaDePreciosModificarDetallesService.Id_NombreCol];
+                            campos[ListaDePreciosModificarDetallesService.ArticuloId_NombreCol] = dtArticulos.Rows[a][ListaDePreciosModificarDetallesService.ArticuloId_NombreCol];
+                        }
+                        else
+                            campos[ListaDePreciosModificarDetallesService.ArticuloId_NombreCol] = dtArticulos.Rows[a][ArticulosService.Id_NombreCol];
+
+                        campos[ListaDePreciosModificarDetallesService.PrecioNuevo_NombreCol] = precio;
+                       
+                        this.Guardar(campos, insertarNuevo, sesion);
+                    }
+                    precioPadre = precio;
+                }
+            }
+
+
+        }
+        #endregion actualizarPreciosDetalleHijos
+
+=======
+>>>>>>> other
+        #region Borrar
+        /// <summary>
+        /// Borrars the specified lista_precio_modificar_det_id.
+        /// </summary>
+        /// <param name="lista_precio_modificar_det_id">The lista_precio_modificar_det_id.</param>
+        public void Borrar(decimal lista_precio_modificar_det_id)
+        {
+            using (SessionService sesion = new SessionService())
+            {
+                LISTA_PRECIOS_MODIFICAR_DETRow row = sesion.Db.LISTA_PRECIOS_MODIFICAR_DETCollection.GetByPrimaryKey(lista_precio_modificar_det_id);
+                sesion.Db.LISTA_PRECIOS_MODIFICAR_DETCollection.Delete(row);
+                LogCambiosService.LogDeRegistro(Nombre_Tabla, row.ID, row.ToString(), Definiciones.Log.RegistroBorrado, sesion);
+            }
+        }
+        #endregion Borrar
+
+        #region Accessors
+        public static string Nombre_Tabla
+        {
+            get { return "LISTA_PRECIOS_MODIFICAR_DET"; }
+        }
+        public static string Nombre_Vista
+        {
+            get { return "lista_precios_modif_det_inf_c"; }
+        }
+        public static string ArticuloId_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.ARTICULO_IDColumnName; }
+        }
+        public static string CantidadMinima_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.CANTIDAD_MINIMAColumnName; }
+        }
+        public static string Costo_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.COSTOColumnName; }
+        }
+        public static string DescuentoMaximo_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.DESCUENTO_MAXIMOColumnName; }
+        }
+        public static string Id_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.IDColumnName; }
+        }
+        public static string ListaPreciosModificarId_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.LISTA_PRECIOS_MODIFICAR_IDColumnName; }
+        }
+        public static string MargenRentabilidad_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.MARGEN_RENTABILIDADColumnName; }
+        }
+        public static string PrecioNuevo_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.PRECIO_NUEVOColumnName; }
+        }
+        public static string QuitarArticuloDeLista_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.QUITAR_ARTICULO_DE_LISTAColumnName; }
+        }
+        public static string FechaInicio_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.FECHA_INICIOColumnName; }
+        }
+        public static string FechaFin_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIFICAR_DETCollection.FECHA_FINColumnName; }
+        }
+        public static string VistaArticuloDescripcion_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.ARTICULO_DESCRIPCIONColumnName; }
+        }
+        public static string VistaArticuloFamiliaDescripcion_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.ARTICULO_FAMILIA_DESCRIPCIONColumnName; }
+        }
+        public static string VistaArticuloGrupoDescripcion_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.ARTICULO_GRUPO_DESCRIPCIONColumnName; }
+        }
+        public static string VistaArticuloSubgrupoDescripcion_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.ARTICULO_SUBGRUPO_DESCRIPCIONColumnName; }
+        }
+        public static string VistaListaPreciosNombre_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.LISTA_PRECIOS_NOMBREColumnName; }
+        }
+        public static string VistaMonedaId_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.MONEDA_IDColumnName; }
+        }
+        public static string VistaMonedaNombre_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.MONEDA_NOMBREColumnName; }
+        }
+        public static string VistaMonedaSimbolo_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.MONEDA_SIMBOLOColumnName; }
+        }
+        public static string VistaMonedaCostoSimbolo_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.COSTO_MONEDA_SIMBOLOColumnName; }
+        }
+        public static string VistaCostoMonedaId_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.COSTO_MONEDA_IDColumnName; }
+        }
+        public static string VistaCostoCotizacion_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.COSTO_COTIZACIONColumnName; }
+        }
+        public static string VistaListaCotizacion_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.COTIZACIONColumnName; }
+        }
+        public static string VistaListaPreciosId_NombreCol
+        {
+            get { return LISTA_PRECIOS_MODIF_DET_INF_CCollection.LISTA_PRECIOS_IDColumnName; }
+        }
+
+        #endregion Accessors
+    }
+}
